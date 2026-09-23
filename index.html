@@ -778,7 +778,7 @@
     let selectedDay = isoDate(new Date());
     let floorFilter = "today";
 
-    const APP_VERSION = "2.19";
+    const APP_VERSION = "2.20";
 
     // Parent replaces this with the real OAuth Web client ID from Google Cloud Console.
     const GOOGLE_CLIENT_ID = "208220038240-prioq0u84f5odbc5uue4r67t35ktng4k.apps.googleusercontent.com";
@@ -1820,16 +1820,29 @@
 
     function summarizeLineItems(items) {
       if (!items || !items.length) return { item: "", qty: 1, place: "" };
+      // ×qty only when multiple line items (board already shows total "N pcs")
+      const multi = items.length > 1;
       const parts = items.map(li => {
         const q = Number(li.qty)||1;
-        return li.item + (li.sku ? " ["+li.sku+"]" : "") + (q>1 ? " ×"+q : "");
+        return li.item + (li.sku ? " ["+li.sku+"]" : "") + (multi && q>1 ? " ×"+q : "");
       });
-      // compact join like "Polo / knit ×3; Cap ×2"
+      // compact join like "Polo / knit ×3; Cap ×2" (multi only)
       const item = parts.join("; ");
       const qty = items.reduce((s,li)=>s+(Number(li.qty)||0),0) || 1;
       const places = [...new Set(items.flatMap(li => normalizePlaceList(li.locations || li.location)).filter(Boolean))];
       const place = places.join(", ");
       return { item, qty, place };
+    }
+
+    /** Board/dashboard label: rebuild from lineItems so old ×4 single-line jobs clean up. */
+    function jobItemLabel(j) {
+      if (j && j.lineItems && j.lineItems.length) return summarizeLineItems(j.lineItems).item;
+      const item = String((j && j.item) || "");
+      if (!item.includes(";") && j && j.qty) {
+        const m = item.match(/^(.*)\s×(\d+)\s*$/);
+        if (m && Number(m[2]) === Number(j.qty)) return m[1].trim();
+      }
+      return item;
     }
 
     function currentQuoteInput() {
@@ -2200,7 +2213,7 @@
       const hot = open.filter(j => !j.due || j.due <= today || j.status==="production").sort((a,b)=>(a.due||"9999").localeCompare(b.due||"9999")).slice(0,8);
       upcoming.innerHTML = hot.length ? hot.map(j =>
         `<div style="display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);cursor:pointer" onclick="openJob('${j.id}')">
-          <div><b>${j.customer}</b> ${svcTag(j)}<div class="sub">${j.item} · ${j.qty} pcs · ${STATUS_LABEL[j.status]}</div></div>
+          <div><b>${j.customer}</b> ${svcTag(j)}<div class="sub">${jobItemLabel(j)} · ${j.qty} pcs · ${STATUS_LABEL[j.status]}</div></div>
           <div>${j.due ? (j.due < today ? "OVERDUE "+j.due : j.due) : "No date"}</div>
         </div>`).join("") : "Shop is clear. Add a due date on the next quote.";
     }
@@ -2212,7 +2225,7 @@
         return `<div class="col"><h4>${STATUS_LABEL[st]} (${list.length})</h4>${
           list.map(j => `<div class="job" onclick="openJob('${j.id}')">
             <div class="who">${j.customer} ${svcTag(j)}</div>
-            <div class="meta">${j.item} · ${j.qty} pcs · ${money(j.totals?.total||0)}</div>
+            <div class="meta">${jobItemLabel(j)} · ${j.qty} pcs · ${money(j.totals?.total||0)}</div>
             ${j.machine ? `<div class="meta">${j.machine}</div>` : ""}
             ${j.due ? `<div class="due">Due ${j.due}</div>` : ""}
             <div class="actions" style="margin-top:8px" onclick="event.stopPropagation()">
@@ -2387,7 +2400,7 @@
       calDayTitle.textContent = "Jobs on " + iso;
       calDayList.innerHTML = jobs.length ? jobs.map(j =>
         `<div class="job" onclick="openJob('${j.id}')"><div class="who">${j.customer} ${svcTag(j)}</div>
-         <div class="meta">${STATUS_LABEL[j.status]} · ${j.item} · ${j.qty} pcs · ${money(j.totals?.total||0)}</div></div>`
+         <div class="meta">${STATUS_LABEL[j.status]} · ${jobItemLabel(j)} · ${j.qty} pcs · ${money(j.totals?.total||0)}</div></div>`
       ).join("") : `<p class="sub">Nothing due this day. Save a quote with this due date and it will show here.</p>`;
     }
 
@@ -2404,7 +2417,7 @@
         return `<div class="floor-card">
           <div class="sub">${late ? "OVERDUE · " : ""}${j.due || "No due date"} · ${STATUS_LABEL[j.status]} ${j.machine ? "· "+j.machine : ""}</div>
           <h3>${j.customer}</h3>
-          <p>${svcTag(j)} ${j.item} · ${j.qty} pcs · ${money(j.totals?.total||0)}</p>
+          <p>${svcTag(j)} ${jobItemLabel(j)} · ${j.qty} pcs · ${money(j.totals?.total||0)}</p>
           <p class="sub">${j.notes||""}</p>
           <button class="btn btn-navy big-btn" onclick="floorAdvance('${j.id}')">${j.status==="ready"?"Mark delivered": j.status==="production"?"Mark ready / off machine":"Put on the machine"}</button>
           <div class="actions">
