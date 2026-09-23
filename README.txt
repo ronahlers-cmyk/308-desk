@@ -1,5 +1,7 @@
-308 DESK v2.18 — 308 Embroidery shop assistant
+308 DESK v2.23 — 308 Embroidery shop assistant
 =============================================
+
+v2.23 — Blank cost ($) on each quote line item; grand blanks total in breakdown (embroidery + DTG). Quote-level cBlank/dBlank removed.
 
 v2.22 — Drive live-sync: pushToDrive won't clobber newer remote; poll 15s; pull on window focus/pageshow; clearer "pulled from phone/Drive" status.
 

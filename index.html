@@ -439,9 +439,8 @@
                 <div><label>Stitch count</label><input id="cStitches" type="number" value="7500"></div>
                 <div><label>Thread colors (info only)</label><input id="cColors" type="number" value="4"></div>
               </div>
-              <div class="row-3">
+              <div class="row">
                 <div><label>Placements</label><input id="cPlacements" type="number" min="1" value="1"></div>
-                <div><label>Blank cost each $</label><input id="cBlank" type="number" step="0.01" value="0"></div>
                 <div><label>Design height (in)</label><input id="cDesignHeight" type="number" step="0.1" min="0" placeholder="optional"></div>
               </div>
               <div class="row">
@@ -474,12 +473,11 @@
                 <div><label>Artwork setup</label>
                   <select id="dSetup"><option value="new">New art — setup fee</option><option value="existing">Repeat art</option></select>
                 </div>
-                <div><label>Blank cost each $</label><input id="dBlank" type="number" step="0.01" value="6.00"></div>
-              </div>
-              <div class="row">
                 <div><label>Turnaround</label>
                   <select id="dRush"><option value="std">Standard</option><option value="rush">Rush</option></select>
                 </div>
+              </div>
+              <div class="row">
                 <div><label>Placement notes</label><input id="dPlace" placeholder="Full front, left chest…"></div>
               </div>
             </div>
@@ -824,7 +822,7 @@
     let selectedDay = isoDate(new Date());
     let floorFilter = "today";
 
-    const APP_VERSION = "2.22";
+    const APP_VERSION = "2.23";
 
     // Parent replaces this with the real OAuth Web client ID from Google Cloud Console.
     const GOOGLE_CLIENT_ID = "208220038240-prioq0u84f5odbc5uue4r67t35ktng4k.apps.googleusercontent.com";
@@ -1670,6 +1668,39 @@
       if (qty >= 48) return s.d48; if (qty >= 24) return s.d24; if (qty >= 12) return s.d12; return 0;
     }
 
+
+    function blanksFromLineItems(input, qty) {
+      const items = input.lineItems;
+      if (items && items.length) {
+        const parts = items.map(li => {
+          const blank = Number(li.blank) || 0;
+          const q = Math.max(1, Number(li.qty) || 1);
+          return { item: li.item || "Item", blank, qty: q, total: blank * q };
+        });
+        const blanksTotal = parts.reduce((s, p) => s + p.total, 0);
+        return { blanksTotal, parts };
+      }
+      const blank = Number(input.blank) || 0;
+      return { blanksTotal: blank * qty, parts: null };
+    }
+    function blanksBreakdownLines(info) {
+      if (!info.blanksTotal) {
+        return [["Blanks", "Customer supplied / TBD"]];
+      }
+      if (info.parts) {
+        const blanked = info.parts.filter(p => p.blank > 0);
+        if (blanked.length > 1) {
+          const rows = blanked.map(p => [
+            "Blanks — " + p.item + " ×" + p.qty,
+            money(p.total)
+          ]);
+          rows.push(["Blanks total", money(info.blanksTotal)]);
+          return rows;
+        }
+      }
+      return [["Blanks", money(info.blanksTotal)]];
+    }
+
     function compute(input) {
       const s = DB.settings;
       const qty = Math.max(1, Number(input.qty)||1);
@@ -1682,14 +1713,15 @@
         if (input.dark === "dark") decorEach += s.dtgDark;
         decorEach *= (1 - disc);
         setup = input.setup === "new" ? s.dtgSetup : 0;
-        blanksTotal = (Number(input.blank)||0) * qty;
+        const blankInfoDtg = blanksFromLineItems(input, qty);
+        blanksTotal = blankInfoDtg.blanksTotal;
         pieceMin = 3 + locs * 1.5;
         minutes = pieceMin * qty;
         lines = [
           ["DTG print labor", money(decorEach * qty) + (disc ? " ("+Math.round(disc*100)+"% qty)" : "")],
           ["Art setup", setup ? money(setup) : "Repeat art"],
           ["Dark garment", input.dark === "dark" ? money(s.dtgDark * qty) + " included above" : "Light garment"],
-          ["Blanks", blanksTotal ? money(blanksTotal) : "Customer supplied / TBD"]
+          ...blanksBreakdownLines(blankInfoDtg)
         ];
       } else if (input.service === "patch") {
         const sizeKey = { "2": s.p2, "3": s.p3, "4": s.p4, "5": s.p5 };
@@ -1720,7 +1752,8 @@
           digiInfo = digiFeeFor(input.digiLocations || [], s, input.rush || input.digiTurn || "day2", input.designHeight);
         }
         setup = digiInfo.amount || 0;
-        blanksTotal = (Number(input.blank)||0) * qty;
+        const blankInfoEmb = blanksFromLineItems(input, qty);
+        blanksTotal = blankInfoEmb.blanksTotal;
         const sewMin = stitches > 0 ? stitches / s.spm : 0;
         pieceMin = sewMin + Number(s.hoop);
         minutes = pieceMin * qty * placements;
@@ -1731,7 +1764,7 @@
         lines = [
           ["Embroidery labor", money(decorEach * qty) + (disc ? " ("+Math.round(disc*100)+"% qty)" : "") + placeNote],
           [setup ? digiInfo.label : "Digitizing", digiLine],
-          ["Blanks", blanksTotal ? money(blanksTotal) : "Customer supplied / TBD"]
+          ...blanksBreakdownLines(blankInfoEmb)
         ];
         if (setup) lines.push(["Digi note", "Flat digi rate by location & turnaround (Vitor + 50%)"]);
       }
@@ -1812,10 +1845,13 @@
           <div><label>Item</label><select class="li-item">${itemOptionsHtml(data.item)}</select></div>
           <div><label>SKU</label><input class="li-sku" placeholder="SM-1234" value="${(data.sku||"").replace(/"/g,"&quot;")}"></div>
         </div>
-        <div class="row-3" style="margin-top:8px">
+        <div class="row" style="margin-top:8px">
           <div><label>Color</label><input class="li-color" placeholder="Navy, black…" value="${(data.color||"").replace(/"/g,"&quot;")}"></div>
           <div><label>Size</label><input class="li-size" placeholder="S/M/L/XL" value="${(data.size||"").replace(/"/g,"&quot;")}"></div>
+        </div>
+        <div class="row" style="margin-top:8px">
           <div><label>Qty</label><input class="li-qty" type="number" min="1" value="${data.qty!=null?data.qty:1}"></div>
+          <div><label>Blank $ each</label><input class="li-blank" type="number" step="0.01" min="0" value="${data.blank!=null&&data.blank!==""?data.blank:0}"></div>
         </div>
         <label style="margin-top:8px">Location (pick one or more)</label>
         <div class="digi-locs li-locs">${placeChipsHtml(data.locations || data.location || data.place)}</div>`;
@@ -1857,6 +1893,7 @@
           color: row.querySelector(".li-color").value.trim(),
           size: row.querySelector(".li-size").value.trim(),
           qty: Math.max(1, Number(row.querySelector(".li-qty").value)||1),
+          blank: Number(row.querySelector(".li-blank")?.value) || 0,
           locations,
           location: locations.join(", ")
         };
@@ -1865,7 +1902,7 @@
 
     function setLineItems(arr) {
       lineItems.innerHTML = "";
-      const list = (arr && arr.length) ? arr : [{ item: "Polo / knit", sku: "", color: "", size: "", qty: 1, locations: ["Left chest"], location: "Left chest" }];
+      const list = (arr && arr.length) ? arr : [{ item: "Polo / knit", sku: "", color: "", size: "", qty: 1, blank: 0, locations: ["Left chest"], location: "Left chest" }];
       list.forEach(li => {
         if (!li.locations) li.locations = normalizePlaceList(li.location || li.place || "Left chest");
         addLineItem(li);
@@ -1875,7 +1912,7 @@
     }
 
     function ensureLineItemsInit() {
-      if (!lineItems.querySelector(".line-item")) setLineItems([{ item: "Polo / knit", sku: "", color: "", size: "", qty: 1, locations: ["Left chest"], location: "Left chest" }]);
+      if (!lineItems.querySelector(".line-item")) setLineItems([{ item: "Polo / knit", sku: "", color: "", size: "", qty: 1, blank: 0, locations: ["Left chest"], location: "Left chest" }]);
     }
 
     function summarizeLineItems(items) {
@@ -1903,6 +1940,18 @@
         if (m && Number(m[2]) === Number(j.qty)) return m[1].trim();
       }
       return item;
+    }
+
+
+    function weightedBlankFromLines(items) {
+      if (!items || !items.length) return 0;
+      let tq = 0, tb = 0;
+      items.forEach(li => {
+        const q = Math.max(1, Number(li.qty) || 1);
+        const b = Number(li.blank) || 0;
+        tq += q; tb += b * q;
+      });
+      return tq ? (tb / tq) : 0;
     }
 
     function currentQuoteInput() {
@@ -1941,7 +1990,7 @@
         notes: cNotes.value.trim()
       };
       if (service === "dtg") {
-        return { ...base, locations: dLoc.value, dark: dDark.value, setup: dSetup.value, blank: dBlank.value, rush: dRush.value, place: summary.place || dPlace.value };
+        return { ...base, locations: dLoc.value, dark: dDark.value, setup: dSetup.value, blank: weightedBlankFromLines(lineItemsArr), rush: dRush.value, place: summary.place || dPlace.value };
       }
       if (service === "patch") {
         return { ...base, item: summary.item || (pSize.value + '" patch'), size: pSize.value, backing: pBack.value, digi: pDigi.value, rush: pRush.value, place: summary.place || "Patch" };
@@ -1957,7 +2006,7 @@
         digiTurn,
         designHeight,
         stitches: cStitches.value, colors: cColors.value, placements: cPlacements.value,
-        blank: cBlank.value, digi: cDigi.value, rush: digiTurn
+        blank: weightedBlankFromLines(lineItemsArr), digi: cDigi.value, rush: digiTurn
       };
     }
 
@@ -2032,11 +2081,10 @@
         const el = document.getElementById(id); if (el) el.value = "";
       });
       if (cQuoteDate) cQuoteDate.value = todayISO();
-      setLineItems([{ item: "Polo / knit", sku: "", color: "", size: "", qty: 1, locations: ["Left chest"], location: "Left chest" }]);
+      setLineItems([{ item: "Polo / knit", sku: "", color: "", size: "", qty: 1, blank: 0, locations: ["Left chest"], location: "Left chest" }]);
       if (cStitches) cStitches.value = 7500;
       if (cColors) cColors.value = 4;
       if (cPlacements) cPlacements.value = 1;
-      if (cBlank) cBlank.value = 0;
       const dh = document.getElementById("cDesignHeight"); if (dh) dh.value = "";
       if (cDigi) cDigi.value = "existing";
       if (cRush) cRush.value = "day2";
@@ -2044,7 +2092,6 @@
       if (dLoc) dLoc.value = 1;
       if (dDark) dDark.value = "light";
       if (dSetup) dSetup.value = "existing";
-      if (dBlank) dBlank.value = 6;
       if (dRush) dRush.value = "std";
       if (pSize) pSize.value = "3";
       if (pBack) pBack.value = "sew";
@@ -2077,7 +2124,8 @@
       const s = DB.settings;
       const lines = (input.lineItems && input.lineItems.length)
         ? input.lineItems.map((li,i) => {
-            const bits = [li.item, li.sku && ("SKU "+li.sku), li.color && ("color "+li.color), li.size && ("size "+li.size), (li.qty||1)+" pcs", li.location].filter(Boolean);
+            const blankEach = Number(li.blank)||0;
+            const bits = [li.item, li.sku && ("SKU "+li.sku), li.color && ("color "+li.color), li.size && ("size "+li.size), (li.qty||1)+" pcs", blankEach ? ("blank $"+blankEach.toFixed(2)+" ea") : "", li.location].filter(Boolean);
             return "  " + (i+1) + ". " + bits.join(" · ");
           })
         : ["  " + (input.item||"") + (input.place ? " — "+input.place : "") + " · Qty " + r.qty];
@@ -2143,16 +2191,16 @@
       input = input || currentQuoteInput();
       const r = compute(input);
       const s = DB.settings;
-      const blankEach = Number(input.blank) || 0;
-      const pieceEach = Number(r.decorEach) + blankEach;
+      const fallbackBlank = Number(input.blank) || 0;
       const taxPct = Number(s.tax) || 0;
       const items = (input.lineItems && input.lineItems.length)
         ? input.lineItems
-        : [{ item: input.item || "Custom work", sku: "", color: "", size: "", qty: r.qty, location: input.place || "" }];
+        : [{ item: input.item || "Custom work", sku: "", color: "", size: "", qty: r.qty, location: input.place || "", blank: fallbackBlank }];
 
       const itemRows = items.map(li => {
         const q = Math.max(1, Number(li.qty) || 1);
         const loc = li.location || (Array.isArray(li.locations) ? li.locations.join(", ") : "") || "";
+        const blankEach = (li.blank != null && li.blank !== "") ? (Number(li.blank) || 0) : fallbackBlank;
         const bits = [
           li.item || "Item",
           li.sku && ("SKU " + li.sku),
@@ -2160,7 +2208,7 @@
           li.size && ("size " + li.size),
           loc && loc
         ].filter(Boolean);
-        const each = pieceEach;
+        const each = Number(r.decorEach) + blankEach;
         const amt = each * q;
         return `<tr>
           <td>${escHtml(bits.join(" · "))}</td>
@@ -2407,21 +2455,26 @@
       cQuoteDate.value = j.quoteDate || cQuoteDate.value || todayISO();
       cOrderDate.value = j.orderDate || "";
       cNotes.value = j.notes || "";
+      const topBlank = (j.blank != null && j.blank !== "") ? (Number(j.blank) || 0) : 0;
       if (j.lineItems && j.lineItems.length) {
-        setLineItems(j.lineItems);
+        setLineItems(j.lineItems.map(li => {
+          const copy = Object.assign({}, li);
+          if (copy.blank == null || copy.blank === "") copy.blank = topBlank;
+          return copy;
+        }));
       } else {
         const firstItem = (j.item && !String(j.item).includes(";")) ? j.item : "Polo / knit";
-        setLineItems([{ item: ITEM_OPTIONS.includes(firstItem) ? firstItem : "Other", sku: "", color: "", size: "", qty: j.qty || 1, locations: normalizePlaceList(PLACE_OPTIONS.includes(j.place) ? j.place : "Left chest"), location: (PLACE_OPTIONS.includes(j.place) ? j.place : "Left chest") }]);
+        setLineItems([{ item: ITEM_OPTIONS.includes(firstItem) ? firstItem : "Other", sku: "", color: "", size: "", qty: j.qty || 1, blank: topBlank, locations: normalizePlaceList(PLACE_OPTIONS.includes(j.place) ? j.place : "Left chest"), location: (PLACE_OPTIONS.includes(j.place) ? j.place : "Left chest") }]);
       }
       if ((j.service||"embroidery") === "embroidery") {
         cStitches.value = j.stitches||0; cColors.value = j.colors||4;
-        cPlacements.value = j.placements||1; cBlank.value = j.blank||0;
+        cPlacements.value = j.placements||1;
         cDigi.value = j.digi||"existing"; cRush.value = normalizeDigiTurn(j.digiTurn || j.rush || "day2");
         setDigiLocations(j.digiLocations || []);
         const dh = document.getElementById("cDesignHeight"); if (dh) dh.value = (j.designHeight != null && j.designHeight !== "") ? j.designHeight : "";
       } else if (j.service === "dtg") {
         dLoc.value = j.locations||1; dDark.value = j.dark||"light";
-        dSetup.value = j.setup||"existing"; dBlank.value = j.blank||0; dRush.value = j.rush||"std"; dPlace.value = j.place||"";
+        dSetup.value = j.setup||"existing"; dRush.value = j.rush||"std"; dPlace.value = j.place||"";
       } else if (j.service === "patch") {
         pSize.value = j.size||"3"; pBack.value = j.backing||"sew"; pDigi.value = j.digi||"existing"; pRush.value = j.rush||"std";
       }
@@ -2737,7 +2790,7 @@
     }
 
     bindAllPhoneFields();
-    ["cStitches","cColors","cPlacements","cBlank","cDesignHeight","cDigi","cRush","dLoc","dDark","dSetup","dBlank","dRush","pSize","pBack","pDigi","pRush","cLast","cFirst","cCompany","cWorkPhone","cCellPhone","cEmail","cAddress","cAddress2","cCity","cState","cZip","cDue","cQuoteDate","cOrderDate"].forEach(id => {
+    ["cStitches","cColors","cPlacements","cDesignHeight","cDigi","cRush","dLoc","dDark","dSetup","dRush","pSize","pBack","pDigi","pRush","cLast","cFirst","cCompany","cWorkPhone","cCellPhone","cEmail","cAddress","cAddress2","cCity","cState","cZip","cDue","cQuoteDate","cOrderDate"].forEach(id => {
       const el = document.getElementById(id); if (!el) return;
       el.addEventListener("input", () => calcQuote(false));
       el.addEventListener("change", () => calcQuote(false));
