@@ -1,1 +1,2670 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Removed</title></head><body><p>This page has been removed.</p></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="308 Desk" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#0b1f3a" />
+  <meta name="application-name" content="308 Desk" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%230b1f3a'/%3E%3Ccircle cx='32' cy='32' r='28' fill='none' stroke='%23c9a227' stroke-width='3'/%3E%3Ctext x='32' y='39' text-anchor='middle' font-family='Georgia,serif' font-size='18' font-weight='700' fill='%23e4c35a'%3E308%3C/text%3E%3C/svg%3E" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%230b1f3a'/%3E%3Ccircle cx='32' cy='32' r='28' fill='none' stroke='%23c9a227' stroke-width='3'/%3E%3Ctext x='32' y='39' text-anchor='middle' font-family='Georgia,serif' font-size='18' font-weight='700' fill='%23e4c35a'%3E308%3C/text%3E%3C/svg%3E" />
+  <title>308 Desk — 308 Embroidery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0b1f3a; --gold: #c9a227; --gold-2: #e4c35a;
+      --cream: #f6f0e4; --paper: #fffdf8; --ink: #1a1a1a;
+      --muted: #5c6570; --line: #e4dccb; --ok: #2d6a4f;
+      --warn: #b45309; --bad: #9b2226;
+      --shadow: 0 10px 30px rgba(11,31,58,.12); --radius: 16px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { min-height: 100%; }
+    body { font-family: "DM Sans", system-ui, sans-serif; background: var(--cream); color: var(--ink); }
+    .app { display: grid; grid-template-columns: 236px 1fr; min-height: 100vh; }
+    aside {
+      background: linear-gradient(180deg, var(--navy), #08162b);
+      color: #fff; padding: 20px 14px 90px; position: sticky; top: 0; height: 100vh;
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .brand { display: flex; gap: 10px; align-items: center; padding: 4px 6px 16px; border-bottom: 1px solid rgba(201,162,39,.25); margin-bottom: 8px; }
+    .logo { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--gold); display: grid; place-items: center; font-family: "Playfair Display", serif; color: var(--gold-2); font-size: 14px; }
+    .brand h1 { font-size: 17px; } .brand p { font-size: 11px; color: #c9d4e3; }
+    nav button { width: 100%; text-align: left; background: 0; border: 0; color: #d7e0ec; padding: 10px 12px; border-radius: 10px; font: inherit; font-weight: 500; cursor: pointer; }
+    nav button:hover { background: rgba(255,255,255,.06); }
+    nav button.active { background: rgba(201,162,39,.16); color: var(--gold-2); }
+    .aside-foot { margin-top: auto; font-size: 11px; color: #93a4bb; line-height: 1.5; padding: 10px 6px; }
+    .aside-foot #asideVersion { display: block; margin-top: 8px; color: #7a8ba3; font-size: 10px; letter-spacing: .04em; }
+    main { padding: 26px 28px 80px; max-width: 1280px; }
+    .page { display: none; } .page.active { display: block; animation: fade .2s ease; }
+    @keyframes fade { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+    .topbar { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
+    h2.page-title { font-family: "Playfair Display", serif; font-size: 28px; color: var(--navy); }
+    .sub { color: var(--muted); font-size: 14px; margin-top: 4px; }
+    .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 18px; }
+    .stat { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); }
+    .stat .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+    .stat .value { font-size: 26px; font-weight: 700; color: var(--navy); margin-top: 4px; }
+    .stat .hint { font-size: 12px; color: var(--muted); margin-top: 3px; }
+    .grid-2 { display: grid; grid-template-columns: 1.15fr .85fr; gap: 16px; }
+    .panel { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow); }
+    .panel h3 { font-size: 13px; letter-spacing: .04em; text-transform: uppercase; color: var(--navy); margin-bottom: 12px; }
+    label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); margin: 10px 0 5px; }
+    input, select, textarea { width: 100%; border: 1px solid #d9d0bd; background: #fff; border-radius: 10px; padding: 10px 12px; font: inherit; }
+    textarea { min-height: 68px; resize: vertical; }
+    input:focus, select:focus, textarea:focus { outline: 2px solid rgba(201,162,39,.45); border-color: var(--gold); }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    .btn { border: 0; cursor: pointer; font: inherit; font-weight: 600; border-radius: 10px; padding: 10px 14px; }
+    .btn-gold { background: var(--gold); color: var(--navy); }
+    .btn-navy { background: var(--navy); color: #fff; }
+    .btn-ghost { background: transparent; border: 1px solid var(--line); color: var(--navy); }
+    .btn-danger { background: #fde8e8; color: var(--bad); }
+    .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+    .quote-result { background: linear-gradient(160deg, var(--navy), #163056); color: #fff; border-radius: var(--radius); padding: 20px; }
+    .quote-result .big { font-size: 38px; font-weight: 700; color: var(--gold-2); }
+    .quote-result .line { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,.08); font-size: 14px; }
+    .quote-result .muted { color: #b7c4d6; }
+    .svc { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+    .svc label { margin: 0; }
+    .svc input { display: none; }
+    .svc span { display: block; text-align: center; padding: 10px 6px; border: 1px solid var(--line); border-radius: 12px; background: #fff; color: var(--navy); font-weight: 700; font-size: 13px; cursor: pointer; }
+    .svc input:checked + span { background: var(--navy); color: var(--gold-2); border-color: var(--navy); }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); padding: 8px; border-bottom: 1px solid var(--line); }
+    td { padding: 10px 8px; border-bottom: 1px solid #eee6d6; }
+    .kanban { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+    .col { background: #efe8d8; border-radius: 14px; padding: 10px; min-height: 240px; }
+    .col h4 { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--navy); padding: 4px 4px 10px; }
+    .job { background: #fff; border-radius: 12px; padding: 11px; margin-bottom: 8px; border: 1px solid var(--line); cursor: pointer; }
+    .job .who { font-weight: 700; color: var(--navy); }
+    .job .meta { font-size: 12px; color: var(--muted); margin-top: 3px; }
+    .job .due { font-size: 11px; margin-top: 5px; color: var(--warn); font-weight: 600; }
+    .tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .04em; padding: 2px 7px; border-radius: 999px; text-transform: uppercase; background: #eef2ff; color: #1e3a8a; }
+    .tag.dtg { background: #ecfccb; color: #3f6212; }
+    .tag.patch { background: #fae8ff; color: #86198f; }
+    .search { max-width: 260px; }
+    .toast { position: fixed; bottom: 18px; right: 18px; background: var(--navy); color: #fff; padding: 12px 16px; border-radius: 12px; display: none; z-index: 60; }
+    .modal-bg { position: fixed; inset: 0; background: rgba(11,31,58,.45); display: none; align-items: center; justify-content: center; z-index: 50; padding: 16px; }
+    .modal { background: var(--paper); border-radius: 18px; width: min(640px, 100%); padding: 20px; max-height: 90vh; overflow: auto; }
+    .hidden { display: none !important; }
+    .cal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+    .cal-dow { font-size: 11px; text-align: center; color: var(--muted); font-weight: 700; padding: 4px; }
+    .cal-day { background: #fff; border: 1px solid var(--line); border-radius: 10px; min-height: 92px; padding: 6px; cursor: pointer; }
+    .cal-day.empty { background: transparent; border: 0; cursor: default; }
+    .cal-day .n { font-size: 12px; font-weight: 700; color: var(--navy); }
+    .cal-day.today { outline: 2px solid var(--gold); }
+    .cal-chip { font-size: 10px; background: #e8eef7; color: var(--navy); border-radius: 6px; padding: 2px 4px; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .cal-chip.over { background: #fee2e2; color: #9b2226; }
+    .week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+    .week .d { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 10px; min-height: 88px; }
+    .week .d.today { outline: 2px solid var(--gold); }
+    .floor-card { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 16px; margin-bottom: 12px; box-shadow: var(--shadow); }
+    .floor-card h3 { font-size: 20px; color: var(--navy); text-transform: none; letter-spacing: 0; }
+    .big-btn { width: 100%; padding: 14px; font-size: 16px; margin-top: 8px; }
+    .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+    .settings-block { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--line); }
+    .phone-topbar { display: none; }
+    .mobile-nav { display: none; }
+    .mobile-more { display: none; }
+    .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; width: 100%; }
+    @media (max-width: 1100px) {
+      .app { grid-template-columns: 1fr; }
+      aside { display: none; }
+      .cards, .grid-2, .kanban, .row, .row-3, .week, .svc { grid-template-columns: 1fr 1fr; }
+      .cal-grid { grid-template-columns: repeat(7, 1fr); }
+      main { padding: 12px 14px calc(120px + env(safe-area-inset-bottom)); }
+      .phone-topbar {
+        display: flex; align-items: center; gap: 10px;
+        position: sticky; top: 0; z-index: 35;
+        background: linear-gradient(180deg, var(--navy), #0d2748);
+        color: #fff; padding: calc(10px + env(safe-area-inset-top)) 14px 10px;
+        border-bottom: 1px solid rgba(201,162,39,.28);
+        box-shadow: 0 4px 16px rgba(11,31,58,.18);
+      }
+      .phone-topbar .logo { width: 36px; height: 36px; font-size: 12px; flex-shrink: 0; }
+      .phone-topbar .phone-brand { min-width: 0; }
+      .phone-topbar .phone-shop { font-size: 15px; font-weight: 700; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .phone-topbar .phone-ver { display: block; font-size: 11px; color: var(--gold-2); letter-spacing: .04em; margin-top: 2px; }
+      .phone-topbar .phone-brand { flex: 1; }
+      .mobile-nav {
+        display: flex; align-items: stretch; gap: 2px;
+        overflow-x: auto; -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        position: fixed; bottom: 0; left: 0; right: 0;
+        background: var(--navy); z-index: 40;
+        padding: 6px 6px calc(8px + env(safe-area-inset-bottom));
+        border-top: 1px solid rgba(201,162,39,.2);
+      }
+      .mobile-nav::-webkit-scrollbar { display: none; }
+      .mobile-nav button {
+        background: 0; border: 0; color: #c9d4e3; font: inherit;
+        font-size: 11px; font-weight: 600;
+        flex: 0 0 auto; min-width: 56px; min-height: 48px;
+        padding: 8px 10px; border-radius: 10px; cursor: pointer;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        gap: 2px; -webkit-tap-highlight-color: transparent;
+      }
+      .mobile-nav button .nav-ico { font-size: 16px; line-height: 1; }
+      .mobile-nav button.active { color: var(--gold-2); background: rgba(201,162,39,.16); }
+      .toast { bottom: calc(72px + env(safe-area-inset-bottom)); right: 12px; left: 12px; max-width: none; text-align: center; }
+      .panel, .quote-result { max-width: 100%; }
+      .kanban { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      table { min-width: 480px; }
+      .table-scroll, .panel { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      body { overflow-x: hidden; }
+    }
+    @media (max-width: 700px) {
+      .cards, .kanban, .week, .grid-2, .row, .row-3, .svc { grid-template-columns: 1fr; }
+      h2.page-title { font-size: 22px; }
+      .cal-day { min-height: 64px; padding: 5px; }
+      .cal-day .n { font-size: 13px; }
+      .cal-chip { white-space: normal; font-size: 9px; line-height: 1.25; }
+      .cal-dow { font-size: 10px; }
+      input, select, textarea, .btn { font-size: 16px !important; }
+      .btn { min-height: 44px; padding: 12px 14px; }
+      .digi-locs { gap: 10px; }
+      .digi-locs span { padding: 12px 14px; font-size: 13px; min-height: 44px; display: inline-flex; align-items: center; }
+      .svc span { padding: 14px 8px; min-height: 48px; display: flex; align-items: center; justify-content: center; }
+      .actions.quote-actions {
+        position: sticky; bottom: calc(64px + env(safe-area-inset-bottom));
+        z-index: 30; background: var(--paper);
+        margin: 12px -4px 0; padding: 10px 4px 8px;
+        border-top: 1px solid var(--line);
+        box-shadow: 0 -6px 16px rgba(11,31,58,.08);
+        display: flex; flex-direction: column; gap: 8px;
+      }
+      .actions.quote-actions .btn { width: 100%; }
+      #quote .actions:not(.quote-actions) { flex-direction: column; }
+      #quote .actions:not(.quote-actions) .btn { width: 100%; }
+      .topbar .actions { width: 100%; }
+      .topbar .actions .btn { flex: 1; min-width: 0; }
+      main { padding-bottom: calc(140px + env(safe-area-inset-bottom)); }
+    }
+
+    .line-item { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; margin: 10px 0; background: #fffdf8; position: relative; }
+    .line-item .li-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+    .line-item .li-title { font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--navy); }
+    .line-item .li-remove { border: 0; background: #fde8e8; color: var(--bad); border-radius: 8px; width: 32px; height: 32px; cursor: pointer; font-size: 16px; font-weight: 700; line-height: 1; }
+    .line-item .li-remove:disabled { opacity: .35; cursor: not-allowed; }
+    .row-5 { display: grid; grid-template-columns: 1.4fr 1fr .8fr .7fr 1.1fr; gap: 8px; }
+    .row-4 { display: grid; grid-template-columns: 1fr .8fr .7fr 1.1fr; gap: 8px; }
+    @media (max-width: 1100px) {
+      .row-5 { grid-template-columns: 1fr 1fr; }
+      .row-4 { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 700px) {
+      .row-5 { grid-template-columns: 1fr; }
+      .row-4 { grid-template-columns: 1fr; }
+    }
+
+    .digi-locs { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 8px; }
+    .digi-locs label { margin: 0; }
+    .digi-locs input { display: none; }
+    .digi-locs span {
+      display: inline-block; padding: 8px 12px; border: 1px solid var(--line); border-radius: 999px;
+      background: #fff; color: var(--navy); font-weight: 700; font-size: 12px; cursor: pointer;
+    }
+    .digi-locs input:checked + span { background: var(--navy); color: var(--gold-2); border-color: var(--navy); }
+    .digi-combo-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+    .digi-combo-form { border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin-top: 8px; background: #fff; }
+    .digi-singles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .digi-rate-card { width: 100%; border-collapse: collapse; font-size: 13px; margin: 6px 0 10px; }
+    .digi-rate-card th, .digi-rate-card td { border: 1px solid var(--line); padding: 8px; vertical-align: middle; }
+    .digi-rate-card th { background: #eef2f8; color: var(--navy); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+    .digi-rate-card input { margin: 0; padding: 8px; }
+    @media (max-width: 700px) { .digi-singles { grid-template-columns: 1fr; } }
+
+    /* Google auth gate + sync (v2.18) */
+    .auth-gate {
+      position: fixed; inset: 0; z-index: 100;
+      background: linear-gradient(165deg, #0b1f3a 0%, #08162b 55%, #122a4a 100%);
+      color: #fff; display: flex; align-items: center; justify-content: center;
+      padding: 24px; text-align: center;
+    }
+    .auth-gate.hidden { display: none !important; }
+    .auth-card {
+      width: min(420px, 100%); background: rgba(255,255,255,.04);
+      border: 1px solid rgba(201,162,39,.35); border-radius: 20px;
+      padding: 28px 24px 24px; box-shadow: 0 20px 50px rgba(0,0,0,.35);
+    }
+    .auth-card .logo { margin: 0 auto 14px; width: 56px; height: 56px; font-size: 16px; }
+    .auth-card h1 { font-family: "Playfair Display", serif; font-size: 26px; color: var(--gold-2); margin-bottom: 8px; }
+    .auth-card p { color: #c9d4e3; font-size: 14px; line-height: 1.5; margin-bottom: 18px; }
+    .auth-card .auth-err { color: #fecaca; background: rgba(155,34,38,.25); border: 1px solid rgba(254,202,202,.35);
+      border-radius: 10px; padding: 10px 12px; font-size: 13px; margin-bottom: 14px; display: none; }
+    .auth-card .auth-err.show { display: block; }
+    .sync-dot {
+      display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600;
+      letter-spacing: .03em; color: #c9d4e3; margin-left: auto; flex-shrink: 0;
+      padding: 4px 8px; border-radius: 999px; background: rgba(255,255,255,.06);
+      border: 1px solid rgba(201,162,39,.25);
+    }
+    .sync-dot i { width: 8px; height: 8px; border-radius: 50%; background: #93a4bb; display: inline-block; }
+    .sync-dot.ok i { background: #4ade80; }
+    .sync-dot.busy i { background: var(--gold-2); animation: pulse 1s infinite; }
+    .sync-dot.err i { background: #f87171; }
+    .sync-dot.off i { background: #93a4bb; }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+    .sync-panel .sync-status { font-size: 13px; color: var(--muted); margin: 6px 0 10px; }
+    .sync-panel .sync-email { font-weight: 700; color: var(--navy); word-break: break-all; }
+    @media print {
+      aside, .actions, .mobile-nav, .phone-topbar, .mobile-more, .no-print, .toast, .auth-gate { display: none !important; }
+      .app { display: block; } main { padding: 0 !important; }
+      .quote-result { background: #fff; color: #000; border: 2px solid #000; }
+      .quote-result .big { color: #000; }
+      body { overflow: visible; }
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-gate no-print" id="authGate">
+    <div class="auth-card">
+      <div class="logo" aria-hidden="true">308</div>
+      <h1>308 Desk</h1>
+      <p>Sign in with Google to sync 308 Desk across your phone, tablet, and shop PC.</p>
+      <div class="auth-err" id="authErr"></div>
+      <button type="button" class="btn btn-gold" id="btnGoogleSignIn" style="width:100%;padding:12px 14px;font-size:15px" onclick="googleSignIn()">Sign in with Google</button>
+      <p style="margin-top:14px;margin-bottom:0;font-size:12px;color:#93a4bb">Quotes stay in your Google Drive. Only authorized shop accounts can open the desk.</p>
+    </div>
+  </div>
+  <div class="app" id="appRoot">
+    <header class="phone-topbar no-print" id="phoneTopbar">
+      <div class="logo" aria-hidden="true">308</div>
+      <div class="phone-brand">
+        <div class="phone-shop" id="phoneShopName">308 Embroidery</div>
+        <span class="phone-ver" id="phoneVersion">308 Desk v2.18</span>
+      </div>
+      <span class="sync-dot off" id="phoneSyncDot" title="Sync status"><i></i><span id="phoneSyncLabel">…</span></span>
+    </header>
+    <aside>
+      <div class="brand">
+        <div class="logo">308</div>
+        <div><h1>308 Desk</h1><p>Shop assistant</p></div>
+      </div>
+      <nav>
+        <button class="active" data-page="dash">Dashboard</button>
+        <button data-page="quote">Quote</button>
+        <button data-page="jobs">Jobs</button>
+        <button data-page="calendar">Calendar</button>
+        <button data-page="floor">On the machine</button>
+        <button data-page="customers">Customers</button>
+        <button data-page="inventory">Inventory</button>
+        <button data-page="settings">Settings</button>
+      </nav>
+      <div class="aside-foot" id="asideFoot">308 Embroidery<br>1710 Broadway, Scottsbluff<br>308-635-7123<br><span id="asideVersion">308 Desk v2.18</span></div>
+    </aside>
+    <main>
+      <section id="dash" class="page active">
+        <div class="topbar">
+          <div>
+            <h2 class="page-title" id="hello">Good day, Ron</h2>
+            <p class="sub">Embroidery, DTG, and patches — quotes, calendar, and the floor.</p>
+          </div>
+          <div class="actions" style="margin:0">
+            <button class="btn btn-navy" onclick="go('floor')">Today on the floor</button>
+            <button class="btn btn-gold" onclick="newBlankQuote()">New quote</button>
+          </div>
+        </div>
+        <div class="cards">
+          <div class="stat"><div class="label">Open jobs</div><div class="value" id="statOpen">0</div><div class="hint">Not delivered</div></div>
+          <div class="stat"><div class="label">On the machine</div><div class="value" id="statProd">0</div><div class="hint">In production</div></div>
+          <div class="stat"><div class="label">Due this week</div><div class="value" id="statWeek">0</div><div class="hint">Watch the calendar</div></div>
+          <div class="stat"><div class="label">Quoted this month</div><div class="value" id="statQuoted">$0</div><div class="hint">Pipeline</div></div>
+        </div>
+        <div class="panel" style="margin-bottom:16px">
+          <h3>This week</h3>
+          <div class="week" id="weekStrip"></div>
+        </div>
+        <div class="grid-2">
+          <div class="panel">
+            <h3>Needs attention</h3>
+            <div id="upcoming">Nothing overdue.</div>
+          </div>
+          <div class="panel">
+            <h3>Quick embroidery quote</h3>
+            <div class="row">
+              <div><label>Stitches</label><input id="qStitch" type="number" value="8000"></div>
+              <div><label>Quantity</label><input id="qQty" type="number" value="12"></div>
+            </div>
+            <div class="row">
+              <div><label>Blank each $</label><input id="qBlank" type="number" step="0.01" value="8.50"></div>
+              <div><label>Colors</label><input id="qColors" type="number" value="4"></div>
+            </div>
+            <div class="actions">
+              <button class="btn btn-navy" onclick="quickQuote()">Calculate</button>
+              <button class="btn btn-ghost" onclick="go('quote')">Full form</button>
+            </div>
+            <div id="quickOut" style="margin-top:12px;font-weight:600;color:var(--navy)"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="quote" class="page">
+        <div class="topbar">
+          <div>
+            <h2 class="page-title">Build a quote</h2>
+            <p class="sub">Pick embroidery, DTG, or patches. Each uses its own rate card from Settings.</p>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="panel">
+            <h3>Service</h3>
+            <div class="svc">
+              <label><input type="radio" name="svc" value="embroidery" checked onchange="svcUI()"><span>Embroidery</span></label>
+              <label><input type="radio" name="svc" value="dtg" onchange="svcUI()"><span>DTG print</span></label>
+              <label><input type="radio" name="svc" value="patch" onchange="svcUI()"><span>Patch</span></label>
+            </div>
+            <div class="row-3">
+              <div><label>Last name</label><input id="cLast" list="custList" placeholder="Last"></div>
+              <div><label>First name</label><input id="cFirst" placeholder="First"></div>
+              <div><label>Company</label><input id="cCompany" placeholder="Business (optional)"></div>
+            </div>
+            <datalist id="custList"></datalist>
+            <div class="row-3">
+              <div><label>Email (for quote)</label><input id="cEmail" placeholder="name@email.com"></div>
+              <div><label>Work phone</label><input id="cWorkPhone" placeholder="3086357123 or 308-635-7123"></div>
+              <div><label>Cell phone</label><input id="cCellPhone" placeholder="3086357123 or 308-635-7123"></div>
+            </div>
+            <label>Street address</label><input id="cAddress" placeholder="1710 Broadway">
+            <label>Address line 2</label><input id="cAddress2" placeholder="Suite, unit (optional)">
+            <div class="row-3">
+              <div><label>City</label><input id="cCity" placeholder="Scottsbluff"></div>
+              <div><label>State</label><input id="cState" placeholder="NE" maxlength="2" style="text-transform:uppercase"></div>
+              <div><label>ZIP</label><input id="cZip" placeholder="69361"></div>
+            </div>
+            <div class="row-3">
+              <div><label>Quote date</label><input id="cQuoteDate" type="date"></div>
+              <div><label>Order date</label><input id="cOrderDate" type="date"></div>
+              <div><label>Due date</label><input id="cDue" type="date"></div>
+            </div>
+            <h3 style="margin-top:14px">Line items</h3>
+            <div id="lineItems"></div>
+            <div class="actions" style="margin-top:6px">
+              <button type="button" class="btn btn-ghost" onclick="addLineItem()">+ Add item</button>
+            </div>
+
+            <div id="embFields">
+              <div class="row">
+                <div><label>Stitch count</label><input id="cStitches" type="number" value="7500"></div>
+                <div><label>Thread colors (info only)</label><input id="cColors" type="number" value="4"></div>
+              </div>
+              <div class="row-3">
+                <div><label>Placements</label><input id="cPlacements" type="number" min="1" value="1"></div>
+                <div><label>Blank cost each $</label><input id="cBlank" type="number" step="0.01" value="0"></div>
+                <div><label>Design height (in)</label><input id="cDesignHeight" type="number" step="0.1" min="0" placeholder="optional"></div>
+              </div>
+              <div class="row">
+                <div><label>Digitizing</label>
+                  <select id="cDigi">
+                    <option value="new">New file — charge fee</option>
+                    <option value="existing">Existing file — no fee</option>
+                    <option value="customer">Customer supplied file</option>
+                  </select>
+                </div>
+                <div><label>Digitizing turnaround</label>
+                  <select id="cRush">
+                    <option value="day2" selected>2 Day</option>
+                    <option value="nextday">Next Day</option>
+                    <option value="rush8">8 Hour Rush</option>
+                  </select>
+                </div>
+              </div>
+              <p class="sub" style="margin-top:0">New-file digi fee uses the Location chips on each line item above (Settings rate card × turnaround). Combos still override an exact set.</p>
+            </div>
+
+            <div id="dtgFields" class="hidden">
+              <div class="row">
+                <div><label>Print locations</label><input id="dLoc" type="number" min="1" value="1"></div>
+                <div><label>Garment color</label>
+                  <select id="dDark"><option value="light">Light</option><option value="dark">Dark (white ink)</option></select>
+                </div>
+              </div>
+              <div class="row">
+                <div><label>Artwork setup</label>
+                  <select id="dSetup"><option value="new">New art — setup fee</option><option value="existing">Repeat art</option></select>
+                </div>
+                <div><label>Blank cost each $</label><input id="dBlank" type="number" step="0.01" value="6.00"></div>
+              </div>
+              <div class="row">
+                <div><label>Turnaround</label>
+                  <select id="dRush"><option value="std">Standard</option><option value="rush">Rush</option></select>
+                </div>
+                <div><label>Placement notes</label><input id="dPlace" placeholder="Full front, left chest…"></div>
+              </div>
+            </div>
+
+            <div id="patchFields" class="hidden">
+              <div class="row">
+                <div><label>Patch size</label>
+                  <select id="pSize">
+                    <option value="2">2 inch</option>
+                    <option value="3" selected>3 inch</option>
+                    <option value="4">4 inch</option>
+                    <option value="5">5 inch / custom</option>
+                  </select>
+                </div>
+                <div><label>Backing</label>
+                  <select id="pBack">
+                    <option value="sew">Sew-on</option>
+                    <option value="iron">Iron-on</option>
+                    <option value="velcro">Velcro</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div><label>Digitizing</label>
+                  <select id="pDigi">
+                    <option value="new">New design</option>
+                    <option value="existing">Repeat design</option>
+                  </select>
+                </div>
+                <div><label>Turnaround</label>
+                  <select id="pRush"><option value="std">Standard</option><option value="rush">Rush</option></select>
+                </div>
+              </div>
+            </div>
+
+            <label>Notes / design</label>
+            <textarea id="cNotes" placeholder="Logo name, colors, special instructions…"></textarea>
+            <div class="actions quote-actions no-print">
+              <button class="btn btn-gold" onclick="calcQuote(true)">Update quote</button>
+              <button class="btn btn-navy" onclick="saveJobFromQuote()">Save Quote</button>
+              <button class="btn btn-ghost" onclick="printQuote()">Print / PDF</button>
+              <button class="btn btn-ghost" onclick="emailQuote()">Email via Gmail</button>
+              <button class="btn btn-ghost" onclick="clearQuoteForm(); toast('Form cleared')">Clear form</button>
+            </div>
+          </div>
+          <div>
+            <div class="quote-result" id="quoteCard">
+              <div class="muted" style="font-size:12px;letter-spacing:.08em;text-transform:uppercase" id="qSvcLabel">Embroidery quote</div>
+              <div class="big" id="qTotal">$0.00</div>
+              <div class="muted" id="qEach" style="margin-bottom:12px">$0.00 per piece</div>
+              <div id="qBreakdown"></div>
+            </div>
+            <div class="panel" style="margin-top:14px">
+              <h3>Time / production</h3>
+              <div id="qTime">Fill in the form to estimate.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="jobs" class="page">
+        <div class="topbar">
+          <div>
+            <h2 class="page-title">Job board</h2>
+            <p class="sub">Move work as it hits the machine and walks out the door.</p>
+          </div>
+          <input class="search" id="jobSearch" placeholder="Search jobs…" oninput="renderJobs()">
+        </div>
+        <div class="kanban" id="kanban"></div>
+      </section>
+
+      <section id="calendar" class="page">
+        <div class="topbar">
+          <div>
+            <h2 class="page-title">Production calendar</h2>
+            <p class="sub">Jobs land on their due date. Overdue stays red until you deliver.</p>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="cal-head">
+            <button class="btn btn-ghost" onclick="shiftMonth(-1)">← Prev</button>
+            <h3 id="calTitle" style="margin:0;text-transform:none;letter-spacing:0;font-size:18px"></h3>
+            <button class="btn btn-ghost" onclick="shiftMonth(1)">Next →</button>
+          </div>
+          <div class="cal-grid" id="calGrid"></div>
+        </div>
+        <div class="panel" style="margin-top:14px">
+          <h3 id="calDayTitle">Jobs on selected day</h3>
+          <div id="calDayList">Tap a day.</div>
+        </div>
+      </section>
+
+      <section id="floor" class="page">
+        <div class="topbar">
+          <div>
+            <h2 class="page-title">On the machine</h2>
+            <p class="sub">Phone-friendly floor list. Start a job, park it on a head, mark it ready.</p>
+          </div>
+        </div>
+        <div class="tabs">
+          <button class="btn btn-navy" onclick="floorFilter='today';renderFloor()">Due today / overdue</button>
+          <button class="btn btn-ghost" onclick="floorFilter='production';renderFloor()">In production</button>
+          <button class="btn btn-ghost" onclick="floorFilter='ready';renderFloor()">Ready to pick up</button>
+          <button class="btn btn-ghost" onclick="floorFilter='all';renderFloor()">All open</button>
+        </div>
+        <div id="floorList"></div>
+      </section>
+
+      <section id="customers" class="page">
+        <div class="topbar">
+          <div><h2 class="page-title">Customers</h2><p class="sub">Repeat work starts from a name.</p></div>
+          <button class="btn btn-gold" onclick="openCustomer()">Add customer</button>
+        </div>
+        <div class="panel">
+          <table>
+            <thead><tr><th>Name</th><th>Company</th><th>City</th><th>Email</th><th>Work</th><th>Cell</th><th>Jobs</th><th></th></tr></thead>
+            <tbody id="custBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="inventory" class="page">
+        <div class="topbar">
+          <div><h2 class="page-title">Inventory</h2><p class="sub">Threads, backing, blanks, DTG pretreat, patch blanks.</p></div>
+          <button class="btn btn-gold" onclick="openInv()">Add item</button>
+        </div>
+        <div class="panel">
+          <table>
+            <thead><tr><th>Item</th><th>Type</th><th>Detail</th><th>Qty</th><th>Reorder</th><th></th></tr></thead>
+            <tbody id="invBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="settings" class="page">
+        <div class="topbar">
+          <div><h2 class="page-title">Shop rate cards</h2><p class="sub">Three businesses, three cards. Change these to match 308 pricing.</p></div>
+        </div>
+        <div class="grid-2">
+          <div class="panel">
+            <h3>Embroidery</h3>
+            <div class="row"><div><label>$ / 1,000 stitches</label><input id="sRate" type="number" step="0.01"></div><div><label>Min / piece</label><input id="sMin" type="number" step="0.01"></div></div>
+            <p class="sub">No charge for thread colors — stitch count and min/piece only.</p>
+            <div class="row"><div><label>Extra placement $</label><input id="sPlaceExtra" type="number" step="0.01"></div><div></div></div>
+            <p class="sub">First sew location = full labor (min/piece). Each extra place on the same piece adds this flat $.</p>
+            <div class="settings-block" id="digiFeeBlock">
+              <h3>Embroidery digitizing fees</h3>
+              <p class="sub">Flat digi rate by location &amp; turnaround (Vitor + 50% Digitizing baseline). Each digi location has its own 2 Day / Next Day / 8 Hour prices. Combos optional — override an exact location set with a flat price.</p>
+              <label>Rate card (editable)</label>
+              <table class="digi-rate-card" id="sDigiLocRates">
+                <thead>
+                  <tr><th>Location</th><th>2 Day</th><th>Next Day</th><th>8 Hour Rush</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Cap flat</td>
+                    <td><input id="sLoc_cap_flat_day2" type="number" step="0.01"></td>
+                    <td><input id="sLoc_cap_flat_nextday" type="number" step="0.01"></td>
+                    <td><input id="sLoc_cap_flat_rush8" type="number" step="0.01"></td>
+                  </tr>
+                  <tr>
+                    <td>Cap front left</td>
+                    <td><input id="sLoc_cap_front_left_day2" type="number" step="0.01"></td>
+                    <td><input id="sLoc_cap_front_left_nextday" type="number" step="0.01"></td>
+                    <td><input id="sLoc_cap_front_left_rush8" type="number" step="0.01"></td>
+                  </tr>
+                  <tr>
+                    <td>Cap front right</td>
+                    <td><input id="sLoc_cap_front_right_day2" type="number" step="0.01"></td>
+                    <td><input id="sLoc_cap_front_right_nextday" type="number" step="0.01"></td>
+                    <td><input id="sLoc_cap_front_right_rush8" type="number" step="0.01"></td>
+                  </tr>
+                  <tr>
+                    <td>Cap back</td>
+                    <td><input id="sLoc_cap_back_day2" type="number" step="0.01"></td>
+                    <td><input id="sLoc_cap_back_nextday" type="number" step="0.01"></td>
+                    <td><input id="sLoc_cap_back_rush8" type="number" step="0.01"></td>
+                  </tr>
+                  <tr>
+                    <td>Cap 3D</td>
+                    <td><input id="sLoc_cap_3d_day2" type="number" step="0.01"></td>
+                    <td><input id="sLoc_cap_3d_nextday" type="number" step="0.01"></td>
+                    <td><input id="sLoc_cap_3d_rush8" type="number" step="0.01"></td>
+                  </tr>
+                  <tr>
+                    <td>Beanie</td>
+                    <td><input id="sLoc_beanie_day2" type="number" step="0.01"></td>
+                    <td><input id="sLoc_beanie_nextday" type="number" step="0.01"></td>
+                    <td><input id="sLoc_beanie_rush8" type="number" step="0.01"></td>
+                  </tr>
+                  <tr>
+                    <td>Left Chest</td>
+                    <td><input id="sLoc_left_chest_day2" type="number" step="0.01"></td>
+                    <td><input id="sLoc_left_chest_nextday" type="number" step="0.01"></td>
+                    <td><input id="sLoc_left_chest_rush8" type="number" step="0.01"></td>
+                  </tr>
+                  <tr>
+                    <td>Full Front</td>
+                    <td><input id="sLoc_full_front_day2" type="number" step="0.01"></td>
+                    <td><input id="sLoc_full_front_nextday" type="number" step="0.01"></td>
+                    <td><input id="sLoc_full_front_rush8" type="number" step="0.01"></td>
+                  </tr>
+                  <tr>
+                    <td>Full Back</td>
+                    <td><input id="sLoc_full_back_day2" type="number" step="0.01"></td>
+                    <td><input id="sLoc_full_back_nextday" type="number" step="0.01"></td>
+                    <td><input id="sLoc_full_back_rush8" type="number" step="0.01"></td>
+                  </tr>
+                  <tr>
+                    <td>Patch</td>
+                    <td><input id="sLoc_patch_day2" type="number" step="0.01"></td>
+                    <td><input id="sLoc_patch_nextday" type="number" step="0.01"></td>
+                    <td><input id="sLoc_patch_rush8" type="number" step="0.01"></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="row" style="margin-top:10px">
+                <div><label>Cap 3D premium $</label><input id="sDigiPremium3d" type="number" step="0.01"></div>
+                <div><label>Design height (in) — optional</label><input id="sDigiHeightCutoff" type="number" step="0.1" title="If quote height exceeds this, use at least Full Front rate for that location"></div>
+              </div>
+              <p class="sub">Each location priced from the table above. digiSingles / digiBands kept as snapshots for old imports.</p>
+              <label style="margin-top:12px">Combos (optional — by turnaround)</label>
+              <div id="sDigiComboList"></div>
+              <div class="actions" style="margin-top:8px">
+                <button type="button" class="btn btn-ghost" onclick="toggleDigiComboForm()">+ Add combo</button>
+              </div>
+              <div id="sDigiComboForm" class="digi-combo-form hidden">
+                <div class="digi-locs" id="sComboLocs">
+                  <label><input type="checkbox" value="cap_flat"><span>Cap flat</span></label>
+                  <label><input type="checkbox" value="cap_front_left"><span>Cap front left</span></label>
+                  <label><input type="checkbox" value="cap_front_right"><span>Cap front right</span></label>
+                  <label><input type="checkbox" value="cap_back"><span>Cap back</span></label>
+                  <label><input type="checkbox" value="cap_3d"><span>Cap 3D</span></label>
+                  <label><input type="checkbox" value="beanie"><span>Beanie</span></label>
+                  <label><input type="checkbox" value="left_chest"><span>Left Chest</span></label>
+                  <label><input type="checkbox" value="full_front"><span>Full Front</span></label>
+                  <label><input type="checkbox" value="full_back"><span>Full Back</span></label>
+                  <label><input type="checkbox" value="patch"><span>Patch</span></label>
+                </div>
+                <div class="row-3" style="margin-top:8px">
+                  <div><label>2 Day $</label><input id="sComboDay2" type="number" step="0.01" value="40"></div>
+                  <div><label>Next Day $</label><input id="sComboNextday" type="number" step="0.01" value="50"></div>
+                  <div><label>8 Hour $</label><input id="sComboRush8" type="number" step="0.01" value="78"></div>
+                </div>
+                <div class="actions" style="margin-top:8px">
+                  <button type="button" class="btn btn-gold" onclick="addDigiCombo()">Add</button>
+                  <button type="button" class="btn btn-ghost" onclick="toggleDigiComboForm(false)">Cancel</button>
+                </div>
+                <p class="sub">Pick 2 or more locations. Combo prices by turnaround replace the sum when the set matches.</p>
+              </div>
+            </div>
+            <div class="settings-block">
+              <h3>DTG</h3>
+              <div class="row"><div><label>Setup / art fee</label><input id="sDtgSetup" type="number" step="0.01"></div><div><label>Print / location</label><input id="sDtgLoc" type="number" step="0.01"></div></div>
+              <div class="row"><div><label>Dark garment add-on</label><input id="sDtgDark" type="number" step="0.01"></div><div><label>Min DTG / piece</label><input id="sDtgMin" type="number" step="0.01"></div></div>
+            </div>
+            <div class="settings-block">
+              <h3>Patches (each, before qty break)</h3>
+              <div class="row-3">
+                <div><label>2"</label><input id="sP2" type="number" step="0.01"></div>
+                <div><label>3"</label><input id="sP3" type="number" step="0.01"></div>
+                <div><label>4"</label><input id="sP4" type="number" step="0.01"></div>
+              </div>
+              <div class="row">
+                <div><label>5" / custom</label><input id="sP5" type="number" step="0.01"></div>
+                <div><label>Patch digitizing</label><input id="sPDigi" type="number" step="0.01"></div>
+              </div>
+              <div class="row">
+                <div><label>Iron-on add-on</label><input id="sPIron" type="number" step="0.01"></div>
+                <div><label>Velcro add-on</label><input id="sPVelcro" type="number" step="0.01"></div>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <h3>Shared</h3>
+            <div class="row"><div><label>Rush markup % (DTG / patches)</label><input id="sRush" type="number"></div><div><label>Sales tax %</label><input id="sTax" type="number" step="0.01"></div></div>
+            <p class="sub" style="margin:8px 0">Quantity off decoration only (not blanks).</p>
+            <div class="row-3">
+              <div><label>12+ off %</label><input id="sD12" type="number"></div>
+              <div><label>24+ off %</label><input id="sD24" type="number"></div>
+              <div><label>48+ off %</label><input id="sD48" type="number"></div>
+            </div>
+            <h3 style="margin-top:16px">Machine time (embroidery)</h3>
+            <div class="row">
+              <div><label>Effective SPM</label><input id="sSpm" type="number"></div>
+              <div><label>Hoop + trim min</label><input id="sHoop" type="number" step="0.1"></div>
+            </div>
+            <label>Machine names (comma separated)</label>
+            <input id="sMachines" placeholder="Head 1, Head 2, 15-needle">
+            <h3 style="margin-top:16px">Shop</h3>
+            <div class="row"><div><label>Shop name</label><input id="sShop"></div><div><label>Phone</label><input id="sPhone"></div></div>
+            <label>Address</label><input id="sAddr">
+            <label>From email on quotes</label><input id="sFrom" placeholder="ron@308Embroidery.com">
+            <div class="actions"><button class="btn btn-gold" onclick="saveSettings()">Save rates</button></div>
+            <h3 style="margin-top:16px">Google sync</h3>
+            <div class="sync-panel" id="syncPanel">
+              <p class="sub">Quotes sync through your Google account. Only your signed-in devices share this data.</p>
+              <p class="sync-email" id="syncEmail">Not signed in</p>
+              <p class="sync-status" id="syncStatusText">Status: Offline cache</p>
+              <div class="actions">
+                <button class="btn btn-navy" type="button" onclick="forcePull()">Force pull</button>
+                <button class="btn btn-gold" type="button" onclick="forcePush()">Force push</button>
+                <button class="btn btn-ghost" type="button" onclick="googleSignOut()">Sign out</button>
+              </div>
+              <p class="sub" style="margin-top:10px">Live file: Drive → <b>308 Desk Sync</b> → <b>desk308-live.json</b> (app-managed). Manual backups can still go in <b>308 Desk Backups</b>.</p>
+            </div>
+            <h3 style="margin-top:16px">Manual backup</h3>
+            <p class="sub" id="backupStamp">No backup recorded yet.</p>
+            <div class="actions">
+              <button class="btn btn-gold" onclick="shareBackup()">Share to Drive</button>
+              <button class="btn btn-navy" onclick="exportData()">Download JSON</button>
+              <button class="btn btn-ghost" onclick="document.getElementById('importFile').click()">Import JSON</button>
+              <input id="importFile" type="file" accept="application/json" class="hidden" onchange="importData(event)">
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <nav class="mobile-nav no-print" aria-label="Mobile">
+    <button type="button" data-page="dash" class="active"><span class="nav-ico">⌂</span>Home</button>
+    <button type="button" data-page="quote"><span class="nav-ico">$</span>Quote</button>
+    <button type="button" data-page="jobs"><span class="nav-ico">☰</span>Jobs</button>
+    <button type="button" data-page="floor"><span class="nav-ico">⚙</span>Floor</button>
+    <button type="button" data-page="calendar"><span class="nav-ico">📅</span>Cal</button>
+    <button type="button" data-page="customers"><span class="nav-ico">☺</span>Cust</button>
+    <button type="button" data-page="inventory"><span class="nav-ico">▦</span>Inv</button>
+    <button type="button" data-page="settings"><span class="nav-ico">●</span>Set</button>
+  </nav>
+
+  <div class="modal-bg" id="modalBg" onclick="if(event.target===this)closeModal()"><div class="modal" id="modal"></div></div>
+  <div class="toast" id="toast"></div>
+
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script>
+    const STATUSES = ["quote","approved","production","ready","delivered"];
+    const STATUS_LABEL = { quote:"Quote", approved:"Approved", production:"In production", ready:"Ready", delivered:"Delivered" };
+    let calCursor = new Date();
+    let selectedDay = isoDate(new Date());
+    let floorFilter = "today";
+
+    const APP_VERSION = "2.18";
+
+    // Parent replaces this with the real OAuth Web client ID from Google Cloud Console.
+    const GOOGLE_CLIENT_ID = "PASTE_CLIENT_ID.apps.googleusercontent.com";
+    const ALLOWED_EMAILS = ["ronahlers@gmail.com", "ron.ahlers@gmail.com"];
+    const DRIVE_SCOPE = "https://www.googleapis.com/auth/drive.file";
+    const SYNC_FOLDER_NAME = "308 Desk Sync";
+    const SYNC_FILE_NAME = "desk308-live.json";
+    const LS_DRIVE_FILE = "desk308_driveFileId";
+    const LS_DRIVE_FOLDER = "desk308_driveFolderId";
+    const LS_UPDATED = "desk308_updatedAt";
+    const LS_TOKEN = "desk308_googleToken"; // access token + expiry (session-ish)
+
+    const DEFAULTS = {
+      settings: {
+        rate: 1.25, minPiece: 20, digi: 45, inclColors: 999, colorFee: 0, placeExtra: 5, placeMult: 0.7, chargeColors: false,
+        // DIGI_PRICE_SEED — Vitor order portal rates ×2 (2026-09-22). digiBands/digiSingles kept for old imports.
+        // DIGI_PRICE_SEED — Vitor order portal ×1.5 (50% markup), 2026-09-22
+        digiPriceSeed: "portal-1p5-2026-09-22",
+        digiLocRates: {
+          cap_flat:   { day2: 25.49, nextday: 34.49, rush8: 52.49 },
+          cap_front_left:  { day2: 25.49, nextday: 34.49, rush8: 52.49 },
+          cap_front_right: { day2: 25.49, nextday: 34.49, rush8: 52.49 },
+          cap_back:   { day2: 25.49, nextday: 34.49, rush8: 52.49 },
+          cap_3d:     { day2: 25.49, nextday: 34.49, rush8: 52.49 },
+          beanie:     { day2: 25.49, nextday: 34.49, rush8: 52.49 },
+          left_chest: { day2: 25.49, nextday: 34.49, rush8: 52.49 },
+          patch:      { day2: 25.49, nextday: 34.49, rush8: 52.49 },
+          full_front: { day2: 49.49, nextday: 58.49, rush8: 74.99 },
+          full_back:  { day2: 49.49, nextday: 58.49, rush8: 74.99 }
+        },
+        digiBands: {
+          small: { day2: 25.49, nextday: 34.49, rush8: 52.49 },
+          large: { day2: 49.49, nextday: 58.49, rush8: 74.99 }
+        },
+        digiPremium3d: 0,
+        digiHeightCutoff: 7.5,
+        digiSingles: {
+          cap_flat: 25.49, cap_front_left: 25.49, cap_front_right: 25.49, cap_back: 25.49,
+          cap_3d: 25.49, beanie: 25.49, left_chest: 25.49,
+          full_front: 49.49, full_back: 49.49, patch: 25.49
+        },
+        digiCombos: [
+          { locs: ["cap_flat","full_back"], day2: 74.97, nextday: 89.99, rush8: 112.49 },
+          { locs: ["cap_flat","left_chest"], day2: 29.99, nextday: 37.49, rush8: 58.49 },
+          { locs: ["cap_3d","cap_flat"], day2: 29.99, nextday: 37.49, rush8: 58.49 },
+          { locs: ["cap_3d","cap_flat","left_chest"], day2: 37.49, nextday: 41.99, rush8: 68.99 },
+          { locs: ["full_back","left_chest"], day2: 74.97, nextday: 89.99, rush8: 112.49 },
+          { locs: ["cap_flat","full_back","left_chest"], day2: 79.47, nextday: 95.97, rush8: 143.96 }
+        ],
+        rush: 25, tax: 0, d12: 8, d24: 15, d48: 22, spm: 700, hoop: 2.5,
+        dtgSetup: 25, dtgLoc: 8.5, dtgDark: 2.5, dtgMin: 10,
+        p2: 6.5, p3: 8.5, p4: 11, p5: 15, pDigi: 40, pIron: 0.75, pVelcro: 1.5,
+        machines: "Head 1, Head 2",
+        shop: "308 Embroidery", phone: "308-635-7123",
+        addr: "1710 Broadway, Scottsbluff, NE 69361",
+        from: "ron@308Embroidery.com"
+      },
+      jobs: [],
+      customers: [{ id: cid(), name: "Walk-in / cash", lastName: "", firstName: "", company: "Walk-in / cash", email: "", phone: "", workPhone: "", cellPhone: "", address: "", address2: "", city: "", state: "", zip: "", created: Date.now() }],
+      inventory: [
+        { id: cid(), name: "Isacord poly", type: "Thread", detail: "Assorted cones", qty: 40, reorder: 8 },
+        { id: cid(), name: "Cutaway backing", type: "Stabilizer", detail: "2.5 oz", qty: 12, reorder: 3 },
+        { id: cid(), name: "Tearaway backing", type: "Stabilizer", detail: "1.8 oz", qty: 10, reorder: 3 },
+        { id: cid(), name: "DTG pretreat", type: "DTG", detail: "Gallon", qty: 2, reorder: 1 },
+        { id: cid(), name: "Patch twill blanks", type: "Patch", detail: "3 inch", qty: 50, reorder: 15 },
+        { id: cid(), name: "Structured cap", type: "Blank", detail: "Assorted", qty: 24, reorder: 6 }
+      ]
+    };
+
+    function cid() { return Math.random().toString(36).slice(2, 10); }
+    function isoDate(d) { return d.toISOString().slice(0,10); }
+    function todayISO() { const t = new Date(); t.setHours(12,0,0,0); return isoDate(t); }
+    function money(n) { return "$" + (Number(n)||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}); }
+    /** Format US phone after entry: 3086357123 → 308-635-7123 */
+    function formatPhone(raw) {
+      if (raw == null) return "";
+      const s = String(raw).trim();
+      if (!s) return "";
+      const digits = s.replace(/\D/g, "");
+      if (digits.length === 10) return digits.slice(0,3) + "-" + digits.slice(3,6) + "-" + digits.slice(6);
+      if (digits.length === 11 && digits[0] === "1") return "1-" + digits.slice(1,4) + "-" + digits.slice(4,7) + "-" + digits.slice(7);
+      if (digits.length === 7) return digits.slice(0,3) + "-" + digits.slice(3);
+      return s; // leave odd lengths alone
+    }
+    function bindPhoneFormat(el) {
+      if (!el || el.dataset.phoneBound) return;
+      el.dataset.phoneBound = "1";
+      el.addEventListener("blur", () => {
+        const next = formatPhone(el.value);
+        if (next !== el.value) el.value = next;
+      });
+    }
+    function formatAddressBlock(o) {
+      o = o || {};
+      const a1 = (o.address||"").trim();
+      const a2 = (o.address2||"").trim();
+      const city = (o.city||"").trim();
+      const state = (o.state||"").trim().toUpperCase();
+      const zip = (o.zip||"").trim();
+      const line3 = [city, [state, zip].filter(Boolean).join(" ")].filter(Boolean).join(", ");
+      return [a1, a2, line3].filter(Boolean).join("\n");
+    }
+    function formatAddressOneLine(o) {
+      return formatAddressBlock(o).replace(/\n/g, ", ");
+    }
+    function bindAllPhoneFields(root) {
+      const scope = root || document;
+      ["cWorkPhone","cCellPhone","sPhone","nWork","nCell"].forEach(id => {
+        const el = scope.getElementById ? scope.getElementById(id) : document.getElementById(id);
+        if (el) bindPhoneFormat(el);
+      });
+      scope.querySelectorAll && scope.querySelectorAll("input[data-phone], input.phone").forEach(bindPhoneFormat);
+    }
+    function toast(msg) { const el = document.getElementById("toast"); el.textContent = msg; el.style.display = "block"; setTimeout(()=>el.style.display="none", 2200); }
+    function svc() { return document.querySelector('input[name="svc"]:checked').value; }
+
+    const DIGI_LOC_IDS = ["cap_flat","cap_front_left","cap_front_right","cap_back","cap_3d","beanie","left_chest","full_front","full_back","patch"];
+    const DIGI_LOC_LABEL = {
+      cap_flat: "Cap flat", cap_front_left: "Cap front left", cap_front_right: "Cap front right", cap_back: "Cap back",
+      cap_3d: "Cap 3D", beanie: "Beanie", left_chest: "Left Chest",
+      full_front: "Full Front", full_back: "Full Back", patch: "Patch"
+    };
+    const DIGI_TURN_IDS = ["day2","nextday","rush8"];
+    const DIGI_TURN_LABEL = { day2: "2 Day", nextday: "Next Day", rush8: "8 Hour Rush", rush: "8 Hour Rush", std: "2 Day" };
+
+    function normalizeDigiTurn(rush) {
+      let key = rush || "day2";
+      if (key === "rush" || key === "std") key = key === "rush" ? "rush8" : "day2";
+      if (!DIGI_TURN_IDS.includes(key)) key = "day2";
+      return key;
+    }
+
+    function normalizeSettings(rawSettings) {
+      const s = { ...DEFAULTS.settings, ...(rawSettings||{}) };
+      const baseBands = DEFAULTS.settings.digiBands;
+      s.digiBands = {
+        small: { ...baseBands.small, ...((rawSettings && rawSettings.digiBands && rawSettings.digiBands.small) || {}) },
+        large: { ...baseBands.large, ...((rawSettings && rawSettings.digiBands && rawSettings.digiBands.large) || {}) }
+      };
+      const baseLoc = DEFAULTS.settings.digiLocRates;
+      const rawLoc = (rawSettings && rawSettings.digiLocRates) || null;
+      const seeded = {};
+      DIGI_LOC_IDS.forEach(id => {
+        const fromRaw = rawLoc && rawLoc[id] ? rawLoc[id] : null;
+        if (fromRaw) {
+          seeded[id] = { ...baseLoc[id], ...fromRaw };
+        } else if (rawSettings && rawSettings.digiBands) {
+          // Migrate old band → location (former small→first five + patch, large→full front/back)
+          const bandKey = (id === "full_front" || id === "full_back") ? "large" : "small";
+          seeded[id] = { ...s.digiBands[bandKey] };
+        } else {
+          seeded[id] = { ...baseLoc[id] };
+        }
+      });
+      s.digiLocRates = seeded;
+      // Keep digiBands as derived snapshot from left_chest / full_front
+      s.digiBands = {
+        small: { ...s.digiLocRates.left_chest },
+        large: { ...s.digiLocRates.full_front }
+      };
+      const baseSingles = { ...DEFAULTS.settings.digiSingles };
+      if (!rawSettings || !rawSettings.digiSingles) {
+        s.digiSingles = { ...baseSingles };
+      } else {
+        s.digiSingles = { ...baseSingles, ...rawSettings.digiSingles };
+      }
+      if (s.digiPriceSeed !== DEFAULTS.settings.digiPriceSeed) {
+        s.digiLocRates = JSON.parse(JSON.stringify(DEFAULTS.settings.digiLocRates));
+        s.digiCombos = JSON.parse(JSON.stringify(DEFAULTS.settings.digiCombos));
+        s.digiBands = JSON.parse(JSON.stringify(DEFAULTS.settings.digiBands));
+        s.digiSingles = { ...DEFAULTS.settings.digiSingles };
+        s.digiPriceSeed = DEFAULTS.settings.digiPriceSeed;
+      }
+      if (!Array.isArray(s.digiCombos)) s.digiCombos = [];
+      s.digiCombos = s.digiCombos.map(c => {
+        const locs = sortLocs(c.locs || []);
+        const flat = Number(c.price);
+        return {
+          locs,
+          day2: c.day2 != null ? Number(c.day2) : (flat || 0),
+          nextday: c.nextday != null ? Number(c.nextday) : (flat || 0),
+          rush8: c.rush8 != null ? Number(c.rush8) : (flat || 0),
+          price: c.price != null ? flat : undefined
+        };
+      }).filter(c => c.locs.length >= 2);
+      if (s.digiPremium3d == null) s.digiPremium3d = DEFAULTS.settings.digiPremium3d;
+      if (s.digiHeightCutoff == null) s.digiHeightCutoff = DEFAULTS.settings.digiHeightCutoff;
+      if (s.digi == null) s.digi = DEFAULTS.settings.digi;
+      // Shop policy: no thread-color fees; $20 min/piece
+      s.chargeColors = false;
+      s.colorFee = 0;
+      s.inclColors = 999;
+      if (s.minPiece == null || Number(s.minPiece) === 8) s.minPiece = 20;
+      // Flat $ per extra sew location (was placeMult × first location). Default $5.
+      if (s.placeExtra == null || s.placeExtra === "") s.placeExtra = 5;
+      return s;
+    }
+
+    function sortLocs(locs) {
+      const set = [...new Set((locs||[]).filter(id => DIGI_LOC_IDS.includes(id)))];
+      return set.sort((a,b) => DIGI_LOC_IDS.indexOf(a) - DIGI_LOC_IDS.indexOf(b));
+    }
+
+    function digiLocLabels(locs) {
+      return sortLocs(locs).map(id => DIGI_LOC_LABEL[id] || id);
+    }
+
+    function digiLocPrice(id, turn, s, designHeight) {
+      const rates = (s && s.digiLocRates) || DEFAULTS.settings.digiLocRates;
+      const tier = rates[id] || {};
+      let price = Number(tier[turn]) || 0;
+      const cutoff = Number((s && s.digiHeightCutoff) != null ? s.digiHeightCutoff : 7.5);
+      if (designHeight != null && Number(designHeight) > cutoff) {
+        const ff = Number((rates.full_front && rates.full_front[turn]) || 0);
+        price = Math.max(price, ff);
+      }
+      if (id === "cap_3d") price += Number((s && s.digiPremium3d) || 0);
+      return price;
+    }
+
+    /** Fee = sum of each location's rate×turnaround; digiCombos override exact sets. */
+    function digiFeeFor(locs, s, turn, designHeight) {
+      const ids = sortLocs(locs);
+      const t = normalizeDigiTurn(turn);
+      const turnLabel = DIGI_TURN_LABEL[t] || t;
+      if (!ids.length) return { amount: 0, mode: "none", label: "Digitizing", turn: t };
+      const names = digiLocLabels(ids).join(" + ");
+      const combos = (s && Array.isArray(s.digiCombos)) ? s.digiCombos : [];
+      const key = ids.join("|");
+      const hit = combos.find(c => sortLocs(c.locs).join("|") === key);
+      if (hit) {
+        let amount = 0;
+        if (hit.day2 != null || hit.nextday != null || hit.rush8 != null) amount = Number(hit[t]) || 0;
+        else amount = Number(hit.price) || 0;
+        return {
+          amount,
+          mode: "combo",
+          turn: t,
+          label: "Digitizing — " + names + " (" + turnLabel + ", combo)"
+        };
+      }
+      const amount = ids.reduce((sum, id) => sum + digiLocPrice(id, t, s, designHeight), 0);
+      const mode = ids.length === 1 ? "location" : "sum";
+      return {
+        amount,
+        mode,
+        turn: t,
+        label: "Digitizing — " + names + " (" + turnLabel + ")"
+      };
+    }
+
+    // Line-item place labels → digi rate-card ids (Right chest / Sleeve / Other have no digi band)
+    const PLACE_TO_DIGI = {
+      "Cap front left": "cap_front_left",
+      "Cap front right": "cap_front_right",
+      "Cap back": "cap_back",
+      "Cap flat": "cap_flat",
+      "Cap 3D": "cap_3d",
+      "Beanie": "beanie",
+      "Left chest": "left_chest",
+      "Full front": "full_front",
+      "Full back": "full_back",
+      "Patch": "patch"
+    };
+
+    function digiIdsFromPlaces(places) {
+      const ids = [];
+      normalizePlaceList(places).forEach(p => {
+        const id = PLACE_TO_DIGI[p];
+        if (id) ids.push(id);
+      });
+      return sortLocs(ids);
+    }
+
+    function getDigiLocations() {
+      const items = (typeof collectLineItems === "function") ? collectLineItems() : [];
+      const places = items.flatMap(li => normalizePlaceList(li.locations || li.location));
+      return digiIdsFromPlaces(places);
+    }
+
+    function setDigiLocations(_locs) {
+      // Digi locations are derived from line-item Location chips — no separate UI.
+    }
+
+    function load() {
+      try {
+        const raw = localStorage.getItem("desk308");
+        if (!raw) return structuredClone(DEFAULTS);
+        const data = JSON.parse(raw);
+        if (data.updatedAt) localStorage.setItem(LS_UPDATED, data.updatedAt);
+        return {
+          settings: normalizeSettings(data.settings||{}),
+          jobs: data.jobs || [],
+          customers: data.customers?.length ? data.customers : DEFAULTS.customers,
+          inventory: data.inventory?.length ? data.inventory : DEFAULTS.inventory
+        };
+      } catch { return structuredClone(DEFAULTS); }
+    }
+    function localUpdatedAt() {
+      return localStorage.getItem(LS_UPDATED) || "";
+    }
+    function bumpLocalUpdatedAt(iso) {
+      const t = iso || new Date().toISOString();
+      localStorage.setItem(LS_UPDATED, t);
+      return t;
+    }
+    function buildSyncPayload(updatedAt) {
+      return {
+        updatedAt: updatedAt || localUpdatedAt() || new Date().toISOString(),
+        appVersion: APP_VERSION,
+        settings: DB.settings,
+        jobs: DB.jobs,
+        customers: DB.customers,
+        inventory: DB.inventory
+      };
+    }
+    let saveDriveTimer = null;
+    function save(opts) {
+      opts = opts || {};
+      const skipBump = !!opts.skipBump;
+      const skipPush = !!opts.skipPush;
+      if (!skipBump) bumpLocalUpdatedAt();
+      const payload = buildSyncPayload();
+      localStorage.setItem("desk308", JSON.stringify(payload));
+      maybeNagBackup();
+      if (!skipPush && syncState.signedIn) scheduleDrivePush();
+    }
+    function scheduleDrivePush() {
+      if (saveDriveTimer) clearTimeout(saveDriveTimer);
+      saveDriveTimer = setTimeout(() => { saveDriveTimer = null; pushToDrive().catch(e => setSyncStatus("Error", String(e.message||e), "err")); }, 800);
+    }
+    function backupFile() {
+      const stamp = new Date().toISOString().slice(0,19).replace(/[:T]/g,"-");
+      return new File([JSON.stringify(DB,null,2)], "308-desk-backup-"+stamp+".json", { type: "application/json" });
+    }
+    function markBackedUp() {
+      localStorage.setItem("desk308_lastBackup", Date.now().toString());
+      showBackupStamp();
+    }
+    function showBackupStamp() {
+      const el = document.getElementById("backupStamp");
+      if (!el) return;
+      const t = Number(localStorage.getItem("desk308_lastBackup")||0);
+      el.textContent = t ? ("Last backup marked: " + new Date(t).toLocaleString()) : "No backup recorded yet.";
+    }
+    function maybeNagBackup() {
+      const t = Number(localStorage.getItem("desk308_lastBackup")||0);
+      if (t && Date.now()-t < 24*60*60*1000) return;
+      if (sessionStorage.getItem("desk308_nag")) return;
+      sessionStorage.setItem("desk308_nag","1");
+      if (!syncState.signedIn) toast("Backup reminder: Settings → Share to Drive");
+    }
+    async function shareBackup() {
+      const file = backupFile();
+      try {
+        if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+          await navigator.share({ title: "308 Desk backup", text: "Save this in Google Drive → 308 Desk Backups", files: [file] });
+          markBackedUp();
+          toast("Pick Drive, then 308 Desk Backups");
+          return;
+        }
+      } catch (e) {
+        if (String(e).includes("Abort")) return;
+      }
+      exportData();
+      toast("File downloaded — move it into Drive → 308 Desk Backups");
+    }
+
+    /* ===== Google Identity + Drive live sync (v2.18) ===== */
+    const syncState = {
+      signedIn: false,
+      email: "",
+      accessToken: "",
+      tokenExpiry: 0,
+      status: "Offline cache",
+      busy: false,
+      tokenClient: null,
+      pollTimer: null
+    };
+
+    function isEmailAllowed(email) {
+      const e = String(email||"").trim().toLowerCase();
+      return ALLOWED_EMAILS.some(a => a.toLowerCase() === e);
+    }
+
+    function setSyncStatus(label, detail, tone) {
+      syncState.status = label;
+      const text = document.getElementById("syncStatusText");
+      if (text) text.textContent = "Status: " + label + (detail ? (" — " + detail) : "");
+      const emailEl = document.getElementById("syncEmail");
+      if (emailEl) emailEl.textContent = syncState.email || "Not signed in";
+      const dot = document.getElementById("phoneSyncDot");
+      const lab = document.getElementById("phoneSyncLabel");
+      if (dot) {
+        dot.className = "sync-dot " + (tone || (label === "Synced" ? "ok" : label === "Syncing" ? "busy" : label === "Error" ? "err" : "off"));
+      }
+      if (lab) {
+        const short = label === "Synced" ? "Synced" : label === "Syncing" ? "Sync…" : label === "Error" ? "Err" : label === "Offline cache" ? "Offline" : label;
+        lab.textContent = short;
+      }
+    }
+
+    function showAuthGate(show, errMsg) {
+      const gate = document.getElementById("authGate");
+      if (!gate) return;
+      gate.classList.toggle("hidden", !show);
+      const err = document.getElementById("authErr");
+      if (err) {
+        if (errMsg) { err.textContent = errMsg; err.classList.add("show"); }
+        else { err.textContent = ""; err.classList.remove("show"); }
+      }
+      document.body.style.overflow = show ? "hidden" : "";
+    }
+
+    function persistToken() {
+      try {
+        localStorage.setItem(LS_TOKEN, JSON.stringify({
+          accessToken: syncState.accessToken,
+          tokenExpiry: syncState.tokenExpiry,
+          email: syncState.email
+        }));
+      } catch (_) {}
+    }
+    function clearPersistedToken() {
+      localStorage.removeItem(LS_TOKEN);
+    }
+    function restorePersistedToken() {
+      try {
+        const raw = localStorage.getItem(LS_TOKEN);
+        if (!raw) return false;
+        const t = JSON.parse(raw);
+        if (!t.accessToken || !t.email || !isEmailAllowed(t.email)) return false;
+        if (t.tokenExpiry && Date.now() > t.tokenExpiry - 60_000) return false;
+        syncState.accessToken = t.accessToken;
+        syncState.tokenExpiry = t.tokenExpiry || 0;
+        syncState.email = t.email;
+        syncState.signedIn = true;
+        return true;
+      } catch { return false; }
+    }
+
+    function ensureTokenClient() {
+      if (syncState.tokenClient) return syncState.tokenClient;
+      if (!window.google || !google.accounts || !google.accounts.oauth2) return null;
+      syncState.tokenClient = google.accounts.oauth2.initTokenClient({
+        client_id: GOOGLE_CLIENT_ID,
+        scope: DRIVE_SCOPE,
+        callback: () => {}
+      });
+      return syncState.tokenClient;
+    }
+
+    function requestAccessToken(prompt) {
+      return new Promise((resolve, reject) => {
+        const client = ensureTokenClient();
+        if (!client) return reject(new Error("Google sign-in still loading — try again in a second"));
+        if (String(GOOGLE_CLIENT_ID).startsWith("PASTE_CLIENT_ID")) {
+          return reject(new Error("OAuth client ID not set yet (Google Cloud Console)"));
+        }
+        client.callback = (resp) => {
+          if (resp && resp.error) return reject(new Error(resp.error_description || resp.error));
+          if (!resp || !resp.access_token) return reject(new Error("No access token"));
+          syncState.accessToken = resp.access_token;
+          const expiresIn = Number(resp.expires_in || 3600) * 1000;
+          syncState.tokenExpiry = Date.now() + expiresIn;
+          persistToken();
+          resolve(resp.access_token);
+        };
+        try {
+          const opt = {};
+          if (prompt) opt.prompt = prompt;
+          client.requestAccessToken(opt);
+        } catch (e) { reject(e); }
+      });
+    }
+
+    async function fetchUserEmail(token) {
+      const r = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+        headers: { Authorization: "Bearer " + token }
+      });
+      if (!r.ok) throw new Error("Could not read Google account");
+      const j = await r.json();
+      return j.email || "";
+    }
+
+    async function driveFetch(path, opts) {
+      opts = opts || {};
+      const headers = Object.assign({}, opts.headers || {}, {
+        Authorization: "Bearer " + syncState.accessToken
+      });
+      const url = path.startsWith("http") ? path : ("https://www.googleapis.com/drive/v3/" + path);
+      let r = await fetch(url, Object.assign({}, opts, { headers }));
+      if (r.status === 401) {
+        await requestAccessToken("");
+        headers.Authorization = "Bearer " + syncState.accessToken;
+        r = await fetch(url, Object.assign({}, opts, { headers }));
+      }
+      return r;
+    }
+
+    async function findOrCreateFolder() {
+      const cached = localStorage.getItem(LS_DRIVE_FOLDER);
+      if (cached) {
+        const chk = await driveFetch("files/" + encodeURIComponent(cached) + "?fields=id,name,trashed");
+        if (chk.ok) {
+          const j = await chk.json();
+          if (j && j.id && !j.trashed) return j.id;
+        }
+        localStorage.removeItem(LS_DRIVE_FOLDER);
+      }
+      const q = encodeURIComponent("name='" + SYNC_FOLDER_NAME + "' and mimeType='application/vnd.google-apps.folder' and trashed=false");
+      const list = await driveFetch("files?q=" + q + "&spaces=drive&fields=files(id,name)&pageSize=5");
+      if (!list.ok) throw new Error("Drive folder lookup failed (" + list.status + ")");
+      const lj = await list.json();
+      if (lj.files && lj.files.length) {
+        localStorage.setItem(LS_DRIVE_FOLDER, lj.files[0].id);
+        return lj.files[0].id;
+      }
+      const create = await driveFetch("files", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: SYNC_FOLDER_NAME, mimeType: "application/vnd.google-apps.folder" })
+      });
+      if (!create.ok) throw new Error("Could not create sync folder");
+      const cj = await create.json();
+      localStorage.setItem(LS_DRIVE_FOLDER, cj.id);
+      return cj.id;
+    }
+
+    async function findOrCreateSyncFile(folderId) {
+      const cached = localStorage.getItem(LS_DRIVE_FILE);
+      if (cached) {
+        const chk = await driveFetch("files/" + encodeURIComponent(cached) + "?fields=id,name,trashed");
+        if (chk.ok) {
+          const j = await chk.json();
+          if (j && j.id && !j.trashed) return j.id;
+        }
+        localStorage.removeItem(LS_DRIVE_FILE);
+      }
+      const q = encodeURIComponent("name='" + SYNC_FILE_NAME + "' and '" + folderId + "' in parents and trashed=false");
+      const list = await driveFetch("files?q=" + q + "&spaces=drive&fields=files(id,name)&pageSize=5");
+      if (!list.ok) throw new Error("Drive file lookup failed (" + list.status + ")");
+      const lj = await list.json();
+      if (lj.files && lj.files.length) {
+        localStorage.setItem(LS_DRIVE_FILE, lj.files[0].id);
+        return lj.files[0].id;
+      }
+      // Create empty metadata then upload content
+      const meta = await driveFetch("https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id", {
+        method: "POST",
+        headers: { "Content-Type": "multipart/related; boundary=desk308bound" },
+        body: buildMultipart({ name: SYNC_FILE_NAME, parents: [folderId], mimeType: "application/json" }, buildSyncPayload())
+      });
+      if (!meta.ok) {
+        const t = await meta.text();
+        throw new Error("Could not create sync file: " + t.slice(0, 120));
+      }
+      const mj = await meta.json();
+      localStorage.setItem(LS_DRIVE_FILE, mj.id);
+      return mj.id;
+    }
+
+    function buildMultipart(metadata, contentObj) {
+      const boundary = "desk308bound";
+      const meta = JSON.stringify(metadata);
+      const body = JSON.stringify(contentObj, null, 2);
+      const nl = "\r\n";
+      return (
+        "--" + boundary + nl +
+        "Content-Type: application/json; charset=UTF-8" + nl + nl +
+        meta + nl +
+        "--" + boundary + nl +
+        "Content-Type: application/json" + nl + nl +
+        body + nl +
+        "--" + boundary + "--"
+      );
+    }
+
+    async function downloadSyncFile(fileId) {
+      const r = await driveFetch("files/" + encodeURIComponent(fileId) + "?alt=media");
+      if (r.status === 404) return null;
+      if (!r.ok) throw new Error("Pull failed (" + r.status + ")");
+      return await r.json();
+    }
+
+    async function uploadSyncFile(fileId, payload) {
+      const r = await driveFetch("https://www.googleapis.com/upload/drive/v3/files/" + encodeURIComponent(fileId) + "?uploadType=media", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      if (!r.ok) {
+        const t = await r.text();
+        throw new Error("Push failed (" + r.status + "): " + t.slice(0, 100));
+      }
+      return true;
+    }
+
+    function applyRemotePayload(data) {
+      if (!data || typeof data !== "object") return false;
+      DB = {
+        settings: normalizeSettings(data.settings || {}),
+        jobs: data.jobs || [],
+        customers: data.customers || [],
+        inventory: data.inventory || []
+      };
+      const ua = data.updatedAt || new Date().toISOString();
+      bumpLocalUpdatedAt(ua);
+      save({ skipBump: true, skipPush: true });
+      refreshAsideFoot();
+      const active = document.querySelector(".page.active");
+      go(active ? active.id : "dash");
+      return true;
+    }
+
+    function tsNewer(a, b) {
+      const ta = Date.parse(a || "") || 0;
+      const tb = Date.parse(b || "") || 0;
+      return ta > tb;
+    }
+
+    async function ensureDriveHandles() {
+      const folderId = await findOrCreateFolder();
+      const fileId = await findOrCreateSyncFile(folderId);
+      return fileId;
+    }
+
+    async function reconcileSync(force) {
+      if (!syncState.signedIn || !syncState.accessToken) return;
+      if (syncState.busy) return;
+      syncState.busy = true;
+      setSyncStatus("Syncing", "", "busy");
+      try {
+        const fileId = await ensureDriveHandles();
+        const remote = await downloadSyncFile(fileId);
+        const localTs = localUpdatedAt();
+        if (!remote || !remote.updatedAt) {
+          await uploadSyncFile(fileId, buildSyncPayload(localTs || new Date().toISOString()));
+          setSyncStatus("Synced", "created on Drive", "ok");
+        } else if (force === "pull" || tsNewer(remote.updatedAt, localTs)) {
+          applyRemotePayload(remote);
+          setSyncStatus("Synced", "pulled " + remote.updatedAt.slice(0, 19), "ok");
+        } else if (force === "push" || tsNewer(localTs, remote.updatedAt)) {
+          await uploadSyncFile(fileId, buildSyncPayload(localTs || new Date().toISOString()));
+          setSyncStatus("Synced", "pushed", "ok");
+        } else {
+          setSyncStatus("Synced", "up to date", "ok");
+        }
+      } catch (e) {
+        setSyncStatus("Error", String(e.message || e), "err");
+      } finally {
+        syncState.busy = false;
+      }
+    }
+
+    async function pushToDrive() {
+      if (!syncState.signedIn) return;
+      if (syncState.busy) { scheduleDrivePush(); return; }
+      syncState.busy = true;
+      setSyncStatus("Syncing", "saving…", "busy");
+      try {
+        const fileId = await ensureDriveHandles();
+        await uploadSyncFile(fileId, buildSyncPayload());
+        setSyncStatus("Synced", "saved", "ok");
+      } catch (e) {
+        setSyncStatus("Error", String(e.message || e), "err");
+        throw e;
+      } finally {
+        syncState.busy = false;
+      }
+    }
+
+    async function forcePull() {
+      if (!syncState.signedIn) { toast("Sign in first"); return; }
+      await reconcileSync("pull");
+      toast("Pulled from Drive");
+    }
+    async function forcePush() {
+      if (!syncState.signedIn) { toast("Sign in first"); return; }
+      bumpLocalUpdatedAt();
+      await reconcileSync("push");
+      toast("Pushed to Drive");
+    }
+
+    async function finishSignIn(token) {
+      const email = await fetchUserEmail(token);
+      if (!isEmailAllowed(email)) {
+        syncState.signedIn = false;
+        syncState.email = email;
+        syncState.accessToken = "";
+        clearPersistedToken();
+        try {
+          if (window.google && google.accounts && google.accounts.oauth2 && token) {
+            google.accounts.oauth2.revoke(token, () => {});
+          }
+        } catch (_) {}
+        showAuthGate(true, "Not authorized. This Google account (" + email + ") cannot use 308 Desk. Sign in as Ron’s shop account.");
+        setSyncStatus("Offline cache", "not authorized", "err");
+        return false;
+      }
+      syncState.email = email;
+      syncState.signedIn = true;
+      persistToken();
+      showAuthGate(false);
+      setSyncStatus("Syncing", email, "busy");
+      await reconcileSync();
+      startSyncPolling();
+      toast("Signed in — Drive sync on");
+      return true;
+    }
+
+    async function googleSignIn() {
+      try {
+        setSyncStatus("Syncing", "signing in…", "busy");
+        const token = await requestAccessToken("consent");
+        await finishSignIn(token);
+      } catch (e) {
+        showAuthGate(true, String(e.message || e));
+        setSyncStatus("Offline cache", String(e.message || e), "err");
+      }
+    }
+
+    function googleSignOut() {
+      const tok = syncState.accessToken;
+      syncState.signedIn = false;
+      syncState.email = "";
+      syncState.accessToken = "";
+      syncState.tokenExpiry = 0;
+      clearPersistedToken();
+      stopSyncPolling();
+      try {
+        if (tok && window.google && google.accounts && google.accounts.oauth2) {
+          google.accounts.oauth2.revoke(tok, () => {});
+        }
+      } catch (_) {}
+      setSyncStatus("Offline cache", "", "off");
+      showAuthGate(true);
+      toast("Signed out");
+    }
+
+    function startSyncPolling() {
+      stopSyncPolling();
+      syncState.pollTimer = setInterval(() => { reconcileSync().catch(() => {}); }, 60_000);
+    }
+    function stopSyncPolling() {
+      if (syncState.pollTimer) { clearInterval(syncState.pollTimer); syncState.pollTimer = null; }
+    }
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible" && syncState.signedIn) {
+        reconcileSync().catch(() => {});
+      }
+    });
+
+    async function bootAuth() {
+      showAuthGate(true);
+      setSyncStatus("Offline cache", "", "off");
+      // Wait briefly for GIS script
+      for (let i = 0; i < 40 && !(window.google && google.accounts); i++) {
+        await new Promise(r => setTimeout(r, 100));
+      }
+      if (restorePersistedToken()) {
+        showAuthGate(false);
+        setSyncStatus("Syncing", syncState.email, "busy");
+        try {
+          // Validate token / refresh if needed
+          const probe = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+            headers: { Authorization: "Bearer " + syncState.accessToken }
+          });
+          if (!probe.ok) {
+            const token = await requestAccessToken("");
+            await finishSignIn(token);
+          } else {
+            const j = await probe.json();
+            if (!isEmailAllowed(j.email)) {
+              googleSignOut();
+              showAuthGate(true, "Not authorized. Sign in with an allowed shop Google account.");
+              return;
+            }
+            syncState.email = j.email;
+            await reconcileSync();
+            startSyncPolling();
+          }
+        } catch (e) {
+          try {
+            const token = await requestAccessToken("");
+            await finishSignIn(token);
+          } catch (e2) {
+            showAuthGate(true, String(e2.message || e2));
+            setSyncStatus("Offline cache", "", "off");
+          }
+        }
+      }
+    }
+
+
+    let DB = load();
+
+    function go(page) {
+      document.querySelectorAll(".page").forEach(p => p.classList.toggle("active", p.id === page));
+      document.querySelectorAll("nav button, .mobile-nav button").forEach(b => {
+        const on = b.dataset.page === page;
+        b.classList.toggle("active", on);
+        if (on && b.closest(".mobile-nav")) try { b.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" }); } catch (_) {}
+      });
+      if (page==="dash") renderDash();
+      if (page==="quote") {
+        fillCustList(); ensureLineItemsInit();
+        if (cQuoteDate && !cQuoteDate.value) cQuoteDate.value = todayISO();
+        svcUI(); calcQuote(false);
+      }
+      if (page==="jobs") renderJobs();
+      if (page==="calendar") renderCal();
+      if (page==="floor") renderFloor();
+      if (page==="customers") renderCustomers();
+      if (page==="inventory") renderInv();
+      if (page==="settings") fillSettings();
+    }
+    document.querySelectorAll("aside nav button, .mobile-nav button").forEach(b => b.addEventListener("click", () => go(b.dataset.page)));
+
+    function discountPct(qty, s) {
+      if (qty >= 48) return s.d48; if (qty >= 24) return s.d24; if (qty >= 12) return s.d12; return 0;
+    }
+
+    function compute(input) {
+      const s = DB.settings;
+      const qty = Math.max(1, Number(input.qty)||1);
+      const disc = discountPct(qty, s) / 100;
+      let decorEach = 0, setup = 0, blanksTotal = 0, lines = [], minutes = 0, pieceMin = 0;
+
+      if (input.service === "dtg") {
+        const locs = Math.max(1, Number(input.locations)||1);
+        decorEach = Math.max(s.dtgMin, s.dtgLoc * locs);
+        if (input.dark === "dark") decorEach += s.dtgDark;
+        decorEach *= (1 - disc);
+        setup = input.setup === "new" ? s.dtgSetup : 0;
+        blanksTotal = (Number(input.blank)||0) * qty;
+        pieceMin = 3 + locs * 1.5;
+        minutes = pieceMin * qty;
+        lines = [
+          ["DTG print labor", money(decorEach * qty) + (disc ? " ("+Math.round(disc*100)+"% qty)" : "")],
+          ["Art setup", setup ? money(setup) : "Repeat art"],
+          ["Dark garment", input.dark === "dark" ? money(s.dtgDark * qty) + " included above" : "Light garment"],
+          ["Blanks", blanksTotal ? money(blanksTotal) : "Customer supplied / TBD"]
+        ];
+      } else if (input.service === "patch") {
+        const sizeKey = { "2": s.p2, "3": s.p3, "4": s.p4, "5": s.p5 };
+        decorEach = sizeKey[String(input.size)] || s.p3;
+        if (input.backing === "iron") decorEach += s.pIron;
+        if (input.backing === "velcro") decorEach += s.pVelcro;
+        decorEach *= (1 - disc);
+        setup = input.digi === "new" ? s.pDigi : 0;
+        pieceMin = 4;
+        minutes = pieceMin * qty + (setup ? 20 : 0);
+        lines = [
+          ["Patches " + input.size + '"', money(decorEach * qty) + (disc ? " ("+Math.round(disc*100)+"% qty)" : "")],
+          ["Backing", input.backing],
+          ["Digitizing", setup ? money(setup) : "Repeat design"]
+        ];
+      } else {
+        const stitches = Math.max(0, Number(input.stitches)||0);
+        const colors = Math.max(1, Number(input.colors)||1);
+        const placements = Math.max(1, Number(input.placements)||1);
+        // Stitch rate → qty discount → floor at min/piece → flat $ per extra placement. No color fees.
+        decorEach = (stitches/1000)*s.rate;
+        decorEach *= (1 - disc);
+        decorEach = Math.max(s.minPiece, decorEach);
+        const placeExtra = Number(s.placeExtra != null ? s.placeExtra : 5);
+        if (placements > 1 && placeExtra) decorEach += placeExtra * (placements - 1);
+        let digiInfo = { amount: 0, mode: "none", label: "Digitizing" };
+        if (input.digi === "new") {
+          digiInfo = digiFeeFor(input.digiLocations || [], s, input.rush || input.digiTurn || "day2", input.designHeight);
+        }
+        setup = digiInfo.amount || 0;
+        blanksTotal = (Number(input.blank)||0) * qty;
+        const sewMin = stitches > 0 ? stitches / s.spm : 0;
+        pieceMin = sewMin + Number(s.hoop);
+        minutes = pieceMin * qty * placements;
+        const digiLine = setup ? money(setup) : "Existing / supplied";
+        const placeNote = placements > 1 && placeExtra
+          ? " (+" + money(placeExtra) + " × " + (placements-1) + " extra place)"
+          : "";
+        lines = [
+          ["Embroidery labor", money(decorEach * qty) + (disc ? " ("+Math.round(disc*100)+"% qty)" : "") + placeNote],
+          [setup ? digiInfo.label : "Digitizing", digiLine],
+          ["Blanks", blanksTotal ? money(blanksTotal) : "Customer supplied / TBD"]
+        ];
+        if (setup) lines.push(["Digi note", "Flat digi rate by location & turnaround (Vitor + 50%)"]);
+      }
+
+      let sub = decorEach * qty + setup + blanksTotal;
+      if (input.service !== "embroidery" && input.rush === "rush") sub *= (1 + s.rush/100);
+      const tax = sub * (s.tax/100);
+      const total = sub + tax;
+      if (input.service !== "embroidery") {
+        lines.push(["Rush", input.rush === "rush" ? s.rush + "%" : "Standard"]);
+      }
+      lines.push(["Tax", tax ? money(tax) : "—"]);
+      return { qty, decorEach, setup, blanksTotal, disc, sub, tax, total, each: total/qty, pieceMin, minutes, lines };
+    }
+
+
+    const ITEM_OPTIONS = [
+      "Cap / beanie","Polo / knit","T-shirt","Hoodie / sweatshirt","Jacket / coat",
+      "Workwear / safety","Bag / backpack","Towel / blanket","Scrub / lab coat","Other"
+    ];
+    const PLACE_OPTIONS = [
+      "Cap front left","Cap front right","Cap back","Cap flat","Cap 3D","Beanie",
+      "Left chest","Right chest","Full front","Full back","Sleeve","Patch","Other"
+    ];
+    function normalizePlaceList(raw) {
+      if (Array.isArray(raw)) return raw.map(x => String(x||"").trim()).filter(Boolean);
+      if (raw == null || raw === "") return [];
+      const s = String(raw).trim();
+      if (!s) return [];
+      // split on comma / " + " / semicolon
+      return s.split(/\s*(?:,|\+|;)\s*/).map(x => x.trim()).filter(Boolean);
+    }
+    function placeChipsHtml(selected) {
+      const set = new Set(normalizePlaceList(selected));
+      if (!set.size) set.add("Left chest");
+      return PLACE_OPTIONS.map(o => {
+        const checked = set.has(o) ? " checked" : "";
+        return `<label><input type="checkbox" class="li-loc-cb" value="${o}"${checked}><span>${o}</span></label>`;
+      }).join("");
+    }
+
+    function customerDisplayName(last, first, company) {
+      last = (last||"").trim(); first = (first||"").trim(); company = (company||"").trim();
+      const person = [last, first].filter(Boolean).join(", ");
+      if (person && company) return person + " — " + company;
+      if (person) return person;
+      if (company) return company;
+      return "";
+    }
+
+    function itemOptionsHtml(selected) {
+      return ITEM_OPTIONS.map(o => `<option${o===(selected||"Polo / knit")?" selected":""}>${o}</option>`).join("");
+    }
+    function placeOptionsHtml(selected) {
+      const sel = selected || "Left chest";
+      return PLACE_OPTIONS.map(o => `<option${o===sel?" selected":""}>${o}</option>`).join("");
+    }
+
+    function renumberLineItems() {
+      const rows = [...lineItems.querySelectorAll(".line-item")];
+      rows.forEach((row, i) => {
+        row.querySelector(".li-title").textContent = "Item " + (i+1);
+        const btn = row.querySelector(".li-remove");
+        if (btn) btn.disabled = rows.length <= 1;
+      });
+    }
+
+    function addLineItem(data) {
+      data = data || {};
+      const wrap = document.createElement("div");
+      wrap.className = "line-item";
+      wrap.innerHTML = `
+        <div class="li-head">
+          <span class="li-title">Item</span>
+          <button type="button" class="li-remove" title="Remove" onclick="removeLineItem(this)">×</button>
+        </div>
+        <div class="row">
+          <div><label>Item</label><select class="li-item">${itemOptionsHtml(data.item)}</select></div>
+          <div><label>SKU</label><input class="li-sku" placeholder="SM-1234" value="${(data.sku||"").replace(/"/g,"&quot;")}"></div>
+        </div>
+        <div class="row-3" style="margin-top:8px">
+          <div><label>Color</label><input class="li-color" placeholder="Navy, black…" value="${(data.color||"").replace(/"/g,"&quot;")}"></div>
+          <div><label>Size</label><input class="li-size" placeholder="S/M/L/XL" value="${(data.size||"").replace(/"/g,"&quot;")}"></div>
+          <div><label>Qty</label><input class="li-qty" type="number" min="1" value="${data.qty!=null?data.qty:1}"></div>
+        </div>
+        <label style="margin-top:8px">Location (pick one or more)</label>
+        <div class="digi-locs li-locs">${placeChipsHtml(data.locations || data.location || data.place)}</div>`;
+      lineItems.appendChild(wrap);
+      wrap.querySelectorAll("input,select").forEach(el => {
+        el.addEventListener("input", () => { syncPlacementsFromLineItems(); calcQuote(false); });
+        el.addEventListener("change", () => { syncPlacementsFromLineItems(); calcQuote(false); });
+      });
+      renumberLineItems();
+      calcQuote(false);
+    }
+
+    function removeLineItem(btn) {
+      const rows = lineItems.querySelectorAll(".line-item");
+      if (rows.length <= 1) return;
+      btn.closest(".line-item").remove();
+      renumberLineItems();
+      calcQuote(false);
+    }
+
+    function collectLineItemLocations(row) {
+      const checked = [...row.querySelectorAll(".li-loc-cb:checked")].map(el => el.value);
+      return checked.length ? checked : ["Left chest"];
+    }
+    function syncPlacementsFromLineItems() {
+      const rows = [...lineItems.querySelectorAll(".line-item")];
+      if (!rows.length || !document.getElementById("cPlacements")) return;
+      const maxLocs = Math.max(1, ...rows.map(r => collectLineItemLocations(r).length));
+      // Only bump placements up to match multi-location picks; don't shrink if user set higher
+      const cur = Math.max(1, Number(cPlacements.value)||1);
+      if (maxLocs > cur) cPlacements.value = maxLocs;
+    }
+    function collectLineItems() {
+      return [...lineItems.querySelectorAll(".line-item")].map(row => {
+        const locations = collectLineItemLocations(row);
+        return {
+          item: row.querySelector(".li-item").value,
+          sku: (row.querySelector(".li-sku")?.value || "").trim(),
+          color: row.querySelector(".li-color").value.trim(),
+          size: row.querySelector(".li-size").value.trim(),
+          qty: Math.max(1, Number(row.querySelector(".li-qty").value)||1),
+          locations,
+          location: locations.join(", ")
+        };
+      });
+    }
+
+    function setLineItems(arr) {
+      lineItems.innerHTML = "";
+      const list = (arr && arr.length) ? arr : [{ item: "Polo / knit", sku: "", color: "", size: "", qty: 1, locations: ["Left chest"], location: "Left chest" }];
+      list.forEach(li => {
+        if (!li.locations) li.locations = normalizePlaceList(li.location || li.place || "Left chest");
+        addLineItem(li);
+      });
+      renumberLineItems();
+      syncPlacementsFromLineItems();
+    }
+
+    function ensureLineItemsInit() {
+      if (!lineItems.querySelector(".line-item")) setLineItems([{ item: "Polo / knit", sku: "", color: "", size: "", qty: 1, locations: ["Left chest"], location: "Left chest" }]);
+    }
+
+    function summarizeLineItems(items) {
+      if (!items || !items.length) return { item: "", qty: 1, place: "" };
+      const parts = items.map(li => {
+        const q = Number(li.qty)||1;
+        return li.item + (li.sku ? " ["+li.sku+"]" : "") + (q>1 ? " ×"+q : "");
+      });
+      // compact join like "Polo / knit ×3; Cap ×2"
+      const item = parts.join("; ");
+      const qty = items.reduce((s,li)=>s+(Number(li.qty)||0),0) || 1;
+      const places = [...new Set(items.flatMap(li => normalizePlaceList(li.locations || li.location)).filter(Boolean))];
+      const place = places.join(", ");
+      return { item, qty, place };
+    }
+
+    function currentQuoteInput() {
+      const service = svc();
+      const lastName = cLast.value.trim();
+      const firstName = cFirst.value.trim();
+      const company = cCompany.value.trim();
+      const workPhone = formatPhone(cWorkPhone.value);
+      const cellPhone = formatPhone(cCellPhone.value);
+      if (workPhone !== cWorkPhone.value) cWorkPhone.value = workPhone;
+      if (cellPhone !== cCellPhone.value) cCellPhone.value = cellPhone;
+      const display = customerDisplayName(lastName, firstName, company);
+      const lineItemsArr = collectLineItems();
+      const summary = summarizeLineItems(lineItemsArr);
+      const address = (document.getElementById("cAddress")?.value || "").trim();
+      const address2 = (document.getElementById("cAddress2")?.value || "").trim();
+      let stateVal = (document.getElementById("cState")?.value || "").trim().toUpperCase();
+      const stEl = document.getElementById("cState");
+      if (stEl && stateVal !== stEl.value) stEl.value = stateVal;
+      const city = (document.getElementById("cCity")?.value || "").trim();
+      const zip = (document.getElementById("cZip")?.value || "").trim();
+      const base = {
+        service,
+        lastName, firstName, company,
+        workPhone, cellPhone,
+        address, address2, city, state: stateVal, zip,
+        customer: display,
+        email: cEmail.value.trim(),
+        phone: cellPhone || workPhone,
+        lineItems: lineItemsArr,
+        item: summary.item,
+        qty: summary.qty,
+        quoteDate: cQuoteDate.value || "",
+        orderDate: cOrderDate.value || "",
+        due: cDue.value,
+        notes: cNotes.value.trim()
+      };
+      if (service === "dtg") {
+        return { ...base, locations: dLoc.value, dark: dDark.value, setup: dSetup.value, blank: dBlank.value, rush: dRush.value, place: summary.place || dPlace.value };
+      }
+      if (service === "patch") {
+        return { ...base, item: summary.item || (pSize.value + '" patch'), size: pSize.value, backing: pBack.value, digi: pDigi.value, rush: pRush.value, place: summary.place || "Patch" };
+      }
+      const digiLocations = getDigiLocations();
+      const digiTurn = normalizeDigiTurn(cRush.value);
+      const dhEl = document.getElementById("cDesignHeight");
+      const designHeight = dhEl && dhEl.value !== "" ? Number(dhEl.value) : null;
+      return {
+        ...base,
+        place: summary.place || "",
+        digiLocations,
+        digiTurn,
+        designHeight,
+        stitches: cStitches.value, colors: cColors.value, placements: cPlacements.value,
+        blank: cBlank.value, digi: cDigi.value, rush: digiTurn
+      };
+    }
+
+    function svcUI() {
+      const v = svc();
+      embFields.classList.toggle("hidden", v !== "embroidery");
+      dtgFields.classList.toggle("hidden", v !== "dtg");
+      patchFields.classList.toggle("hidden", v !== "patch");
+      calcQuote(false);
+    }
+
+    function calcQuote(notify) {
+      const input = currentQuoteInput();
+      const r = compute(input);
+      qSvcLabel.textContent = (input.service === "dtg" ? "DTG" : input.service === "patch" ? "Patch" : "Embroidery") + " quote";
+      qTotal.textContent = money(r.total);
+      qEach.textContent = money(r.each) + " per piece  ·  " + r.qty + " pcs";
+      qBreakdown.innerHTML = r.lines.map(([a,b]) => `<div class="line"><span class="muted">${a}</span><span>${b}</span></div>`).join("");
+      const hrs = r.minutes / 60;
+      qTime.innerHTML = `<div>${r.pieceMin.toFixed(1)} min per piece</div><div class="sub">${r.minutes.toFixed(0)} shop minutes · about ${hrs.toFixed(1)} hours</div>`;
+      if (notify) toast("Quote updated");
+      return r;
+    }
+
+    function quickQuote() {
+      const r = compute({ service:"embroidery", qty:qQty.value, stitches:qStitch.value, colors:qColors.value, placements:1, blank:qBlank.value, digi:"existing", rush:"std" });
+      quickOut.textContent = money(r.total) + " total  ·  " + money(r.each) + " each  ·  ~" + r.minutes.toFixed(0) + " min";
+    }
+
+    function ensureCustomer(fields) {
+      const name = (typeof fields === "string") ? fields : (fields?.customer || fields?.name || "");
+      if (!name) return null;
+      const email = (typeof fields === "string") ? arguments[1] : (fields.email||"");
+      const phone = (typeof fields === "string") ? arguments[2] : (fields.phone||"");
+      const lastName = (typeof fields === "object" && fields) ? (fields.lastName||"") : "";
+      const firstName = (typeof fields === "object" && fields) ? (fields.firstName||"") : "";
+      const company = (typeof fields === "object" && fields) ? (fields.company||"") : "";
+      const workPhone = (typeof fields === "object" && fields) ? (fields.workPhone||"") : "";
+      const cellPhone = (typeof fields === "object" && fields) ? (fields.cellPhone||"") : "";
+      const address = (typeof fields === "object" && fields) ? (fields.address||"") : "";
+      const address2 = (typeof fields === "object" && fields) ? (fields.address2||"") : "";
+      const city = (typeof fields === "object" && fields) ? (fields.city||"") : "";
+      const state = (typeof fields === "object" && fields) ? String(fields.state||"").toUpperCase() : "";
+      const zip = (typeof fields === "object" && fields) ? (fields.zip||"") : "";
+      let c = DB.customers.find(x => x.name.toLowerCase() === name.toLowerCase());
+      if (!c) {
+        c = { id: cid(), name, lastName, firstName, company, email: email||"", phone: phone||cellPhone||workPhone||"", workPhone, cellPhone, address, address2, city, state, zip, created: Date.now() };
+        DB.customers.push(c);
+      } else {
+        if (email) c.email = email;
+        if (phone) c.phone = phone;
+        if (lastName) c.lastName = lastName;
+        if (firstName) c.firstName = firstName;
+        if (company) c.company = company;
+        if (workPhone) c.workPhone = workPhone;
+        if (cellPhone) c.cellPhone = cellPhone;
+        if (address) c.address = address;
+        if (address2) c.address2 = address2;
+        if (city) c.city = city;
+        if (state) c.state = state;
+        if (zip) c.zip = zip;
+        if (!c.phone) c.phone = c.cellPhone || c.workPhone || "";
+      }
+      return c;
+    }
+
+    function clearQuoteForm() {
+      const emb = document.querySelector('input[name="svc"][value="embroidery"]');
+      if (emb) emb.checked = true;
+      svcUI();
+      ["cLast","cFirst","cCompany","cEmail","cWorkPhone","cCellPhone","cAddress","cAddress2","cCity","cState","cZip","cDue","cOrderDate","cNotes","dPlace"].forEach(id => {
+        const el = document.getElementById(id); if (el) el.value = "";
+      });
+      if (cQuoteDate) cQuoteDate.value = todayISO();
+      setLineItems([{ item: "Polo / knit", sku: "", color: "", size: "", qty: 1, locations: ["Left chest"], location: "Left chest" }]);
+      if (cStitches) cStitches.value = 7500;
+      if (cColors) cColors.value = 4;
+      if (cPlacements) cPlacements.value = 1;
+      if (cBlank) cBlank.value = 0;
+      const dh = document.getElementById("cDesignHeight"); if (dh) dh.value = "";
+      if (cDigi) cDigi.value = "existing";
+      if (cRush) cRush.value = "day2";
+      setDigiLocations([]);
+      if (dLoc) dLoc.value = 1;
+      if (dDark) dDark.value = "light";
+      if (dSetup) dSetup.value = "existing";
+      if (dBlank) dBlank.value = 6;
+      if (dRush) dRush.value = "std";
+      if (pSize) pSize.value = "3";
+      if (pBack) pBack.value = "sew";
+      if (pDigi) pDigi.value = "existing";
+      if (pRush) pRush.value = "std";
+      calcQuote(false);
+    }
+
+    function newBlankQuote() {
+      clearQuoteForm();
+      go("quote");
+    }
+
+    function saveJobFromQuote() {
+      const input = currentQuoteInput();
+      const r = compute(input);
+      if (!input.customer) return toast("Add a customer name first");
+      ensureCustomer(input);
+      DB.jobs.unshift({
+        id: cid(), created: Date.now(), status: "quote", machine: "",
+        ...input, totals: { total: r.total, each: r.each, minutes: r.minutes }
+      });
+      save();
+      clearQuoteForm();
+      toast("Quote saved — form ready for next");
+      go("jobs");
+    }
+
+    function quoteText(input, r) {
+      const s = DB.settings;
+      const lines = (input.lineItems && input.lineItems.length)
+        ? input.lineItems.map((li,i) => {
+            const bits = [li.item, li.sku && ("SKU "+li.sku), li.color && ("color "+li.color), li.size && ("size "+li.size), (li.qty||1)+" pcs", li.location].filter(Boolean);
+            return "  " + (i+1) + ". " + bits.join(" · ");
+          })
+        : ["  " + (input.item||"") + (input.place ? " — "+input.place : "") + " · Qty " + r.qty];
+      return [
+        s.shop, s.addr, s.phone, "",
+        "QUOTE for " + (input.customer || "Customer"),
+        input.company ? ("Company: " + input.company) : "",
+        (input.workPhone || input.cellPhone) ? ("Phone: " + [input.workPhone && ("work "+input.workPhone), input.cellPhone && ("cell "+input.cellPhone)].filter(Boolean).join(" · ")) : (input.phone ? ("Phone: "+input.phone) : ""),
+        formatAddressOneLine(input) ? ("Address: " + formatAddressOneLine(input)) : "",
+        "Service: " + (input.service||"").toUpperCase(),
+        "Line items:",
+        ...lines,
+        input.stitches ? "Stitches: " + Number(input.stitches).toLocaleString() : "",
+        (input.digiLocations && input.digiLocations.length) ? ("Digitize locations: " + digiLocLabels(input.digiLocations).join(", ")) : "",
+        input.notes || "",
+        "",
+        ...r.lines.map(([a,b]) => a + ": " + b),
+        "",
+        "TOTAL: " + money(r.total) + "  (" + money(r.each) + " each)",
+        input.quoteDate ? "Quote date: " + input.quoteDate : "",
+        input.orderDate ? "Order date: " + input.orderDate : "",
+        input.due ? "Requested due: " + input.due : "",
+        "",
+        "Estimate based on the details above. Final invoice follows approved artwork / sew-out.",
+        "Questions? Call " + s.phone + " or reply to this email."
+      ].filter(x => x !== "").join("\n");
+    }
+
+    function emailQuote() {
+      const input = currentQuoteInput();
+      const r = compute(input);
+      if (!input.email) return toast("Add the customer email first");
+      const subject = encodeURIComponent("Quote from " + DB.settings.shop + " — " + (input.item || "custom work"));
+      const body = encodeURIComponent(quoteText(input, r));
+      const gmail = "https://mail.google.com/mail/?view=cm&fs=1&to=" + encodeURIComponent(input.email) + "&su=" + subject + "&body=" + body;
+      window.open(gmail, "_blank");
+      toast("Gmail compose opened");
+    }
+
+    function escHtml(s) {
+      return String(s == null ? "" : s)
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+
+    function refreshAsideFoot() {
+      const el = document.getElementById("asideFoot");
+      const s = DB.settings || {};
+      const shop = s.shop || "308 Embroidery";
+      if (el) {
+        const lines = [shop];
+        if (s.addr) lines.push(s.addr);
+        if (s.phone) lines.push(s.phone);
+        el.innerHTML = lines.map(escHtml).join("<br>") + '<br><span id="asideVersion">308 Desk v' + APP_VERSION + "</span>";
+      }
+      const phoneShop = document.getElementById("phoneShopName");
+      const phoneVer = document.getElementById("phoneVersion");
+      if (phoneShop) phoneShop.textContent = shop;
+      if (phoneVer) phoneVer.textContent = "308 Desk v" + APP_VERSION;
+    }
+
+
+    function printQuote(input) {
+      input = input || currentQuoteInput();
+      const r = compute(input);
+      const s = DB.settings;
+      const blankEach = Number(input.blank) || 0;
+      const pieceEach = Number(r.decorEach) + blankEach;
+      const taxPct = Number(s.tax) || 0;
+      const items = (input.lineItems && input.lineItems.length)
+        ? input.lineItems
+        : [{ item: input.item || "Custom work", sku: "", color: "", size: "", qty: r.qty, location: input.place || "" }];
+
+      const itemRows = items.map(li => {
+        const q = Math.max(1, Number(li.qty) || 1);
+        const loc = li.location || (Array.isArray(li.locations) ? li.locations.join(", ") : "") || "";
+        const bits = [
+          li.item || "Item",
+          li.sku && ("SKU " + li.sku),
+          li.color && ("color " + li.color),
+          li.size && ("size " + li.size),
+          loc && loc
+        ].filter(Boolean);
+        const each = pieceEach;
+        const amt = each * q;
+        return `<tr>
+          <td>${escHtml(bits.join(" · "))}</td>
+          <td style="text-align:right">${q}</td>
+          <td style="text-align:right">${money(each)}</td>
+          <td style="text-align:right">${money(amt)}</td>
+        </tr>`;
+      }).join("");
+
+      let feeRows = "";
+      if (r.setup) {
+        const digiLabel = (r.lines || []).find(x => String(x[0]||"").toLowerCase().startsWith("digitiz") || String(x[0]||"").toLowerCase().startsWith("art setup"));
+        const label = digiLabel ? digiLabel[0] : (input.service === "dtg" ? "Art setup" : "Digitizing");
+        feeRows += `<tr>
+          <td>${escHtml(label)}</td>
+          <td style="text-align:right">—</td>
+          <td style="text-align:right">—</td>
+          <td style="text-align:right">${money(r.setup)}</td>
+        </tr>`;
+      }
+
+      const notesBlock = input.notes
+        ? `<div class="notes"><h3>Notes</h3><p>${escHtml(input.notes).replace(/\n/g, "<br>")}</p></div>`
+        : `<div class="notes"><h3>Notes</h3><p class="empty">—</p></div>`;
+
+      const w = window.open("", "_blank", "width=800,height=900");
+      w.document.write(`<!DOCTYPE html><html><head><title>Quote — ${escHtml(s.shop)}</title>
+        <style>
+          body{font-family:Georgia,serif;padding:40px;color:#111;max-width:760px;margin:0 auto}
+          h1{margin:0} h2{margin:18px 0 8px} h3{margin:0 0 8px;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:#333}
+          .gold{color:#8a7010}
+          table{width:100%;border-collapse:collapse;margin-top:18px}
+          td,th{border-bottom:1px solid #ddd;padding:8px;text-align:left;vertical-align:top}
+          th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:#555}
+          .num{text-align:right}
+          .totals td{border-bottom:none;padding:6px 8px}
+          .totals tr.sub td{padding-top:14px}
+          .totals tr.grand td{font-size:20px;font-weight:700;padding-top:10px;border-top:2px solid #111}
+          .notes{margin-top:36px;padding-top:18px;border-top:1px solid #ccc}
+          .notes p{margin:0;white-space:pre-wrap;line-height:1.45}
+          .notes .empty{color:#888}
+          .fine{font-size:13px;color:#555;margin-top:28px}
+        </style></head><body>
+        <h1>${escHtml(s.shop)}</h1>
+        <p>${escHtml(s.addr)}<br>${escHtml(s.phone)}<br>${escHtml(s.from)}</p>
+        <h2 class="gold">Quotation — ${escHtml((input.service||"").toUpperCase())}</h2>
+        <p><b>Customer:</b> ${escHtml(input.customer||"—")}<br>
+        ${input.company?`<b>Company:</b> ${escHtml(input.company)}<br>`:""}
+        <b>Email:</b> ${escHtml(input.email||"—")}<br>
+        <b>Work:</b> ${escHtml(input.workPhone||"—")} · <b>Cell:</b> ${escHtml(input.cellPhone||"—")}<br>
+        ${formatAddressOneLine(input)?`<b>Address:</b> ${escHtml(formatAddressOneLine(input))}<br>`:""}
+        <b>Quote date:</b> ${escHtml(input.quoteDate||new Date().toLocaleDateString())}<br>
+        ${input.orderDate?`<b>Order date:</b> ${escHtml(input.orderDate)}<br>`:""}
+        <b>Due:</b> ${escHtml(input.due||"TBD")}</p>
+        <table>
+          <thead><tr><th>Description</th><th class="num">Qty</th><th class="num">Each</th><th class="num">Amount</th></tr></thead>
+          <tbody>
+            ${itemRows}
+            ${feeRows}
+          </tbody>
+        </table>
+        <table class="totals">
+          <tr class="sub"><td colspan="3" style="text-align:right">Subtotal</td><td style="text-align:right">${money(r.sub)}</td></tr>
+          <tr><td colspan="3" style="text-align:right">Tax${taxPct ? " (" + taxPct + "%)" : ""}</td><td style="text-align:right">${taxPct ? money(r.tax) : money(0)}</td></tr>
+          <tr class="grand"><td colspan="3" style="text-align:right">Grand Total</td><td style="text-align:right">${money(r.total)}</td></tr>
+        </table>
+        ${notesBlock}
+        <p class="fine">Estimate only. Final invoice follows approved artwork / sew-out.</p>
+        </body></html>`);
+      w.document.close(); w.focus(); w.print();
+    }
+
+    function printSavedJob(id) {
+      const j = DB.jobs.find(x => x.id === id);
+      if (!j) return toast("Quote not found");
+      printQuote(j);
+    }
+
+    function svcTag(j) {
+      const t = j.service || "embroidery";
+      return `<span class="tag ${t}">${t}</span>`;
+    }
+
+    function renderDash() {
+      const hr = new Date().getHours();
+      hello.textContent = (hr < 12 ? "Good morning" : hr < 17 ? "Good afternoon" : "Good evening") + ", Ron";
+      const open = DB.jobs.filter(j => j.status !== "delivered");
+      const prod = DB.jobs.filter(j => j.status === "production");
+      const now = new Date(); const month = now.getMonth(); const year = now.getFullYear();
+      const quoted = DB.jobs.filter(j => { const d = new Date(j.created); return d.getMonth()===month && d.getFullYear()===year; })
+        .reduce((s,j)=>s+(j.totals?.total||0),0);
+      const start = new Date(); start.setHours(0,0,0,0);
+      const end = new Date(start); end.setDate(end.getDate()+7);
+      const weekN = open.filter(j => j.due && j.due >= isoDate(start) && j.due < isoDate(end)).length;
+      statOpen.textContent = open.length; statProd.textContent = prod.length;
+      statWeek.textContent = weekN; statQuoted.textContent = money(quoted);
+
+      const days = [];
+      for (let i=0;i<7;i++){ const d=new Date(start); d.setDate(d.getDate()+i); days.push(d); }
+      weekStrip.innerHTML = days.map(d => {
+        const iso = isoDate(d);
+        const jobs = DB.jobs.filter(j => j.due === iso && j.status !== "delivered");
+        const isT = iso === todayISO();
+        return `<div class="d${isT?" today":""}"><div style="font-size:11px;color:var(--muted)">${d.toLocaleDateString(undefined,{weekday:"short"})}</div>
+          <div style="font-weight:700">${d.getDate()}</div>
+          ${jobs.slice(0,3).map(j=>`<div class="cal-chip">${j.customer}</div>`).join("") || '<div class="sub">—</div>'}</div>`;
+      }).join("");
+
+      const today = todayISO();
+      const hot = open.filter(j => !j.due || j.due <= today || j.status==="production").sort((a,b)=>(a.due||"9999").localeCompare(b.due||"9999")).slice(0,8);
+      upcoming.innerHTML = hot.length ? hot.map(j =>
+        `<div style="display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);cursor:pointer" onclick="openJob('${j.id}')">
+          <div><b>${j.customer}</b> ${svcTag(j)}<div class="sub">${j.item} · ${j.qty} pcs · ${STATUS_LABEL[j.status]}</div></div>
+          <div>${j.due ? (j.due < today ? "OVERDUE "+j.due : j.due) : "No date"}</div>
+        </div>`).join("") : "Shop is clear. Add a due date on the next quote.";
+    }
+
+    function renderJobs() {
+      const q = (jobSearch.value||"").toLowerCase();
+      kanban.innerHTML = STATUSES.map(st => {
+        const list = DB.jobs.filter(j => j.status===st && (!q || (j.customer+" "+j.item+" "+(j.notes||"")+" "+(j.service||"")).toLowerCase().includes(q)));
+        return `<div class="col"><h4>${STATUS_LABEL[st]} (${list.length})</h4>${
+          list.map(j => `<div class="job" onclick="openJob('${j.id}')">
+            <div class="who">${j.customer} ${svcTag(j)}</div>
+            <div class="meta">${j.item} · ${j.qty} pcs · ${money(j.totals?.total||0)}</div>
+            ${j.machine ? `<div class="meta">${j.machine}</div>` : ""}
+            ${j.due ? `<div class="due">Due ${j.due}</div>` : ""}
+            <div class="actions" style="margin-top:8px" onclick="event.stopPropagation()">
+              <button type="button" class="btn btn-ghost" onclick="printSavedJob('${j.id}')">Print / PDF</button>
+            </div>
+          </div>`).join("") || `<div class="meta" style="padding:8px">Empty</div>`
+        }</div>`;
+      }).join("");
+    }
+
+    function machines() {
+      return (DB.settings.machines || "Head 1").split(",").map(s => s.trim()).filter(Boolean);
+    }
+
+
+    function ensureOrderDateOnAccept(j, prevStatus) {
+      if (!j || j.orderDate) return;
+      const committed = j.status === "approved" || j.status === "production" || j.status === "ready" || j.status === "delivered";
+      if (!committed) return;
+      if (prevStatus === "quote" || (j.status === "approved" && prevStatus !== "approved")) {
+        j.orderDate = todayISO();
+      }
+    }
+
+    function openJob(id) {
+      const j = DB.jobs.find(x => x.id === id); if (!j) return;
+      const phones = [j.workPhone && ("Work "+j.workPhone), j.cellPhone && ("Cell "+j.cellPhone), (!j.workPhone && !j.cellPhone && j.phone) && j.phone].filter(Boolean).join(" · ");
+      const liHtml = (j.lineItems && j.lineItems.length)
+        ? `<ul style="margin:8px 0 8px 18px">${j.lineItems.map(li => `<li>${li.item}${li.sku?" ["+li.sku+"]":""}${li.color?" · "+li.color:""}${li.size?" · "+li.size:""} · qty ${li.qty||1}${li.location?" · "+li.location:""}</li>`).join("")}</ul>`
+        : `<p class="sub">${j.item||""} ${j.place?"· "+j.place:""}</p>`;
+      modalBg.style.display = "flex";
+      modal.innerHTML = `
+        <h3 style="font-family:Playfair Display,serif;font-size:24px;color:var(--navy)">${j.customer||"Job"}</h3>
+        <p class="sub">${phones || "No phone"}${j.email ? " · "+j.email : ""}</p>
+        ${formatAddressOneLine(j)?`<p class="sub">${formatAddressOneLine(j)}</p>`:""}
+        <p class="sub">${svcTag(j)}</p>
+        ${liHtml}
+        <p style="margin:12px 0">${j.qty||0} pcs total · ${money(j.totals?.total||0)} · ${j.due?"Due "+j.due:"No due date"}</p>
+        ${(j.service||"embroidery")==="embroidery" && (j.digiLocations||[]).length ? `<p class="sub">Digitize: ${digiLocLabels(j.digiLocations).join(" + ")}${j.digi==="new"?" (new file)":j.digi?" ("+j.digi+")":""}</p>` : ""}
+        <p>${j.notes||""}</p>
+        <label>Status</label>
+        <select id="jobStatus">${STATUSES.map(s=>`<option value="${s}" ${j.status===s?"selected":""}>${STATUS_LABEL[s]}</option>`).join("")}</select>
+        <label>Machine / head</label>
+        <select id="jobMach"><option value="">Unassigned</option>${machines().map(m=>`<option ${j.machine===m?"selected":""}>${m}</option>`).join("")}</select>
+        <label>Quote date</label>
+        <input id="jobQuoteDate" type="date" value="${j.quoteDate||""}">
+        <label>Order date</label>
+        <input id="jobOrderDate" type="date" value="${j.orderDate||""}">
+        <label>Due date</label>
+        <input id="jobDue" type="date" value="${j.due||""}">
+        <div class="actions">
+          <button class="btn btn-gold" onclick="updateJob('${j.id}')">Save</button>
+          <button class="btn btn-navy" onclick="advanceJob('${j.id}')">Advance status</button>
+          <button class="btn btn-ghost" onclick="loadQuoteFromJob('${j.id}')">Open in quote</button>
+          <button class="btn btn-ghost" onclick="printSavedJob('${j.id}')">Print / PDF</button>
+          <button class="btn btn-ghost" onclick="emailSavedJob('${j.id}')">Email quote</button>
+          <button class="btn btn-danger" onclick="deleteJob('${j.id}')">Delete</button>
+          <button class="btn btn-ghost" onclick="closeModal()">Close</button>
+        </div>`;
+    }
+
+    function updateJob(id) {
+      const j = DB.jobs.find(x => x.id === id);
+      const prev = j.status;
+      j.status = jobStatus.value; j.machine = jobMach.value; j.due = jobDue.value;
+      j.quoteDate = jobQuoteDate.value || "";
+      j.orderDate = jobOrderDate.value || "";
+      ensureOrderDateOnAccept(j, prev);
+      if (jobOrderDate && j.orderDate) jobOrderDate.value = j.orderDate;
+      save(); closeModal(); refreshLists(); toast("Job updated");
+    }
+    function advanceJob(id) {
+      const j = DB.jobs.find(x => x.id === id);
+      const prev = j.status;
+      const i = STATUSES.indexOf(j.status);
+      if (i < STATUSES.length-1) j.status = STATUSES[i+1];
+      ensureOrderDateOnAccept(j, prev);
+      save(); closeModal(); refreshLists(); toast(STATUS_LABEL[j.status]);
+    }
+    function deleteJob(id) { DB.jobs = DB.jobs.filter(j => j.id !== id); save(); closeModal(); refreshLists(); toast("Removed"); }
+    function refreshLists() { renderJobs(); renderDash(); renderFloor(); renderCal(); }
+
+    function loadQuoteFromJob(id) {
+      const j = DB.jobs.find(x => x.id === id); if (!j) return;
+      closeModal(); go("quote");
+      const svcEl = document.querySelector('input[name="svc"][value="' + (j.service||"embroidery") + '"]');
+      if (svcEl) svcEl.checked = true;
+      svcUI();
+      cLast.value = j.lastName || "";
+      cFirst.value = j.firstName || "";
+      cCompany.value = j.company || "";
+      cEmail.value = j.email || "";
+      cWorkPhone.value = j.workPhone || "";
+      cCellPhone.value = j.cellPhone || "";
+      if (document.getElementById("cAddress")) cAddress.value = j.address || "";
+      if (document.getElementById("cAddress2")) cAddress2.value = j.address2 || "";
+      if (document.getElementById("cCity")) cCity.value = j.city || "";
+      if (document.getElementById("cState")) cState.value = j.state || "";
+      if (document.getElementById("cZip")) cZip.value = j.zip || "";
+      if (!j.lastName && !j.firstName && !j.company && j.customer) {
+        if (j.customer.includes(",")) {
+          const person = j.customer.split("—")[0];
+          const parts = person.split(",");
+          cLast.value = (parts[0]||"").trim();
+          cFirst.value = (parts[1]||"").trim();
+          const rest = j.customer.split("—")[1];
+          if (rest) cCompany.value = rest.trim();
+        } else {
+          cCompany.value = j.customer;
+        }
+      }
+      if (!cCellPhone.value && !cWorkPhone.value && j.phone) cCellPhone.value = j.phone;
+      cDue.value = j.due || "";
+      cQuoteDate.value = j.quoteDate || cQuoteDate.value || todayISO();
+      cOrderDate.value = j.orderDate || "";
+      cNotes.value = j.notes || "";
+      if (j.lineItems && j.lineItems.length) {
+        setLineItems(j.lineItems);
+      } else {
+        const firstItem = (j.item && !String(j.item).includes(";")) ? j.item : "Polo / knit";
+        setLineItems([{ item: ITEM_OPTIONS.includes(firstItem) ? firstItem : "Other", sku: "", color: "", size: "", qty: j.qty || 1, locations: normalizePlaceList(PLACE_OPTIONS.includes(j.place) ? j.place : "Left chest"), location: (PLACE_OPTIONS.includes(j.place) ? j.place : "Left chest") }]);
+      }
+      if ((j.service||"embroidery") === "embroidery") {
+        cStitches.value = j.stitches||0; cColors.value = j.colors||4;
+        cPlacements.value = j.placements||1; cBlank.value = j.blank||0;
+        cDigi.value = j.digi||"existing"; cRush.value = normalizeDigiTurn(j.digiTurn || j.rush || "day2");
+        setDigiLocations(j.digiLocations || []);
+        const dh = document.getElementById("cDesignHeight"); if (dh) dh.value = (j.designHeight != null && j.designHeight !== "") ? j.designHeight : "";
+      } else if (j.service === "dtg") {
+        dLoc.value = j.locations||1; dDark.value = j.dark||"light";
+        dSetup.value = j.setup||"existing"; dBlank.value = j.blank||0; dRush.value = j.rush||"std"; dPlace.value = j.place||"";
+      } else if (j.service === "patch") {
+        pSize.value = j.size||"3"; pBack.value = j.backing||"sew"; pDigi.value = j.digi||"existing"; pRush.value = j.rush||"std";
+      }
+      calcQuote(false);
+    }
+
+    function emailSavedJob(id) {
+      const j = DB.jobs.find(x => x.id === id);
+      if (!j.email) return toast("No email on this job");
+      const r = j.totals ? { qty:j.qty, each:j.totals.each, total:j.totals.total, lines:[["Quoted total", money(j.totals.total)]] } : compute(j);
+      const subject = encodeURIComponent("Quote from " + DB.settings.shop + " — " + (j.item||"custom work"));
+      const body = encodeURIComponent(quoteText(j, { ...r, qty:j.qty, each:j.totals?.each||r.each, total:j.totals?.total||r.total, lines:r.lines||[["Total", money(j.totals?.total||0)]] }));
+      window.open("https://mail.google.com/mail/?view=cm&fs=1&to="+encodeURIComponent(j.email)+"&su="+subject+"&body="+body, "_blank");
+    }
+
+    function closeModal() { modalBg.style.display = "none"; }
+
+    function shiftMonth(n) { calCursor.setMonth(calCursor.getMonth()+n); renderCal(); }
+    function renderCal() {
+      const y = calCursor.getFullYear(), m = calCursor.getMonth();
+      calTitle.textContent = calCursor.toLocaleDateString(undefined,{month:"long", year:"numeric"});
+      const first = new Date(y,m,1); const startDow = first.getDay();
+      const daysIn = new Date(y,m+1,0).getDate();
+      const today = todayISO();
+      let html = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].map(d=>`<div class="cal-dow">${d}</div>`).join("");
+      for (let i=0;i<startDow;i++) html += `<div class="cal-day empty"></div>`;
+      for (let d=1; d<=daysIn; d++) {
+        const iso = `${y}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+        const jobs = DB.jobs.filter(j => j.due === iso && j.status !== "delivered");
+        const over = iso < today && jobs.length;
+        html += `<div class="cal-day${iso===today?" today":""}" onclick="pickDay('${iso}')"><div class="n">${d}</div>${
+          jobs.slice(0,3).map(j=>`<div class="cal-chip${iso<today?" over":""}">${j.customer}</div>`).join("")
+        }${jobs.length>3?`<div class="cal-chip">+${jobs.length-3}</div>`:""}</div>`;
+      }
+      calGrid.innerHTML = html;
+      pickDay(selectedDay);
+    }
+    function pickDay(iso) {
+      selectedDay = iso;
+      const jobs = DB.jobs.filter(j => j.due === iso);
+      calDayTitle.textContent = "Jobs on " + iso;
+      calDayList.innerHTML = jobs.length ? jobs.map(j =>
+        `<div class="job" onclick="openJob('${j.id}')"><div class="who">${j.customer} ${svcTag(j)}</div>
+         <div class="meta">${STATUS_LABEL[j.status]} · ${j.item} · ${j.qty} pcs · ${money(j.totals?.total||0)}</div></div>`
+      ).join("") : `<p class="sub">Nothing due this day. Save a quote with this due date and it will show here.</p>`;
+    }
+
+    function renderFloor() {
+      const today = todayISO();
+      let list = DB.jobs.filter(j => j.status !== "delivered");
+      if (floorFilter === "today") list = list.filter(j => j.status==="production" || (j.due && j.due <= today));
+      if (floorFilter === "production") list = list.filter(j => j.status==="production");
+      if (floorFilter === "ready") list = list.filter(j => j.status==="ready");
+      list.sort((a,b) => (a.due||"9999").localeCompare(b.due||"9999"));
+      if (!list.length) { floorList.innerHTML = `<div class="panel"><p>Nothing in this view. Approve a job and set a due date.</p></div>`; return; }
+      floorList.innerHTML = list.map(j => {
+        const late = j.due && j.due < today && j.status !== "ready";
+        return `<div class="floor-card">
+          <div class="sub">${late ? "OVERDUE · " : ""}${j.due || "No due date"} · ${STATUS_LABEL[j.status]} ${j.machine ? "· "+j.machine : ""}</div>
+          <h3>${j.customer}</h3>
+          <p>${svcTag(j)} ${j.item} · ${j.qty} pcs · ${money(j.totals?.total||0)}</p>
+          <p class="sub">${j.notes||""}</p>
+          <button class="btn btn-navy big-btn" onclick="floorAdvance('${j.id}')">${j.status==="ready"?"Mark delivered": j.status==="production"?"Mark ready / off machine":"Put on the machine"}</button>
+          <div class="actions">
+            ${machines().map(m => `<button class="btn btn-ghost" onclick="parkJob('${j.id}','${m.replace(/'/g,"")}')">${m}</button>`).join("")}
+            <button class="btn btn-ghost" onclick="openJob('${j.id}')">Details</button>
+          </div>
+        </div>`;
+      }).join("");
+    }
+    function floorAdvance(id) {
+      const j = DB.jobs.find(x => x.id === id);
+      const prev = j.status;
+      if (j.status === "quote" || j.status === "approved") j.status = "production";
+      else if (j.status === "production") j.status = "ready";
+      else if (j.status === "ready") j.status = "delivered";
+      ensureOrderDateOnAccept(j, prev);
+      save(); renderFloor(); renderDash(); toast(STATUS_LABEL[j.status]);
+    }
+    function parkJob(id, machine) {
+      const j = DB.jobs.find(x => x.id === id);
+      const prev = j.status;
+      j.machine = machine; j.status = "production";
+      ensureOrderDateOnAccept(j, prev);
+      save(); renderFloor(); toast("On " + machine);
+    }
+
+    function fillCustList() { custList.innerHTML = DB.customers.map(c => `<option value="${c.name}">`).join(""); }
+    function renderCustomers() {
+      custBody.innerHTML = DB.customers.map(c => {
+        const jobs = DB.jobs.filter(j => j.customer === c.name);
+        const work = c.workPhone || "—";
+        const cell = c.cellPhone || (c.phone && !c.workPhone ? c.phone : "—");
+        const place = [c.city, c.state].filter(Boolean).join(", ") || "—";
+        return `<tr>
+          <td><b>${c.name}</b></td>
+          <td>${c.company||"—"}</td>
+          <td>${place}</td>
+          <td>${c.email||"—"}</td>
+          <td>${work}</td>
+          <td>${cell}</td>
+          <td>${jobs.length}</td>
+          <td><button class="btn btn-ghost" onclick="quoteFor('${c.name.replace(/'/g,"\\'")}')">Quote</button></td>
+        </tr>`;
+      }).join("");
+    }
+
+    function quoteFor(name) {
+      const c = DB.customers.find(x => x.name === name);
+      go("quote");
+      cLast.value = c?.lastName || "";
+      cFirst.value = c?.firstName || "";
+      cCompany.value = c?.company || "";
+      if (!c?.lastName && !c?.firstName && !c?.company) cCompany.value = name;
+      cEmail.value = c?.email || "";
+      cWorkPhone.value = c?.workPhone || "";
+      cCellPhone.value = c?.cellPhone || (!c?.workPhone ? (c?.phone||"") : "");
+      if (document.getElementById("cAddress")) cAddress.value = c?.address || "";
+      if (document.getElementById("cAddress2")) cAddress2.value = c?.address2 || "";
+      if (document.getElementById("cCity")) cCity.value = c?.city || "";
+      if (document.getElementById("cState")) cState.value = c?.state || "";
+      if (document.getElementById("cZip")) cZip.value = c?.zip || "";
+      ensureLineItemsInit();
+      calcQuote(false);
+    }
+
+    function openCustomer() {
+      modalBg.style.display = "flex";
+      modal.innerHTML = `<h3 style="font-family:Playfair Display,serif;color:var(--navy)">New customer</h3>
+        <div class="row-3">
+          <div><label>Last name</label><input id="nLast"></div>
+          <div><label>First name</label><input id="nFirst"></div>
+          <div><label>Company</label><input id="nCompany"></div>
+        </div>
+        <label>Email</label><input id="nEmail">
+        <div class="row">
+          <div><label>Work phone</label><input id="nWork" data-phone></div>
+          <div><label>Cell phone</label><input id="nCell" data-phone></div>
+        </div>
+        <label>Street address</label><input id="nAddress" placeholder="Street">
+        <label>Address line 2</label><input id="nAddress2" placeholder="Suite, unit (optional)">
+        <div class="row-3">
+          <div><label>City</label><input id="nCity"></div>
+          <div><label>State</label><input id="nState" maxlength="2" style="text-transform:uppercase"></div>
+          <div><label>ZIP</label><input id="nZip"></div>
+        </div>
+        <div class="actions"><button class="btn btn-gold" onclick="addCustomer()">Save</button><button class="btn btn-ghost" onclick="closeModal()">Cancel</button></div>`;
+      bindAllPhoneFields(modal);
+    }
+
+    function addCustomer() {
+      const lastName = nLast.value.trim();
+      const firstName = nFirst.value.trim();
+      const company = nCompany.value.trim();
+      const name = customerDisplayName(lastName, firstName, company);
+      if (!name) return toast("Add a name or company");
+      ensureCustomer({
+        customer: name, lastName, firstName, company,
+        email: nEmail.value.trim(),
+        workPhone: formatPhone(nWork.value),
+        cellPhone: formatPhone(nCell.value),
+        phone: formatPhone(nCell.value) || formatPhone(nWork.value),
+        address: nAddress.value.trim(),
+        address2: nAddress2.value.trim(),
+        city: nCity.value.trim(),
+        state: nState.value.trim().toUpperCase(),
+        zip: nZip.value.trim()
+      });
+      save(); closeModal(); renderCustomers(); toast("Saved");
+    }
+
+    function renderInv() {
+      invBody.innerHTML = DB.inventory.map(i => {
+        const low = Number(i.qty) <= Number(i.reorder);
+        return `<tr><td><b>${i.name}</b></td><td>${i.type}</td><td>${i.detail||""}</td>
+          <td>${i.qty}${low?' <span class="tag patch">Low</span>':""}</td><td>${i.reorder}</td>
+          <td><button class="btn btn-ghost" onclick="bumpInv('${i.id}',-1)">−</button>
+              <button class="btn btn-ghost" onclick="bumpInv('${i.id}',1)">+</button>
+              <button class="btn btn-danger" onclick="delInv('${i.id}')">×</button></td></tr>`;
+      }).join("");
+    }
+    function bumpInv(id,n){ const i=DB.inventory.find(x=>x.id===id); i.qty=Math.max(0,Number(i.qty)+n); save(); renderInv(); }
+    function delInv(id){ DB.inventory=DB.inventory.filter(i=>i.id!==id); save(); renderInv(); }
+    function openInv() {
+      modalBg.style.display="flex";
+      modal.innerHTML = `<h3 style="font-family:Playfair Display,serif;color:var(--navy)">Add inventory</h3>
+        <label>Name</label><input id="iName">
+        <div class="row"><div><label>Type</label><select id="iType"><option>Thread</option><option>Stabilizer</option><option>Blank</option><option>DTG</option><option>Patch</option><option>Other</option></select></div>
+        <div><label>Detail</label><input id="iDetail"></div></div>
+        <div class="row"><div><label>Qty</label><input id="iQty" type="number" value="1"></div><div><label>Reorder at</label><input id="iRe" type="number" value="2"></div></div>
+        <div class="actions"><button class="btn btn-gold" onclick="addInv()">Save</button><button class="btn btn-ghost" onclick="closeModal()">Cancel</button></div>`;
+    }
+    function addInv() {
+      DB.inventory.push({ id:cid(), name:iName.value.trim()||"Item", type:iType.value, detail:iDetail.value.trim(), qty:+iQty.value||0, reorder:+iRe.value||0 });
+      save(); closeModal(); renderInv(); toast("Added");
+    }
+
+    function renderDigiComboList() {
+      const list = document.getElementById("sDigiComboList");
+      if (!list) return;
+      const combos = DB.settings.digiCombos || [];
+      if (!combos.length) {
+        list.innerHTML = `<p class="sub">No combos yet. Add one for common multi-location jobs.</p>`;
+        return;
+      }
+      list.innerHTML = combos.map((c, i) => {
+        const names = digiLocLabels(c.locs).join(" + ");
+        const d2 = c.day2 != null ? c.day2 : c.price;
+        const nd = c.nextday != null ? c.nextday : c.price;
+        const r8 = c.rush8 != null ? c.rush8 : c.price;
+        return `<div class="digi-combo-row"><span>${names}<br><span class="sub">2 Day ${money(d2)} · Next ${money(nd)} · 8hr ${money(r8)}</span></span>
+          <button type="button" class="btn btn-danger" onclick="removeDigiCombo(${i})">Remove</button></div>`;
+      }).join("");
+    }
+
+    function toggleDigiComboForm(force) {
+      const form = document.getElementById("sDigiComboForm");
+      if (!form) return;
+      const show = force === false ? false : force === true ? true : form.classList.contains("hidden");
+      form.classList.toggle("hidden", !show);
+      if (show) {
+        document.querySelectorAll("#sComboLocs input").forEach(el => el.checked = false);
+        const d2 = document.getElementById("sComboDay2");
+        const nd = document.getElementById("sComboNextday");
+        const r8 = document.getElementById("sComboRush8");
+        if (d2) d2.value = 40; if (nd) nd.value = 50; if (r8) r8.value = 78;
+      }
+    }
+
+    function addDigiCombo() {
+      const locs = sortLocs([...document.querySelectorAll("#sComboLocs input:checked")].map(el => el.value));
+      if (locs.length < 2) return toast("Pick 2+ locations for a combo");
+      const day2 = Number(document.getElementById("sComboDay2").value) || 0;
+      const nextday = Number(document.getElementById("sComboNextday").value) || 0;
+      const rush8 = Number(document.getElementById("sComboRush8").value) || 0;
+      if (!DB.settings.digiCombos) DB.settings.digiCombos = [];
+      const key = locs.join("|");
+      const row = { locs, day2, nextday, rush8 };
+      const existing = DB.settings.digiCombos.findIndex(c => sortLocs(c.locs).join("|") === key);
+      if (existing >= 0) DB.settings.digiCombos[existing] = row;
+      else DB.settings.digiCombos.push(row);
+      renderDigiComboList();
+      toggleDigiComboForm(false);
+      toast(existing >= 0 ? "Combo updated" : "Combo added");
+    }
+
+    function removeDigiCombo(i) {
+      if (!DB.settings.digiCombos) return;
+      DB.settings.digiCombos.splice(i, 1);
+      renderDigiComboList();
+    }
+
+    function fillSettings() {
+      const s = normalizeSettings(DB.settings);
+      DB.settings = s;
+      const rates = s.digiLocRates || DEFAULTS.settings.digiLocRates;
+      const map = { sRate:s.rate,sMin:s.minPiece,sPlaceExtra:s.placeExtra,
+        sDtgSetup:s.dtgSetup,sDtgLoc:s.dtgLoc,sDtgDark:s.dtgDark,sDtgMin:s.dtgMin,
+        sP2:s.p2,sP3:s.p3,sP4:s.p4,sP5:s.p5,sPDigi:s.pDigi,sPIron:s.pIron,sPVelcro:s.pVelcro,
+        sRush:s.rush,sTax:s.tax,sD12:s.d12,sD24:s.d24,sD48:s.d48,sSpm:s.spm,sHoop:s.hoop,
+        sMachines:s.machines,sShop:s.shop,sPhone:s.phone,sAddr:s.addr,sFrom:s.from,
+        sDigiPremium3d: s.digiPremium3d, sDigiHeightCutoff: s.digiHeightCutoff };
+      DIGI_LOC_IDS.forEach(id => {
+        const r = rates[id] || {};
+        DIGI_TURN_IDS.forEach(turn => { map["sLoc_" + id + "_" + turn] = r[turn]; });
+      });
+      Object.entries(map).forEach(([id,val]) => { const el=document.getElementById(id); if (el) el.value = val; });
+      renderDigiComboList();
+      toggleDigiComboForm(false);
+      setSyncStatus(syncState.status, syncState.email || "", syncState.signedIn ? (syncState.status==="Error"?"err":syncState.status==="Syncing"?"busy":"ok") : "off");
+    }
+    function saveSettings() {
+      const digiLocRates = {};
+      DIGI_LOC_IDS.forEach(id => {
+        digiLocRates[id] = {
+          day2: +(document.getElementById("sLoc_" + id + "_day2")?.value) || 0,
+          nextday: +(document.getElementById("sLoc_" + id + "_nextday")?.value) || 0,
+          rush8: +(document.getElementById("sLoc_" + id + "_rush8")?.value) || 0
+        };
+      });
+      // Derived snapshots for old imports
+      const digiBands = {
+        small: { ...digiLocRates.left_chest },
+        large: { ...digiLocRates.full_front }
+      };
+      const digiSingles = {};
+      DIGI_LOC_IDS.forEach(id => { digiSingles[id] = digiLocRates[id].day2; });
+      Object.assign(DB.settings, {
+        rate:+sRate.value, minPiece:+sMin.value, digi: digiLocRates.left_chest.day2 || DB.settings.digi || 0,
+        digiLocRates, digiBands, digiSingles,
+        digiPremium3d: +(document.getElementById("sDigiPremium3d")?.value) || 0,
+        digiHeightCutoff: +(document.getElementById("sDigiHeightCutoff")?.value) || 7.5,
+        digiCombos: (DB.settings.digiCombos || []).map(c => ({ locs: sortLocs(c.locs), day2: Number(c.day2)!=null?Number(c.day2):(Number(c.price)||0), nextday: Number(c.nextday)!=null?Number(c.nextday):(Number(c.price)||0), rush8: Number(c.rush8)!=null?Number(c.rush8):(Number(c.price)||0) })),
+        digiPriceSeed: DEFAULTS.settings.digiPriceSeed,
+        inclColors:999, colorFee:0, chargeColors:false, placeExtra:+(document.getElementById('sPlaceExtra')?.value)||0, placeMult:0,
+        dtgSetup:+sDtgSetup.value, dtgLoc:+sDtgLoc.value, dtgDark:+sDtgDark.value, dtgMin:+sDtgMin.value,
+        p2:+sP2.value, p3:+sP3.value, p4:+sP4.value, p5:+sP5.value, pDigi:+sPDigi.value, pIron:+sPIron.value, pVelcro:+sPVelcro.value,
+        rush:+sRush.value, tax:+sTax.value, d12:+sD12.value, d24:+sD24.value, d48:+sD48.value, spm:+sSpm.value, hoop:+sHoop.value,
+        machines:sMachines.value, shop:sShop.value, phone:formatPhone(sPhone.value), addr:sAddr.value, from:sFrom.value
+      });
+      save(); refreshAsideFoot(); toast("Rates saved");
+    }
+    function exportData() {
+      const file = backupFile();
+      const a=document.createElement("a"); a.href=URL.createObjectURL(file); a.download=file.name; a.click();
+      markBackedUp();
+    }
+    function importData(ev) {
+      const file=ev.target.files[0]; if(!file) return;
+      const reader=new FileReader();
+      reader.onload=()=>{ try { const data=JSON.parse(reader.result); DB={ settings:normalizeSettings(data.settings||{}), jobs:data.jobs||[], customers:data.customers||[], inventory:data.inventory||[] }; save(); toast("Imported"); go("dash"); } catch { toast("Bad file"); } };
+      reader.readAsText(file);
+    }
+
+    bindAllPhoneFields();
+    ["cStitches","cColors","cPlacements","cBlank","cDesignHeight","cDigi","cRush","dLoc","dDark","dSetup","dBlank","dRush","pSize","pBack","pDigi","pRush","cLast","cFirst","cCompany","cWorkPhone","cCellPhone","cEmail","cAddress","cAddress2","cCity","cState","cZip","cDue","cQuoteDate","cOrderDate"].forEach(id => {
+      const el = document.getElementById(id); if (!el) return;
+      el.addEventListener("input", () => calcQuote(false));
+      el.addEventListener("change", () => calcQuote(false));
+    });
+
+    DB.settings = normalizeSettings(DB.settings);
+    ensureLineItemsInit();
+    if (cQuoteDate && !cQuoteDate.value) cQuoteDate.value = todayISO();
+    refreshAsideFoot();
+    renderDash(); calcQuote(false); showBackupStamp();
+    setSyncStatus("Offline cache", "", "off");
+    bootAuth();
+  </script>
+</body>
+</html>
