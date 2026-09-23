@@ -138,7 +138,7 @@
       aside { display: none; }
       .cards, .grid-2, .kanban, .row, .row-3, .week, .svc { grid-template-columns: 1fr 1fr; }
       .cal-grid { grid-template-columns: repeat(7, 1fr); }
-      main { padding: 12px 14px calc(120px + env(safe-area-inset-bottom)); }
+      main { padding: 12px 14px calc(140px + env(safe-area-inset-bottom)); }
       .phone-topbar {
         display: flex; align-items: center; gap: 10px;
         position: sticky; top: 0; z-index: 35;
@@ -161,29 +161,17 @@
         cursor: pointer; -webkit-tap-highlight-color: transparent;
       }
       .mobile-nav {
-        display: flex; align-items: stretch; gap: 0;
+        display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px;
         position: fixed; bottom: 0; left: 0; right: 0;
         background: var(--navy); z-index: 60;
-        padding: 6px 4px calc(8px + env(safe-area-inset-bottom));
+        padding: 8px 6px calc(10px + env(safe-area-inset-bottom));
         border-top: 1px solid rgba(201,162,39,.2);
       }
-      .mobile-nav .nav-home {
-        flex: 0 0 auto; min-width: 64px;
-        border-right: 1px solid rgba(201,162,39,.18);
-        margin-right: 2px; border-radius: 10px 0 0 10px;
-      }
-      .mobile-nav-scroll {
-        display: flex; align-items: stretch; gap: 2px;
-        flex: 1; min-width: 0;
-        overflow-x: auto; -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-      }
-      .mobile-nav-scroll::-webkit-scrollbar { display: none; }
       .mobile-nav button {
         background: 0; border: 0; color: #c9d4e3; font: inherit;
         font-size: 11px; font-weight: 600;
-        flex: 0 0 auto; min-width: 56px; min-height: 48px;
-        padding: 8px 10px; border-radius: 10px; cursor: pointer;
+        min-width: 0; min-height: 48px; width: 100%;
+        padding: 6px 4px; border-radius: 10px; cursor: pointer;
         display: flex; flex-direction: column; align-items: center; justify-content: center;
         gap: 2px; -webkit-tap-highlight-color: transparent;
       }
@@ -196,15 +184,16 @@
         min-height: 40px; padding: 8px 12px; border-radius: 10px;
         cursor: pointer; -webkit-tap-highlight-color: transparent;
       }
-      .toast { bottom: calc(72px + env(safe-area-inset-bottom)); right: 12px; left: 12px; max-width: none; text-align: center; }
+      .toast { bottom: calc(120px + env(safe-area-inset-bottom)); right: 12px; left: 12px; max-width: none; text-align: center; }
       .panel, .quote-result { max-width: 100%; }
-      .kanban { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .kanban { grid-template-columns: 1fr 1fr; }
       table { min-width: 480px; }
       .table-scroll, .panel { overflow-x: auto; -webkit-overflow-scrolling: touch; }
       body { overflow-x: hidden; }
     }
     @media (max-width: 700px) {
       .cards, .kanban, .week, .grid-2, .row, .row-3, .svc { grid-template-columns: 1fr; }
+      .kanban { overflow-x: visible; grid-template-columns: 1fr; }
       h2.page-title { font-size: 22px; }
       .cal-day { min-height: 64px; padding: 5px; }
       .cal-day .n { font-size: 13px; }
@@ -216,7 +205,7 @@
       .digi-locs span { padding: 12px 14px; font-size: 13px; min-height: 44px; display: inline-flex; align-items: center; }
       .svc span { padding: 14px 8px; min-height: 48px; display: flex; align-items: center; justify-content: center; }
       .actions.quote-actions {
-        position: sticky; bottom: calc(64px + env(safe-area-inset-bottom));
+        position: sticky; bottom: calc(120px + env(safe-area-inset-bottom));
         z-index: 30; background: var(--paper);
         margin: 12px -4px 0; padding: 10px 4px 8px;
         border-top: 1px solid var(--line);
@@ -228,7 +217,7 @@
       #quote .actions:not(.quote-actions) .btn { width: 100%; }
       .topbar .actions { width: 100%; }
       .topbar .actions .btn { flex: 1; min-width: 0; }
-      main { padding-bottom: calc(140px + env(safe-area-inset-bottom)); }
+      main { padding-bottom: calc(150px + env(safe-area-inset-bottom)); }
     }
 
     .line-item { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; margin: 10px 0; background: #fffdf8; position: relative; }
@@ -322,7 +311,7 @@
       <div class="logo" aria-hidden="true" onclick="go('dash')" style="cursor:pointer">308</div>
       <div class="phone-brand" onclick="go('dash')" style="cursor:pointer" title="Home">
         <div class="phone-shop" id="phoneShopName">308 Embroidery</div>
-        <span class="phone-ver" id="phoneVersion">308 Desk v2.25</span>
+        <span class="phone-ver" id="phoneVersion">308 Desk v2.26</span>
       </div>
       <button type="button" class="phone-home-btn" onclick="go('dash')">Home</button>
       <span class="sync-dot off" id="phoneSyncDot" title="Sync status"><i></i><span id="phoneSyncLabel">…</span></span>
@@ -342,7 +331,7 @@
         <button data-page="inventory">Inventory</button>
         <button data-page="settings">Settings</button>
       </nav>
-      <div class="aside-foot" id="asideFoot">308 Embroidery<br>1710 Broadway, Scottsbluff<br>308-635-7123<br><span id="asideVersion">308 Desk v2.25</span></div>
+      <div class="aside-foot" id="asideFoot">308 Embroidery<br>1710 Broadway, Scottsbluff<br>308-635-7123<br><span id="asideVersion">308 Desk v2.26</span></div>
     </aside>
     <main>
       <section id="dash" class="page active">
@@ -800,16 +789,14 @@
   </div>
 
   <nav class="mobile-nav no-print" aria-label="Mobile">
-    <button type="button" data-page="dash" class="nav-home active"><span class="nav-ico">⌂</span>Home</button>
-    <div class="mobile-nav-scroll">
-      <button type="button" data-page="quote"><span class="nav-ico">$</span>Quote</button>
-      <button type="button" data-page="jobs"><span class="nav-ico">☰</span>Jobs</button>
-      <button type="button" data-page="floor"><span class="nav-ico">⚙</span>Floor</button>
-      <button type="button" data-page="calendar"><span class="nav-ico">📅</span>Cal</button>
-      <button type="button" data-page="customers"><span class="nav-ico">☺</span>Cust</button>
-      <button type="button" data-page="inventory"><span class="nav-ico">▦</span>Inv</button>
-      <button type="button" data-page="settings"><span class="nav-ico">●</span>Set</button>
-    </div>
+    <button type="button" data-page="dash" class="active"><span class="nav-ico">⌂</span>Home</button>
+    <button type="button" data-page="quote"><span class="nav-ico">$</span>Quote</button>
+    <button type="button" data-page="jobs"><span class="nav-ico">☰</span>Jobs</button>
+    <button type="button" data-page="calendar"><span class="nav-ico">📅</span>Cal</button>
+    <button type="button" data-page="floor"><span class="nav-ico">⚙</span>Floor</button>
+    <button type="button" data-page="customers"><span class="nav-ico">☺</span>Cust</button>
+    <button type="button" data-page="inventory"><span class="nav-ico">▦</span>Inv</button>
+    <button type="button" data-page="settings"><span class="nav-ico">●</span>Set</button>
   </nav>
 
   <div class="modal-bg" id="modalBg" onclick="if(event.target===this)closeModal()"><div class="modal" id="modal"></div></div>
@@ -823,7 +810,7 @@
     let selectedDay = isoDate(new Date());
     let floorFilter = "today";
 
-    const APP_VERSION = "2.25";
+    const APP_VERSION = "2.26";
 
     // Parent replaces this with the real OAuth Web client ID from Google Cloud Console.
     const GOOGLE_CLIENT_ID = "208220038240-prioq0u84f5odbc5uue4r67t35ktng4k.apps.googleusercontent.com";
@@ -1648,7 +1635,6 @@
       document.querySelectorAll("nav button, .mobile-nav button").forEach(b => {
         const on = b.dataset.page === page;
         b.classList.toggle("active", on);
-        if (on && b.closest(".mobile-nav-scroll")) try { b.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" }); } catch (_) {}
       });
       if (page==="dash") renderDash();
       if (page==="quote") {

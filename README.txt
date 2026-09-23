@@ -1,4 +1,4 @@
-308 DESK v2.25 — 308 Embroidery shop assistant
+308 DESK v2.26 — 308 Embroidery shop assistant
 =============================================
 
 v2.25 — blanksFromLineItems falls back to job-level blank when line items omit blank (fixes Print/PDF vs Subtotal mismatch on older Drive jobs).
