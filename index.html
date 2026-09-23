@@ -778,7 +778,7 @@
     let selectedDay = isoDate(new Date());
     let floorFilter = "today";
 
-    const APP_VERSION = "2.18";
+    const APP_VERSION = "2.19";
 
     // Parent replaces this with the real OAuth Web client ID from Google Cloud Console.
     const GOOGLE_CLIENT_ID = "208220038240-prioq0u84f5odbc5uue4r67t35ktng4k.apps.googleusercontent.com";
@@ -1256,9 +1256,16 @@
     }
 
     async function fetchUserEmail(token) {
-      const r = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
-        headers: { Authorization: "Bearer " + token }
-      });
+      // Token only has drive.file — userinfo needs email/profile scope.
+      // Drive about.user works with drive.file and returns emailAddress.
+      const headers = { Authorization: "Bearer " + token };
+      let r = await fetch("https://www.googleapis.com/drive/v3/about?fields=user", { headers });
+      if (r.ok) {
+        const j = await r.json();
+        const email = (j.user && j.user.emailAddress) || "";
+        if (email) return email;
+      }
+      r = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", { headers });
       if (!r.ok) throw new Error("Could not read Google account");
       const j = await r.json();
       return j.email || "";
