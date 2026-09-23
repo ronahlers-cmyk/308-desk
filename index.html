@@ -824,7 +824,7 @@
     let selectedDay = isoDate(new Date());
     let floorFilter = "today";
 
-    const APP_VERSION = "2.21";
+    const APP_VERSION = "2.22";
 
     // Parent replaces this with the real OAuth Web client ID from Google Cloud Console.
     const GOOGLE_CLIENT_ID = "208220038240-prioq0u84f5odbc5uue4r67t35ktng4k.apps.googleusercontent.com";
@@ -1473,7 +1473,7 @@
           setSyncStatus("Synced", "created on Drive", "ok");
         } else if (force === "pull" || tsNewer(remote.updatedAt, localTs)) {
           applyRemotePayload(remote);
-          setSyncStatus("Synced", "pulled " + remote.updatedAt.slice(0, 19), "ok");
+          setSyncStatus("Synced", "pulled from phone/Drive " + remote.updatedAt.slice(0, 19), "ok");
         } else if (force === "push" || tsNewer(localTs, remote.updatedAt)) {
           await uploadSyncFile(fileId, buildSyncPayload(localTs || new Date().toISOString()));
           setSyncStatus("Synced", "pushed", "ok");
@@ -1494,7 +1494,14 @@
       setSyncStatus("Syncing", "saving…", "busy");
       try {
         const fileId = await ensureDriveHandles();
-        await uploadSyncFile(fileId, buildSyncPayload());
+        const remote = await downloadSyncFile(fileId);
+        const localTs = localUpdatedAt();
+        if (remote && remote.updatedAt && tsNewer(remote.updatedAt, localTs)) {
+          applyRemotePayload(remote);
+          setSyncStatus("Synced", "pulled from phone/Drive " + remote.updatedAt.slice(0, 19), "ok");
+          return;
+        }
+        await uploadSyncFile(fileId, buildSyncPayload(localTs || new Date().toISOString()));
         setSyncStatus("Synced", "saved", "ok");
       } catch (e) {
         setSyncStatus("Error", String(e.message || e), "err");
@@ -1574,7 +1581,7 @@
 
     function startSyncPolling() {
       stopSyncPolling();
-      syncState.pollTimer = setInterval(() => { reconcileSync().catch(() => {}); }, 60_000);
+      syncState.pollTimer = setInterval(() => { reconcileSync().catch(() => {}); }, 15_000);
     }
     function stopSyncPolling() {
       if (syncState.pollTimer) { clearInterval(syncState.pollTimer); syncState.pollTimer = null; }
@@ -1584,6 +1591,12 @@
       if (document.visibilityState === "visible" && syncState.signedIn) {
         reconcileSync().catch(() => {});
       }
+    });
+    window.addEventListener("focus", () => {
+      if (syncState.signedIn) reconcileSync().catch(() => {});
+    });
+    window.addEventListener("pageshow", () => {
+      if (syncState.signedIn) reconcileSync().catch(() => {});
     });
 
     async function bootAuth() {

@@ -1,13 +1,15 @@
 308 DESK v2.18 — 308 Embroidery shop assistant
 =============================================
 
+v2.22 — Drive live-sync: pushToDrive won't clobber newer remote; poll 15s; pull on window focus/pageshow; clearer "pulled from phone/Drive" status.
+
 WHAT'S NEW IN V2.18 (Google Sign-In + Drive live sync)
 ------------------------------------------------------
 1. Google Sign-In required (Google Identity Services) — soft-lock splash until signed in
 2. Allowed accounts only: ronahlers@gmail.com, ron.ahlers@gmail.com (others get “Not authorized”)
 3. Live sync file in Drive folder **308 Desk Sync** → **desk308-live.json**
 4. Every save writes localStorage (`desk308`) then pushes to Drive (800ms debounce)
-5. Pull on sign-in, app load, tab focus, and every 60s — newer `updatedAt` wins
+5. Pull on sign-in, app load, tab focus, and every 15s — newer `updatedAt` wins
 6. Settings: signed-in email, sync status, Force pull / Force push / Sign out
 7. Phone top bar: small sync indicator (Synced / Sync… / Offline / Err)
 8. OAuth scope: drive.file (app-created sync folder/file only). CLIENT_ID placeholder must be replaced.
