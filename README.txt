@@ -1,5 +1,7 @@
-308 DESK v2.26 — 308 Embroidery shop assistant
+308 DESK v2.27 — 308 Embroidery shop assistant
 =============================================
+
+v2.27 — Dark theme by default (navy/charcoal + gold); Settings Dark/Light toggle; localStorage desk308_theme (device-only, not Drive sync). Print/PDF forced light.
 
 v2.25 — blanksFromLineItems falls back to job-level blank when line items omit blank (fixes Print/PDF vs Subtotal mismatch on older Drive jobs).
 v2.23 — Blank cost ($) on each quote line item; grand blanks total in breakdown (embroidery + DTG). Quote-level cBlank/dBlank removed.

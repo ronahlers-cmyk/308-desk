@@ -2,6 +2,10 @@
 
 Shop quoting desk for **308 Embroidery** (Ron Ahlers).
 
+## Theme (v2.27)
+
+Dark by default (navy/charcoal + gold). Settings → Dark/Light; stored in `localStorage` key `desk308_theme` (device only, not Drive sync).
+
 ## Live sync (v2.18)
 
 - **Google Sign-In required** — app shows a navy/gold splash until you sign in.
