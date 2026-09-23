@@ -322,7 +322,7 @@
       <div class="logo" aria-hidden="true" onclick="go('dash')" style="cursor:pointer">308</div>
       <div class="phone-brand" onclick="go('dash')" style="cursor:pointer" title="Home">
         <div class="phone-shop" id="phoneShopName">308 Embroidery</div>
-        <span class="phone-ver" id="phoneVersion">308 Desk v2.21</span>
+        <span class="phone-ver" id="phoneVersion">308 Desk v2.24</span>
       </div>
       <button type="button" class="phone-home-btn" onclick="go('dash')">Home</button>
       <span class="sync-dot off" id="phoneSyncDot" title="Sync status"><i></i><span id="phoneSyncLabel">…</span></span>
@@ -342,7 +342,7 @@
         <button data-page="inventory">Inventory</button>
         <button data-page="settings">Settings</button>
       </nav>
-      <div class="aside-foot" id="asideFoot">308 Embroidery<br>1710 Broadway, Scottsbluff<br>308-635-7123<br><span id="asideVersion">308 Desk v2.18</span></div>
+      <div class="aside-foot" id="asideFoot">308 Embroidery<br>1710 Broadway, Scottsbluff<br>308-635-7123<br><span id="asideVersion">308 Desk v2.24</span></div>
     </aside>
     <main>
       <section id="dash" class="page active">
@@ -429,6 +429,7 @@
               <div><label>Due date</label><input id="cDue" type="date"></div>
             </div>
             <h3 style="margin-top:14px">Line items</h3>
+            <div class="hint">Each item has its own blank cost — totals add up below.</div>
             <div id="lineItems"></div>
             <div class="actions" style="margin-top:6px">
               <button type="button" class="btn btn-ghost" onclick="addLineItem()">+ Add item</button>
@@ -822,7 +823,7 @@
     let selectedDay = isoDate(new Date());
     let floorFilter = "today";
 
-    const APP_VERSION = "2.23";
+    const APP_VERSION = "2.24";
 
     // Parent replaces this with the real OAuth Web client ID from Google Cloud Console.
     const GOOGLE_CLIENT_ID = "208220038240-prioq0u84f5odbc5uue4r67t35ktng4k.apps.googleusercontent.com";
@@ -1851,7 +1852,7 @@
         </div>
         <div class="row" style="margin-top:8px">
           <div><label>Qty</label><input class="li-qty" type="number" min="1" value="${data.qty!=null?data.qty:1}"></div>
-          <div><label>Blank $ each</label><input class="li-blank" type="number" step="0.01" min="0" value="${data.blank!=null&&data.blank!==""?data.blank:0}"></div>
+          <div><label>Blank cost each $</label><input class="li-blank" type="number" step="0.01" min="0" value="${data.blank!=null&&data.blank!==""?data.blank:0}"></div>
         </div>
         <label style="margin-top:8px">Location (pick one or more)</label>
         <div class="digi-locs li-locs">${placeChipsHtml(data.locations || data.location || data.place)}</div>`;
