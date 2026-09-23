@@ -108,7 +108,7 @@
     table { width: 100%; border-collapse: collapse; font-size: 14px; }
     th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); padding: 8px; border-bottom: 1px solid var(--line); }
     td { padding: 10px 8px; border-bottom: 1px solid var(--line); }
-    .kanban { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+    .kanban { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
     .col { background: var(--col-bg); border-radius: 14px; padding: 10px; min-height: 240px; }
     .col h4 { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--title); padding: 4px 4px 10px; }
     .job { background: var(--paper); border-radius: 12px; padding: 11px; margin-bottom: 8px; border: 1px solid var(--line); cursor: pointer; }
@@ -860,13 +860,13 @@
 
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script>
-    const STATUSES = ["quote","approved","production","ready","delivered"];
-    const STATUS_LABEL = { quote:"Quote", approved:"Approved", production:"In production", ready:"Ready", delivered:"Delivered" };
+    const STATUSES = ["quote","approved","blanks","production","ready","delivered"];
+    const STATUS_LABEL = { quote:"Quote", approved:"Approved", blanks:"Blanks Ordered / Have on Hand", production:"In production", ready:"Ready", delivered:"Delivered" };
     let calCursor = new Date();
     let selectedDay = isoDate(new Date());
     let floorFilter = "today";
 
-    const APP_VERSION = "2.33";
+    const APP_VERSION = "2.34";
 
     // Parent replaces this with the real OAuth Web client ID from Google Cloud Console.
     const GOOGLE_CLIENT_ID = "208220038240-prioq0u84f5odbc5uue4r67t35ktng4k.apps.googleusercontent.com";
@@ -2475,7 +2475,7 @@
 
     function ensureOrderDateOnAccept(j, prevStatus) {
       if (!j || j.orderDate) return;
-      const committed = j.status === "approved" || j.status === "production" || j.status === "ready" || j.status === "delivered";
+      const committed = j.status === "approved" || j.status === "blanks" || j.status === "production" || j.status === "ready" || j.status === "delivered";
       if (!committed) return;
       if (prevStatus === "quote" || (j.status === "approved" && prevStatus !== "approved")) {
         j.orderDate = todayISO();
@@ -2672,7 +2672,7 @@
     function floorAdvance(id) {
       const j = DB.jobs.find(x => x.id === id);
       const prev = j.status;
-      if (j.status === "quote" || j.status === "approved") j.status = "production";
+      if (j.status === "quote" || j.status === "approved" || j.status === "blanks") j.status = "production";
       else if (j.status === "production") j.status = "ready";
       else if (j.status === "ready") j.status = "delivered";
       ensureOrderDateOnAccept(j, prev);

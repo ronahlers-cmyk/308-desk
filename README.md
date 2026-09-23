@@ -2,7 +2,9 @@
 
 Shop quoting desk for **308 Embroidery** (Ron Ahlers).
 
-## Theme (v2.33)
+## Theme (v2.34)
+
+Job board adds **Blanks Ordered / Have on Hand** after Approved (status `blanks`). Pipeline: Quote → Approved → Blanks → In production → Ready → Delivered.
 
 Boot uses Drive about for token check (no hanging userinfo refresh). Print/PDF uses each line's own blank (no weighted-average smear); description shows emb/dtg + blank breakdown; quote card says "blanks by line" when blanks differ. Embroidery min/piece applies to stitch labor at all quantities; extra placement is added before quantity off. Quantity pricing includes a 6+ decoration discount tier (default 4%).
 

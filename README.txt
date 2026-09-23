@@ -1,5 +1,7 @@
-308 DESK v2.33 — 308 Embroidery shop assistant
+308 DESK v2.34 — 308 Embroidery shop assistant
 =============================================
+
+v2.34 — Job board column after Approved: Blanks Ordered / Have on Hand (status key `blanks`). Pipeline: Quote → Approved → Blanks → In production → Ready → Delivered.
 
 v2.33 — Boot auth uses Drive about (drive.file) instead of oauth userinfo; no hanging silent token refresh — user taps Sign in.
 
