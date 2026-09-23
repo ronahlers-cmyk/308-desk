@@ -359,7 +359,7 @@
       <div class="logo" aria-hidden="true" onclick="go('dash')" style="cursor:pointer">308</div>
       <div class="phone-brand" onclick="go('dash')" style="cursor:pointer" title="Home">
         <div class="phone-shop" id="phoneShopName">308 Embroidery</div>
-        <span class="phone-ver" id="phoneVersion">308 Desk v2.28</span>
+        <span class="phone-ver" id="phoneVersion">308 Desk v2.30</span>
       </div>
       <button type="button" class="phone-home-btn" onclick="go('dash')">Home</button>
       <span class="sync-dot off" id="phoneSyncDot" title="Sync status"><i></i><span id="phoneSyncLabel">…</span></span>
@@ -379,7 +379,7 @@
         <button data-page="inventory">Inventory</button>
         <button data-page="settings">Settings</button>
       </nav>
-      <div class="aside-foot" id="asideFoot">308 Embroidery<br>1710 Broadway, Scottsbluff<br>308-635-7123<br><span id="asideVersion">308 Desk v2.28</span></div>
+      <div class="aside-foot" id="asideFoot">308 Embroidery<br>1710 Broadway, Scottsbluff<br>308-635-7123<br><span id="asideVersion">308 Desk v2.30</span></div>
     </aside>
     <main>
       <section id="dash" class="page active">
@@ -658,9 +658,10 @@
           <div class="panel">
             <h3>Embroidery</h3>
             <div class="row"><div><label>$ / 1,000 stitches</label><input id="sRate" type="number" step="0.01"></div><div><label>Min / piece</label><input id="sMin" type="number" step="0.01"></div></div>
+            <p class="sub">Min / piece applies to qty 1–5 only. At 6+ (qty off), labor can go below the min.</p>
             <p class="sub">No charge for thread colors — stitch count and min/piece only.</p>
             <div class="row"><div><label>Extra placement $</label><input id="sPlaceExtra" type="number" step="0.01"></div><div></div></div>
-            <p class="sub">First sew location = full labor (min/piece). Each extra place on the same piece adds this flat $.</p>
+            <p class="sub">First sew location = full labor (min/piece). Each extra place on the same piece adds this flat $, and qty discounts apply to that amount.</p>
             <div class="settings-block" id="digiFeeBlock">
               <h3>Embroidery digitizing fees</h3>
               <p class="sub">Flat digi rate by location &amp; turnaround (Vitor + 50% Digitizing baseline). Each digi location has its own 2 Day / Next Day / 8 Hour prices. Combos optional — override an exact location set with a flat price.</p>
@@ -865,7 +866,7 @@
     let selectedDay = isoDate(new Date());
     let floorFilter = "today";
 
-    const APP_VERSION = "2.28";
+    const APP_VERSION = "2.30";
 
     // Parent replaces this with the real OAuth Web client ID from Google Cloud Console.
     const GOOGLE_CLIENT_ID = "208220038240-prioq0u84f5odbc5uue4r67t35ktng4k.apps.googleusercontent.com";
@@ -1830,12 +1831,14 @@
         const stitches = Math.max(0, Number(input.stitches)||0);
         const colors = Math.max(1, Number(input.colors)||1);
         const placements = Math.max(1, Number(input.placements)||1);
-        // Stitch rate → qty discount → floor at min/piece → flat $ per extra placement. No color fees.
+        // Stitch rate → min/piece only without a qty discount → flat $ per extra placement → qty discount. No color fees.
         decorEach = (stitches/1000)*s.rate;
-        decorEach *= (1 - disc);
-        decorEach = Math.max(s.minPiece, decorEach);
+        // Min/piece applies only when no quantity discount is active (qty 1–5 with current breaks).
+        if (!disc) decorEach = Math.max(s.minPiece, decorEach);
         const placeExtra = Number(s.placeExtra != null ? s.placeExtra : 5);
         if (placements > 1 && placeExtra) decorEach += placeExtra * (placements - 1);
+        // Quantity discount applies to stitch labor and extra placement labor.
+        decorEach *= (1 - disc);
         let digiInfo = { amount: 0, mode: "none", label: "Digitizing" };
         if (input.digi === "new") {
           digiInfo = digiFeeFor(input.digiLocations || [], s, input.rush || input.digiTurn || "day2", input.designHeight);
