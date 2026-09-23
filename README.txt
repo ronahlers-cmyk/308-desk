@@ -1,5 +1,7 @@
-308 DESK v2.32 — 308 Embroidery shop assistant
+308 DESK v2.33 — 308 Embroidery shop assistant
 =============================================
+
+v2.33 — Boot auth uses Drive about (drive.file) instead of oauth userinfo; no hanging silent token refresh — user taps Sign in.
 
 v2.32 — Print/PDF uses each line's own blank (no weighted-average smear); description shows emb/dtg + blank breakdown; quote card says "blanks by line" when blanks differ.
 

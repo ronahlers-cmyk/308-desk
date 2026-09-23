@@ -359,7 +359,7 @@
       <div class="logo" aria-hidden="true" onclick="go('dash')" style="cursor:pointer">308</div>
       <div class="phone-brand" onclick="go('dash')" style="cursor:pointer" title="Home">
         <div class="phone-shop" id="phoneShopName">308 Embroidery</div>
-        <span class="phone-ver" id="phoneVersion">308 Desk v2.32</span>
+        <span class="phone-ver" id="phoneVersion">308 Desk v2.33</span>
       </div>
       <button type="button" class="phone-home-btn" onclick="go('dash')">Home</button>
       <span class="sync-dot off" id="phoneSyncDot" title="Sync status"><i></i><span id="phoneSyncLabel">…</span></span>
@@ -379,7 +379,7 @@
         <button data-page="inventory">Inventory</button>
         <button data-page="settings">Settings</button>
       </nav>
-      <div class="aside-foot" id="asideFoot">308 Embroidery<br>1710 Broadway, Scottsbluff<br>308-635-7123<br><span id="asideVersion">308 Desk v2.32</span></div>
+      <div class="aside-foot" id="asideFoot">308 Embroidery<br>1710 Broadway, Scottsbluff<br>308-635-7123<br><span id="asideVersion">308 Desk v2.33</span></div>
     </aside>
     <main>
       <section id="dash" class="page active">
@@ -866,7 +866,7 @@
     let selectedDay = isoDate(new Date());
     let floorFilter = "today";
 
-    const APP_VERSION = "2.32";
+    const APP_VERSION = "2.33";
 
     // Parent replaces this with the real OAuth Web client ID from Google Cloud Console.
     const GOOGLE_CLIENT_ID = "208220038240-prioq0u84f5odbc5uue4r67t35ktng4k.apps.googleusercontent.com";
@@ -1372,20 +1372,29 @@
       });
     }
 
-    async function fetchUserEmail(token) {
-      // Token only has drive.file — userinfo needs email/profile scope.
-      // Drive about.user works with drive.file and returns emailAddress.
+    // Token only has drive.file — userinfo needs email/profile and returns 401.
+    // Drive about.user works with drive.file and returns emailAddress.
+    async function probeGoogleAccount(token) {
       const headers = { Authorization: "Bearer " + token };
-      let r = await fetch("https://www.googleapis.com/drive/v3/about?fields=user", { headers });
-      if (r.ok) {
-        const j = await r.json();
-        const email = (j.user && j.user.emailAddress) || "";
-        if (email) return email;
+      const r = await fetch("https://www.googleapis.com/drive/v3/about?fields=user", { headers });
+      if (!r.ok) {
+        const err = new Error("Could not read Google account");
+        err.status = r.status;
+        throw err;
       }
-      r = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", { headers });
-      if (!r.ok) throw new Error("Could not read Google account");
       const j = await r.json();
-      return j.email || "";
+      const email = (j.user && j.user.emailAddress) || "";
+      if (!email) {
+        const err = new Error("Could not read Google account");
+        err.status = 0;
+        throw err;
+      }
+      return { email, status: r.status };
+    }
+
+    async function fetchUserEmail(token) {
+      const { email } = await probeGoogleAccount(token);
+      return email;
     }
 
     async function driveFetch(path, opts) {
@@ -1677,37 +1686,35 @@
       for (let i = 0; i < 40 && !(window.google && google.accounts); i++) {
         await new Promise(r => setTimeout(r, 100));
       }
-      if (restorePersistedToken()) {
-        showAuthGate(false);
-        setSyncStatus("Syncing", syncState.email, "busy");
-        try {
-          // Validate token / refresh if needed
-          const probe = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
-            headers: { Authorization: "Bearer " + syncState.accessToken }
-          });
-          if (!probe.ok) {
-            const token = await requestAccessToken("");
-            await finishSignIn(token);
-          } else {
-            const j = await probe.json();
-            if (!isEmailAllowed(j.email)) {
-              googleSignOut();
-              showAuthGate(true, "Not authorized. Sign in with an allowed shop Google account.");
-              return;
-            }
-            syncState.email = j.email;
-            await reconcileSync();
-            startSyncPolling();
-          }
-        } catch (e) {
-          try {
-            const token = await requestAccessToken("");
-            await finishSignIn(token);
-          } catch (e2) {
-            showAuthGate(true, String(e2.message || e2));
-            setSyncStatus("Offline cache", "", "off");
-          }
+      if (!restorePersistedToken()) return;
+      showAuthGate(false);
+      setSyncStatus("Syncing", syncState.email, "busy");
+      try {
+        // Validate with Drive about (drive.file scope) — not oauth userinfo (401 / hang on refresh).
+        const { email } = await probeGoogleAccount(syncState.accessToken);
+        if (!isEmailAllowed(email)) {
+          googleSignOut();
+          showAuthGate(true, "Not authorized. Sign in with an allowed shop Google account.");
+          return;
         }
+        syncState.email = email;
+        persistToken();
+        await reconcileSync();
+        startSyncPolling();
+      } catch (e) {
+        const status = e && e.status;
+        const unauthorized = status === 401 || status === 403;
+        if (unauthorized) {
+          syncState.accessToken = "";
+          syncState.tokenExpiry = 0;
+          syncState.signedIn = false;
+          clearPersistedToken();
+        }
+        // Do not auto requestAccessToken here — popup needs a user gesture (phone/browser hang).
+        showAuthGate(true, unauthorized
+          ? "Session expired. Tap Sign in with Google to continue."
+          : "Could not reach Google. Tap Sign in when online, or keep working from offline cache.");
+        setSyncStatus("Offline cache", unauthorized ? "sign in again" : "network", "off");
       }
     }
 
@@ -2914,10 +2921,15 @@
     });
 
     DB.settings = normalizeSettings(DB.settings);
-    ensureLineItemsInit();
-    if (cQuoteDate && !cQuoteDate.value) cQuoteDate.value = todayISO();
-    refreshAsideFoot();
-    renderDash(); calcQuote(false); showBackupStamp();
+    try {
+      ensureLineItemsInit();
+      if (cQuoteDate && !cQuoteDate.value) cQuoteDate.value = todayISO();
+      refreshAsideFoot();
+      renderDash(); calcQuote(false); showBackupStamp();
+    } catch (e) {
+      console.error("Boot quote/UI init failed", e);
+      try { toast("Quote UI error — you can still sign in"); } catch (_) {}
+    }
     setSyncStatus("Offline cache", "", "off");
     bootTheme();
     bootAuth();
