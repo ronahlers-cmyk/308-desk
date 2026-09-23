@@ -2,7 +2,9 @@
 
 Shop quoting desk for **308 Embroidery** (Ron Ahlers).
 
-## Theme (v2.27)
+## Theme (v2.28)
+
+Quantity pricing now includes a 6+ decoration discount tier (default 4%).
 
 Dark by default (navy/charcoal + gold). Settings → Dark/Light; stored in `localStorage` key `desk308_theme` (device only, not Drive sync).
 

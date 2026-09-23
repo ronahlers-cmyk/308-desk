@@ -1,5 +1,7 @@
-308 DESK v2.27 — 308 Embroidery shop assistant
+308 DESK v2.28 — 308 Embroidery shop assistant
 =============================================
+
+v2.28 — Added the 6+ quantity decoration discount tier (default 4%).
 
 v2.27 — Dark theme by default (navy/charcoal + gold); Settings Dark/Light toggle; localStorage desk308_theme (device-only, not Drive sync). Print/PDF forced light.
 

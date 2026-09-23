@@ -359,7 +359,7 @@
       <div class="logo" aria-hidden="true" onclick="go('dash')" style="cursor:pointer">308</div>
       <div class="phone-brand" onclick="go('dash')" style="cursor:pointer" title="Home">
         <div class="phone-shop" id="phoneShopName">308 Embroidery</div>
-        <span class="phone-ver" id="phoneVersion">308 Desk v2.27</span>
+        <span class="phone-ver" id="phoneVersion">308 Desk v2.28</span>
       </div>
       <button type="button" class="phone-home-btn" onclick="go('dash')">Home</button>
       <span class="sync-dot off" id="phoneSyncDot" title="Sync status"><i></i><span id="phoneSyncLabel">…</span></span>
@@ -379,7 +379,7 @@
         <button data-page="inventory">Inventory</button>
         <button data-page="settings">Settings</button>
       </nav>
-      <div class="aside-foot" id="asideFoot">308 Embroidery<br>1710 Broadway, Scottsbluff<br>308-635-7123<br><span id="asideVersion">308 Desk v2.27</span></div>
+      <div class="aside-foot" id="asideFoot">308 Embroidery<br>1710 Broadway, Scottsbluff<br>308-635-7123<br><span id="asideVersion">308 Desk v2.28</span></div>
     </aside>
     <main>
       <section id="dash" class="page active">
@@ -793,7 +793,8 @@
             <h3>Shared</h3>
             <div class="row"><div><label>Rush markup % (DTG / patches)</label><input id="sRush" type="number"></div><div><label>Sales tax %</label><input id="sTax" type="number" step="0.01"></div></div>
             <p class="sub" style="margin:8px 0">Quantity off decoration only (not blanks).</p>
-            <div class="row-3">
+            <div class="row-4">
+              <div><label>6+ off %</label><input id="sD6" type="number"></div>
               <div><label>12+ off %</label><input id="sD12" type="number"></div>
               <div><label>24+ off %</label><input id="sD24" type="number"></div>
               <div><label>48+ off %</label><input id="sD48" type="number"></div>
@@ -864,7 +865,7 @@
     let selectedDay = isoDate(new Date());
     let floorFilter = "today";
 
-    const APP_VERSION = "2.27";
+    const APP_VERSION = "2.28";
 
     // Parent replaces this with the real OAuth Web client ID from Google Cloud Console.
     const GOOGLE_CLIENT_ID = "208220038240-prioq0u84f5odbc5uue4r67t35ktng4k.apps.googleusercontent.com";
@@ -914,7 +915,7 @@
           { locs: ["full_back","left_chest"], day2: 74.97, nextday: 89.99, rush8: 112.49 },
           { locs: ["cap_flat","full_back","left_chest"], day2: 79.47, nextday: 95.97, rush8: 143.96 }
         ],
-        rush: 25, tax: 0, d12: 8, d24: 15, d48: 22, spm: 700, hoop: 2.5,
+        rush: 25, tax: 0, d6: 4, d12: 8, d24: 15, d48: 22, spm: 700, hoop: 2.5,
         dtgSetup: 25, dtgLoc: 8.5, dtgDark: 2.5, dtgMin: 10,
         p2: 6.5, p3: 8.5, p4: 11, p5: 15, pDigi: 40, pIron: 0.75, pVelcro: 1.5,
         machines: "Head 1, Head 2",
@@ -1081,6 +1082,7 @@
       if (s.digiPremium3d == null) s.digiPremium3d = DEFAULTS.settings.digiPremium3d;
       if (s.digiHeightCutoff == null) s.digiHeightCutoff = DEFAULTS.settings.digiHeightCutoff;
       if (s.digi == null) s.digi = DEFAULTS.settings.digi;
+      if (s.d6 == null) s.d6 = 4;
       // Shop policy: no thread-color fees; $20 min/piece
       s.chargeColors = false;
       s.colorFee = 0;
@@ -1734,7 +1736,11 @@
     document.querySelectorAll("aside nav button, .mobile-nav button").forEach(b => b.addEventListener("click", () => go(b.dataset.page)));
 
     function discountPct(qty, s) {
-      if (qty >= 48) return s.d48; if (qty >= 24) return s.d24; if (qty >= 12) return s.d12; return 0;
+      if (qty >= 48) return s.d48;
+      if (qty >= 24) return s.d24;
+      if (qty >= 12) return s.d12;
+      if (qty >= 6) return (s.d6 != null ? s.d6 : 0);
+      return 0;
     }
 
 
@@ -2817,7 +2823,7 @@
       const map = { sRate:s.rate,sMin:s.minPiece,sPlaceExtra:s.placeExtra,
         sDtgSetup:s.dtgSetup,sDtgLoc:s.dtgLoc,sDtgDark:s.dtgDark,sDtgMin:s.dtgMin,
         sP2:s.p2,sP3:s.p3,sP4:s.p4,sP5:s.p5,sPDigi:s.pDigi,sPIron:s.pIron,sPVelcro:s.pVelcro,
-        sRush:s.rush,sTax:s.tax,sD12:s.d12,sD24:s.d24,sD48:s.d48,sSpm:s.spm,sHoop:s.hoop,
+        sRush:s.rush,sTax:s.tax,sD6:s.d6,sD12:s.d12,sD24:s.d24,sD48:s.d48,sSpm:s.spm,sHoop:s.hoop,
         sMachines:s.machines,sShop:s.shop,sPhone:s.phone,sAddr:s.addr,sFrom:s.from,
         sDigiPremium3d: s.digiPremium3d, sDigiHeightCutoff: s.digiHeightCutoff };
       DIGI_LOC_IDS.forEach(id => {
@@ -2855,7 +2861,7 @@
         inclColors:999, colorFee:0, chargeColors:false, placeExtra:+(document.getElementById('sPlaceExtra')?.value)||0, placeMult:0,
         dtgSetup:+sDtgSetup.value, dtgLoc:+sDtgLoc.value, dtgDark:+sDtgDark.value, dtgMin:+sDtgMin.value,
         p2:+sP2.value, p3:+sP3.value, p4:+sP4.value, p5:+sP5.value, pDigi:+sPDigi.value, pIron:+sPIron.value, pVelcro:+sPVelcro.value,
-        rush:+sRush.value, tax:+sTax.value, d12:+sD12.value, d24:+sD24.value, d48:+sD48.value, spm:+sSpm.value, hoop:+sHoop.value,
+        rush:+sRush.value, tax:+sTax.value, d6:+sD6.value, d12:+sD12.value, d24:+sD24.value, d48:+sD48.value, spm:+sSpm.value, hoop:+sHoop.value,
         machines:sMachines.value, shop:sShop.value, phone:formatPhone(sPhone.value), addr:sAddr.value, from:sFrom.value
       });
       save(); refreshAsideFoot(); toast("Rates saved");
