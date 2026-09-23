@@ -1,5 +1,7 @@
-308 DESK v2.28 — 308 Embroidery shop assistant
+308 DESK v2.31 — 308 Embroidery shop assistant
 =============================================
+
+v2.31 — Embroidery min/piece applies to stitch labor at all quantities; extra placement is added before quantity off, so discounted labor may fall below the minimum.
 
 v2.28 — Added the 6+ quantity decoration discount tier (default 4%).
 

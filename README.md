@@ -2,9 +2,9 @@
 
 Shop quoting desk for **308 Embroidery** (Ron Ahlers).
 
-## Theme (v2.30)
+## Theme (v2.31)
 
-Embroidery min/piece applies only to qty 1–5; discounted 6+ labor, including extra placement labor, may fall below the minimum. Quantity pricing includes a 6+ decoration discount tier (default 4%).
+Embroidery min/piece applies to stitch labor at all quantities; extra placement is added before quantity off, so discounted labor may fall below the minimum. Quantity pricing includes a 6+ decoration discount tier (default 4%).
 
 Dark by default (navy/charcoal + gold). Settings → Dark/Light; stored in `localStorage` key `desk308_theme` (device only, not Drive sync).
 
