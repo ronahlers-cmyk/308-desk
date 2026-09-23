@@ -1,0 +1,39 @@
+308 DESK v2.18 — 308 Embroidery shop assistant
+=============================================
+
+WHAT'S NEW IN V2.18 (Google Sign-In + Drive live sync)
+------------------------------------------------------
+1. Google Sign-In required (Google Identity Services) — soft-lock splash until signed in
+2. Allowed accounts only: ronahlers@gmail.com, ron.ahlers@gmail.com (others get “Not authorized”)
+3. Live sync file in Drive folder **308 Desk Sync** → **desk308-live.json**
+4. Every save writes localStorage (`desk308`) then pushes to Drive (800ms debounce)
+5. Pull on sign-in, app load, tab focus, and every 60s — newer `updatedAt` wins
+6. Settings: signed-in email, sync status, Force pull / Force push / Sign out
+7. Phone top bar: small sync indicator (Synced / Sync… / Offline / Err)
+8. OAuth scope: drive.file (app-created sync folder/file only). CLIENT_ID placeholder must be replaced.
+9. Manual Share to Drive / JSON import-export still available for **308 Desk Backups**
+
+Earlier: v2.17 phone UI · v2.16 sidebar version · …
+
+SETUP (one-time)
+----------------
+1. Google Cloud Console → create OAuth **Web** client ID
+2. Authorized JavaScript origins: your Pages URL (and http://localhost if testing)
+3. Replace in index.html:
+     const GOOGLE_CLIENT_ID = "PASTE_CLIENT_ID.apps.googleusercontent.com";
+4. Host the single HTML file (GitHub Pages or open from disk — GIS needs https origin
+   except localhost)
+
+PRIVACY
+-------
+- Quote/job data lives in Ron’s Google Drive (desk308-live.json), not on the host.
+- localStorage key `desk308` is an offline cache on each device.
+- The HTML is on the open web but unusable without Google sign-in.
+- Rate tables are still visible in page source — do not share the URL widely.
+
+PHONE TIP
+---------
+Open the live Pages URL in Safari/Chrome, sign in with Ron’s Google account,
+then Add to Home Screen. Same Drive file = same quotes on phone, tablet, and PC.
+
+308 Embroidery — Scottsbluff
