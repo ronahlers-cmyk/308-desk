@@ -1,5 +1,7 @@
-308 DESK v2.34 — 308 Embroidery shop assistant
+308 DESK v2.35 — 308 Embroidery shop assistant
 =============================================
+
+v2.35 — Split blanks into two columns after Approved: Blanks Ordered (`blanks`) and Blanks in Stock (`blanks_stock`). Pipeline: Quote → Approved → Blanks Ordered → Blanks in Stock → In production → Ready → Delivered.
 
 v2.34 — Job board column after Approved: Blanks Ordered / Have on Hand (status key `blanks`). Pipeline: Quote → Approved → Blanks → In production → Ready → Delivered.
 
