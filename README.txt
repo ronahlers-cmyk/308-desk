@@ -1,6 +1,7 @@
-308 DESK v2.24 — 308 Embroidery shop assistant
+308 DESK v2.25 — 308 Embroidery shop assistant
 =============================================
 
+v2.25 — blanksFromLineItems falls back to job-level blank when line items omit blank (fixes Print/PDF vs Subtotal mismatch on older Drive jobs).
 v2.23 — Blank cost ($) on each quote line item; grand blanks total in breakdown (embroidery + DTG). Quote-level cBlank/dBlank removed.
 v2.24 — Clarify per-line blank cost wording and add a line-item hint.
 

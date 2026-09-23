@@ -322,7 +322,7 @@
       <div class="logo" aria-hidden="true" onclick="go('dash')" style="cursor:pointer">308</div>
       <div class="phone-brand" onclick="go('dash')" style="cursor:pointer" title="Home">
         <div class="phone-shop" id="phoneShopName">308 Embroidery</div>
-        <span class="phone-ver" id="phoneVersion">308 Desk v2.24</span>
+        <span class="phone-ver" id="phoneVersion">308 Desk v2.25</span>
       </div>
       <button type="button" class="phone-home-btn" onclick="go('dash')">Home</button>
       <span class="sync-dot off" id="phoneSyncDot" title="Sync status"><i></i><span id="phoneSyncLabel">…</span></span>
@@ -342,7 +342,7 @@
         <button data-page="inventory">Inventory</button>
         <button data-page="settings">Settings</button>
       </nav>
-      <div class="aside-foot" id="asideFoot">308 Embroidery<br>1710 Broadway, Scottsbluff<br>308-635-7123<br><span id="asideVersion">308 Desk v2.24</span></div>
+      <div class="aside-foot" id="asideFoot">308 Embroidery<br>1710 Broadway, Scottsbluff<br>308-635-7123<br><span id="asideVersion">308 Desk v2.25</span></div>
     </aside>
     <main>
       <section id="dash" class="page active">
@@ -823,7 +823,7 @@
     let selectedDay = isoDate(new Date());
     let floorFilter = "today";
 
-    const APP_VERSION = "2.24";
+    const APP_VERSION = "2.25";
 
     // Parent replaces this with the real OAuth Web client ID from Google Cloud Console.
     const GOOGLE_CLIENT_ID = "208220038240-prioq0u84f5odbc5uue4r67t35ktng4k.apps.googleusercontent.com";
@@ -1671,18 +1671,32 @@
 
 
     function blanksFromLineItems(input, qty) {
+      const fallback = Number(input.blank) || 0;
       const items = input.lineItems;
       if (items && items.length) {
         const parts = items.map(li => {
-          const blank = Number(li.blank) || 0;
+          const blank = (li.blank != null && li.blank !== "") ? (Number(li.blank) || 0) : fallback;
           const q = Math.max(1, Number(li.qty) || 1);
-          return { item: li.item || "Item", blank, qty: q, total: blank * q };
+          return { item: li.item || "Item", sku: li.sku || "", blank, qty: q, total: blank * q };
         });
         const blanksTotal = parts.reduce((s, p) => s + p.total, 0);
         return { blanksTotal, parts };
       }
-      const blank = Number(input.blank) || 0;
-      return { blanksTotal: blank * qty, parts: null };
+      return { blanksTotal: fallback * qty, parts: null };
+    }
+    /** Shallow-copy normalize: copy job-level blank onto line items missing blank (for print/compute helpers). */
+    function normalizeJobBlanks(j) {
+      if (!j || !j.lineItems || !j.lineItems.length) return j;
+      const fallback = j.blank;
+      if (fallback == null || fallback === "") return j;
+      const needs = j.lineItems.some(li => li.blank == null || li.blank === "");
+      if (!needs) return j;
+      return {
+        ...j,
+        lineItems: j.lineItems.map(li =>
+          (li.blank != null && li.blank !== "") ? li : { ...li, blank: fallback }
+        )
+      };
     }
     function blanksBreakdownLines(info) {
       if (!info.blanksTotal) {
@@ -1692,7 +1706,7 @@
         const blanked = info.parts.filter(p => p.blank > 0);
         if (blanked.length > 1) {
           const rows = blanked.map(p => [
-            "Blanks — " + p.item + " ×" + p.qty,
+            "Blanks — " + p.item + (p.sku ? " [" + p.sku + "]" : "") + " ×" + p.qty,
             money(p.total)
           ]);
           rows.push(["Blanks total", money(info.blanksTotal)]);
@@ -2285,7 +2299,7 @@
     function printSavedJob(id) {
       const j = DB.jobs.find(x => x.id === id);
       if (!j) return toast("Quote not found");
-      printQuote(j);
+      printQuote(normalizeJobBlanks(j));
     }
 
     function svcTag(j) {
