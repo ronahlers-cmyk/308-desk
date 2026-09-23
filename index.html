@@ -359,7 +359,7 @@
       <div class="logo" aria-hidden="true" onclick="go('dash')" style="cursor:pointer">308</div>
       <div class="phone-brand" onclick="go('dash')" style="cursor:pointer" title="Home">
         <div class="phone-shop" id="phoneShopName">308 Embroidery</div>
-        <span class="phone-ver" id="phoneVersion">308 Desk v2.31</span>
+        <span class="phone-ver" id="phoneVersion">308 Desk v2.32</span>
       </div>
       <button type="button" class="phone-home-btn" onclick="go('dash')">Home</button>
       <span class="sync-dot off" id="phoneSyncDot" title="Sync status"><i></i><span id="phoneSyncLabel">…</span></span>
@@ -379,7 +379,7 @@
         <button data-page="inventory">Inventory</button>
         <button data-page="settings">Settings</button>
       </nav>
-      <div class="aside-foot" id="asideFoot">308 Embroidery<br>1710 Broadway, Scottsbluff<br>308-635-7123<br><span id="asideVersion">308 Desk v2.31</span></div>
+      <div class="aside-foot" id="asideFoot">308 Embroidery<br>1710 Broadway, Scottsbluff<br>308-635-7123<br><span id="asideVersion">308 Desk v2.32</span></div>
     </aside>
     <main>
       <section id="dash" class="page active">
@@ -866,7 +866,7 @@
     let selectedDay = isoDate(new Date());
     let floorFilter = "today";
 
-    const APP_VERSION = "2.31";
+    const APP_VERSION = "2.32";
 
     // Parent replaces this with the real OAuth Web client ID from Google Cloud Console.
     const GOOGLE_CLIENT_ID = "208220038240-prioq0u84f5odbc5uue4r67t35ktng4k.apps.googleusercontent.com";
@@ -1749,8 +1749,12 @@
       const fallback = Number(input.blank) || 0;
       const items = input.lineItems;
       if (items && items.length) {
+        const anyLineBlank = items.some(li => li.blank != null && li.blank !== "");
         const parts = items.map(li => {
-          const blank = (li.blank != null && li.blank !== "") ? (Number(li.blank) || 0) : fallback;
+          let blank;
+          if (li.blank != null && li.blank !== "") blank = Number(li.blank) || 0;
+          else if (!anyLineBlank) blank = fallback; // legacy: no per-line blanks → job-level
+          else blank = 0; // some lines priced; missing ≠ smear weighted average
           const q = Math.max(1, Number(li.qty) || 1);
           return { item: li.item || "Item", sku: li.sku || "", blank, qty: q, total: blank * q };
         });
@@ -2115,7 +2119,15 @@
       const r = compute(input);
       qSvcLabel.textContent = (input.service === "dtg" ? "DTG" : input.service === "patch" ? "Patch" : "Embroidery") + " quote";
       qTotal.textContent = money(r.total);
-      qEach.textContent = money(r.each) + " per piece  ·  " + r.qty + " pcs";
+      const lineBlanks = (input.lineItems || [])
+        .filter(li => li.blank != null && li.blank !== "")
+        .map(li => Number(li.blank) || 0);
+      const distinctBlanks = [...new Set(lineBlanks)];
+      if (distinctBlanks.length > 1) {
+        qEach.textContent = "Labor " + money(r.decorEach) + "/pc + blanks by line · " + r.qty + " pcs";
+      } else {
+        qEach.textContent = money(r.each) + " per piece  ·  " + r.qty + " pcs";
+      }
       qBreakdown.innerHTML = r.lines.map(([a,b]) => `<div class="line"><span class="muted">${a}</span><span>${b}</span></div>`).join("");
       const hrs = r.minutes / 60;
       qTime.innerHTML = `<div>${r.pieceMin.toFixed(1)} min per piece</div><div class="sub">${r.minutes.toFixed(0)} shop minutes · about ${hrs.toFixed(1)} hours</div>`;
@@ -2289,10 +2301,17 @@
         ? input.lineItems
         : [{ item: input.item || "Custom work", sku: "", color: "", size: "", qty: r.qty, location: input.place || "", blank: fallbackBlank }];
 
+      const anyLineBlank = items.some(li => li.blank != null && li.blank !== "");
+      const laborEach = Number(r.decorEach) || 0;
+      const laborTag = input.service === "dtg" ? "dtg" : input.service === "patch" ? "patch" : "emb";
+      let merchSum = 0;
       const itemRows = items.map(li => {
         const q = Math.max(1, Number(li.qty) || 1);
         const loc = li.location || (Array.isArray(li.locations) ? li.locations.join(", ") : "") || "";
-        const blankEach = (li.blank != null && li.blank !== "") ? (Number(li.blank) || 0) : fallbackBlank;
+        let blankEach;
+        if (li.blank != null && li.blank !== "") blankEach = Number(li.blank) || 0;
+        else if (!anyLineBlank) blankEach = fallbackBlank; // legacy job-level blank
+        else blankEach = 0; // do not smear weighted average onto missing line
         const bits = [
           li.item || "Item",
           li.sku && ("SKU " + li.sku),
@@ -2300,8 +2319,13 @@
           li.size && ("size " + li.size),
           loc && loc
         ].filter(Boolean);
-        const each = Number(r.decorEach) + blankEach;
+        // Clear unit breakdown when blank or labor is present
+        if (laborEach || blankEach) {
+          bits.push(laborTag + " " + money(laborEach) + " + blank " + money(blankEach));
+        }
+        const each = laborEach + blankEach;
         const amt = each * q;
+        merchSum += amt;
         return `<tr>
           <td>${escHtml(bits.join(" · "))}</td>
           <td style="text-align:right">${q}</td>
@@ -2321,6 +2345,7 @@
           <td style="text-align:right">${money(r.setup)}</td>
         </tr>`;
       }
+      const pdfSub = merchSum + (Number(r.setup) || 0);
 
       const notesBlock = input.notes
         ? `<div class="notes"><h3>Notes</h3><p>${escHtml(input.notes).replace(/\n/g, "<br>")}</p></div>`
@@ -2363,7 +2388,7 @@
           </tbody>
         </table>
         <table class="totals">
-          <tr class="sub"><td colspan="3" style="text-align:right">Subtotal</td><td style="text-align:right">${money(r.sub)}</td></tr>
+          <tr class="sub"><td colspan="3" style="text-align:right">Subtotal</td><td style="text-align:right">${money(pdfSub)}</td></tr>
           <tr><td colspan="3" style="text-align:right">Tax${taxPct ? " (" + taxPct + "%)" : ""}</td><td style="text-align:right">${taxPct ? money(r.tax) : money(0)}</td></tr>
           <tr class="grand"><td colspan="3" style="text-align:right">Grand Total</td><td style="text-align:right">${money(r.total)}</td></tr>
         </table>
