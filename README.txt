@@ -1,5 +1,7 @@
-308 DESK v2.35 — 308 Embroidery shop assistant
+308 DESK v2.36 — 308 Embroidery shop assistant
 =============================================
+
+v2.36 — Customers: left-column edit (✎) opens add/update modal; customer Notes field; live search by name or business.
 
 v2.35 — Split blanks into two columns after Approved: Blanks Ordered (`blanks`) and Blanks in Stock (`blanks_stock`). Pipeline: Quote → Approved → Blanks Ordered → Blanks in Stock → In production → Ready → Delivered.
 
