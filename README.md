@@ -1,45 +1,7 @@
-# 308 Desk
+# 308 Desk (retired from GitHub)
 
-Shop quoting desk for **308 Embroidery** (Ron Ahlers).
+Live app is on the shop server only:
 
-## Theme (v2.36)
+https://desktop-scgqjsc.tailcd6758.ts.net/apps/desk/
 
-Customers page: left-column edit (✎) opens add/update modal with **Notes**; live search filters by name or business.
-
-v2.35 — Job board splits blanks into **Blanks Ordered** (`blanks`) and **Blanks in Stock** (`blanks_stock`) after Approved. Pipeline: Quote → Approved → Blanks Ordered → Blanks in Stock → In production → Ready → Delivered.
-
-Boot uses Drive about for token check (no hanging userinfo refresh). Print/PDF uses each line's own blank (no weighted-average smear); description shows emb/dtg + blank breakdown; quote card says "blanks by line" when blanks differ. Embroidery min/piece applies to stitch labor at all quantities; extra placement is added before quantity off. Quantity pricing includes a 6+ decoration discount tier (default 4%).
-
-Dark by default (navy/charcoal + gold). Settings → Dark/Light; stored in `localStorage` key `desk308_theme` (device only, not Drive sync).
-
-## Live sync (v2.18)
-
-- **Google Sign-In required** — app shows a navy/gold splash until you sign in.
-- Quote data syncs through Google Drive folder **`308 Desk Sync`** → **`desk308-live.json`**.
-- Browser **localStorage** key `desk308` is an offline cache only.
-- Allowed Google accounts: `ronahlers@gmail.com`, `ron.ahlers@gmail.com`.
-
-## Privacy
-
-- HTML may be on the open web, but the desk is **unusable without Google sign-in**.
-- Customer quotes stay in Ron’s Drive — not on GitHub.
-- **Rate tables are still in page source** (View Source). Do not share the URL widely.
-
-## OAuth setup
-
-Replace in `index.html`:
-
-```js
-const GOOGLE_CLIENT_ID = "PASTE_CLIENT_ID.apps.googleusercontent.com";
-```
-
-Add Authorized JavaScript origins for:
-
-- `https://ronahlers-cmyk.github.io`
-- `http://localhost` (optional, for local testing)
-
-Scope used: `https://www.googleapis.com/auth/drive.file` (app-created sync folder/file).
-
-## Live
-
-https://ronahlers-cmyk.github.io/308-desk/
+Backups: `C:\308-Server\backups\` on DESKTOP-SCGQJSC.
